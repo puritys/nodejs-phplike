@@ -1,4 +1,16 @@
 Node.js - phplike
 
-PHP Method
+I am a php developer, even my skill of php is not good enough.
+I just want to use javascript to do any programing.
+
+This is my first open source, maybe it will be the last too.
+
+This project's purpose is to  porting some useful php function to node.js
+
+
+Completed PHP Method
 * exec
+* usleep
+
+
+

@@ -7,3 +7,6 @@ git push -u google (google)
 
 - https://github.com/puritys/nodejs-phplike
 git push -u origin (github)
+
+- remove deleted file
+git rm $(git ls-files --deleted) 

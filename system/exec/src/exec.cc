@@ -7,7 +7,7 @@ string exec(string command)
     string res="";
     char buffer[MAX_BUFFER];
     FILE *stream = popen(command.c_str(), "r");
-    if (stream){
+    if (stream) {
        while (!feof(stream))
        {
             if (fgets(buffer, MAX_BUFFER, stream) != NULL)

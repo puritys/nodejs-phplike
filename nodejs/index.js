@@ -97,7 +97,7 @@ global.base64_decode = function (text)
 
 global.sleep = function (seconds)
 {
-    PL.usleep(seconds*1000);    
+    PL.usleep(seconds * 1000 * 1000);    
 }
 
 

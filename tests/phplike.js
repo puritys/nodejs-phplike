@@ -4,7 +4,10 @@ require('./../nodejs/index.js');
 var t = time();
 console.log(t);
 
+console.log("sleep a second.");
 sleep(1);
+console.log("sleep done");
+
 var d = date("Y年M月D日");
 print_r(d);
 

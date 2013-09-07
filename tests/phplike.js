@@ -1,8 +1,8 @@
 require('./../nodejs/phplike.js');
-
 var t = time();
 console.log(t);
 
+sleep(1);
 var d = date("Y年M月D日");
 print_r(d);
 

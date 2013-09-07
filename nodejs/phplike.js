@@ -85,14 +85,20 @@ global.print_r = function(obj)
     console.log(obj);
 }/*}}}*/
 
-global.base64_encode = function (text){
+global.base64_encode = function (text)
+{
     return new Buffer(text, 'binary').toString('base64');
 }
-global.base64_decode = function (text){
+global.base64_decode = function (text)
+{
     return new Buffer(text, 'base64').toString();
 }
 
 
+global.sleep = function (seconds)
+{
+    PL.usleep(seconds*1000);    
+}
 
 
 

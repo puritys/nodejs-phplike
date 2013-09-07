@@ -5,7 +5,7 @@ LIBS= -lexec
 extlib = 
 CXXFILE= exec.cc
 CXXOUTPUT = exec
-include /home/program/lib/Makefile_exe.global
+include ../../../conf/Makefile_exe.global
 #include /home/program/lib/Makefile_so.global
 
 

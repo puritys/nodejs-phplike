@@ -10,3 +10,6 @@ git push -u origin (github)
 
 - remove deleted file
 git rm $(git ls-files --deleted) 
+
+- add all modified files
+git add $(git ls-files --modified)

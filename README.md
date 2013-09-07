@@ -24,6 +24,7 @@ This project's purpose is to  porting some useful php function to node.js
 * time
 * date
 * sprintf
+* exit
 
 <h2>Install Node.js</h2>
 

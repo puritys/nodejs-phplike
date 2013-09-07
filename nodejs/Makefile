@@ -5,8 +5,8 @@ LIBS= -lexec
 extlib = 
 CXXFILE= phplike.cc
 SO = phplike
-#include /usr/local/devlib/Makefile_exe_nodejs.global
-include /home/program/lib/Makefile_so_nodejs.global
+#include ../conf/Makefile_exe_nodejs.global
+include ../conf/Makefile_so_nodejs.global
 all:
 	sudo mv  phplike.so ./phplike.node
 	sudo cp  phplike.node ./node_modules/

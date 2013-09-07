@@ -100,5 +100,7 @@ global.sleep = function (seconds)
     PL.usleep(seconds * 1000 * 1000);    
 }
 
-
-
+global.exit = function(code) 
+{/*{{{*/
+    process.exit(code);
+}/*}}}*/

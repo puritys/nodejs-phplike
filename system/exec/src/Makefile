@@ -5,8 +5,8 @@ CFLAGS=
 extlib = 
 CXXFILE= exec.cc
 SO = exec
-#include /usr/local/devlib/Makefile_exe_nodejs.global
-include /home/program/lib/Makefile_so.global
+#include ../../../conf/Makefile_exe_nodejs.global
+include ../../../conf/Makefile_so.global
 all:
 	sudo cp  exec.so /usr/local/lib/node/libexec.so
 

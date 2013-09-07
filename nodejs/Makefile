@@ -8,5 +8,9 @@ SO = phplike
 #include /usr/local/devlib/Makefile_exe_nodejs.global
 include /home/program/lib/Makefile_so_nodejs.global
 all:
-	sudo cp  phplike.so ./phplike.node
+	sudo mv  phplike.so ./phplike.node
+	sudo mkdir -p /usr/local/lib/node_modules/phplike/node_modules
+	sudo cp phplike.node  /usr/local/lib/node_modules/phplike/node_modules
+	sudo cp phplike.js  /usr/local/lib/node_modules/phplike/index.js
+	sudo cp casting_type.js  /usr/local/lib/node_modules/phplike/casting_type.js
 

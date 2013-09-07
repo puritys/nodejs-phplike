@@ -8,10 +8,22 @@ This is my first open source, maybe it will be the last too.
 This project's purpose is to  porting some useful php function to node.js
 
 
-Completed PHP Method
+<h2>Completed PHP Method</h2>
 * exec
 * usleep
-
+* print_r
+* is_string
+* is_int
+* is_object
+* is_array
+* is_numeric
+* is_int
+* base64_encode
+* base64_decode
+* str_pad
+* time
+* date
+* sprintf
 
 <h2>Install Node.js</h2>
 

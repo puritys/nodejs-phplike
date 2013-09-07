@@ -1,4 +1,6 @@
-require('./../nodejs/phplike.js');
+require('./../nodejs/index.js');
+//require('phplike');
+
 var t = time();
 console.log(t);
 

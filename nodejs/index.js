@@ -1,4 +1,4 @@
-var PL = require ("phplike");
+var PL = require("./node_modules/phplike");
 var sprintf = require("sprintf").sprintf;
 var fs = require("fs");
 var _Directory = require("fs").Directory;

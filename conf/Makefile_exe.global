@@ -1,0 +1,73 @@
+#建立 exe 目錄
+#MKDIR=$(shell mkdir exe)
+#$(MKDIR)
+SHELL = /bin/sh
+srcdir = $(SRC_PATH)/
+builddir = $(SRC_PATH)/
+top_srcdir = $(SRC_PATH)/
+top_builddir = $(SRC_PATH)/
+EGREP = grep -E
+SED = /bin/sed
+CONFIGURE_COMMAND = './configure'
+CONFIGURE_OPTIONS =
+SHLIB_SUFFIX_NAME = so
+SHLIB_DL_SUFFIX_NAME = so
+ZEND_EXT_TYPE = zend_extension
+RE2C = exit 0;
+AWK = gawk
+PHP_PECL_EXTENSION = $(CXXOUTPUT)
+
+shared_objects_extension = $(shell echo $(CXXFILE) | sed 's/.cc/.o/g')
+shared_objects_extension_file= 
+
+shared_objects_extension_file=$(shell echo $(shared_objects_extension)  | grep -o [a-zA-Z0-9]* | sed "/[a-zA-Z0-9]*.o/i\$(phplibdir)/" | sed  'N;s/\n//g' )
+
+all_targets = $(PHP_ZEND_EX)
+prefix = $(PHP_DIR)/
+exec_prefix = $(prefix)
+libdir = ${exec_prefix}/lib
+prefix = $(PHP_DIR)/
+CC = cc -lstdc++
+#CFLAGS = -g -O2
+#CFLAGS_CLEAN = $(CFLAGS)
+CPP = cc -E
+CPPFLAGS = -DHAVE_CONFIG_H
+CXX = g++
+#
+CXXFLAGS = -g -O2
+CXXFLAGS_CLEAN = $(CXXFLAGS)
+EXTENSION_DIR = $(SRC_PATH)
+PHP_EXECUTABLE = $(PHP_DIR)/bin/php
+EXTRA_LDFLAGS =
+EXTRA_LIBS =
+INCLUDES = 
+INSTALL_HEADERS =
+mkinstalldirs = $(top_srcdir)/build/shtool mkdir -p
+INSTALL = $(top_srcdir)/build/shtool install -c
+INSTALL_DATA = $(INSTALL) -m 644
+
+DEFS = -DPHP_ATOM_INC -I$(top_builddir)/include -I$(top_builddir)/main -I$(top_srcdir)
+COMMON_FLAGS = $(DEFS) $(INCLUDES) $(EXTRA_INCLUDES) $(CPPFLAGS) $(PHP_FRAMEWORKPATH)
+#.SUFFIXS: 清除一些副檔名
+
+all:$(shared_objects_extension)
+	@echo
+	@echo "Build complete."
+	@echo "Don't forget to run 'make test'."
+	@echo
+
+clean:
+	find . -name \*.gcno -o -name \*.gcda | xargs rm -f
+	find . -name \*.lo -o -name \*.o | xargs rm -f
+	find . -name \*.la -o -name \*.a | xargs rm -f 
+	find . -name \*.so | xargs rm -f
+	find . -name .libs -a -type d|xargs rm -rf
+	rm -f libphp$(PHP_MAJOR_VERSION).la $(SAPI_CLI_PATH) $(OVERALL_TARGET) modules/* libs/*
+
+.SUFFIXES: .c .cpp .cc  
+.PHONY: all clean
+%.o:%.cc
+	$(CXX) $<  $(LIBS) $(EXTRA_CXXFLAGS) $(CFLAGS) $(COMMON_FLAGS) -o  ./$@
+
+
+

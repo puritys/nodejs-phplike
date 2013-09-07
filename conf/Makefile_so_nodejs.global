@@ -1,0 +1,88 @@
+#建立 modules 目錄
+MKDIR=$(shell mkdir node_modules)
+$(MKDIR)
+SHELL = /bin/sh
+
+srcdir = $(SRC_PATH)/
+builddir = $(SRC_PATH)/
+top_srcdir = $(SRC_PATH)/
+top_builddir = $(SRC_PATH)/
+EGREP = grep -E
+SED = /bin/sed
+SHLIB_SUFFIX_NAME = so
+SHLIB_DL_SUFFIX_NAME = so
+RE2C = exit 0;
+AWK = gawk
+phplibdir = $(SRC_PATH)/node_modules
+PHP_MODULES = $(phplibdir)/$(SO).so
+ESTENSION_SHARED_LIBADD =-lpthread /usr/local/lib/node/libv8_base.a -lrt  -ldl
+shared_objects_extension = $(shell echo $(CXXFILE) | sed 's/.cc/.o/g')
+shared_objects_extension_file= 
+
+shared_objects_extension_file=$(shell echo $(shared_objects_extension)  | grep -o [a-zA-Z0-9_]*.o | sed "/[a-zA-Z0-9\_]*.o/i\$(phplibdir)/" | sed  'N;s/\n//g' )
+
+#shared_objects_extension_file = $(shell echo $(shared_objects_extension) | sed 'i/[a-zA-Z0-9_\.]+/$(phplibdir)/g' )
+PHP_ZEND_EX =
+all_targets = $(PHP_MODULES) $(PHP_ZEND_EX)
+install_targets = install-modules install-headers
+
+CC = cc -lstdc++
+#CFLAGS = -g -O2
+#CFLAGS_CLEAN = $(CFLAGS)
+CPP = cc -E
+CPPFLAGS = -DHAVE_CONFIG_H
+CXX = g++
+#
+CXXFLAGS = -g -O2
+CXXFLAGS_CLEAN = $(CXXFLAGS)
+EXTENSION_DIR = $(SRC_PATH)
+EXTRA_LDFLAGS =
+EXTRA_LIBS =
+INCLUDES = 
+LFLAGS =
+#LDFLAGS =
+SHARED_LIBTOOL =
+
+INSTALL_HEADERS =
+mkinstalldirs = $(top_srcdir)/build/shtool mkdir -p
+INSTALL = $(top_srcdir)/build/shtool install -c
+INSTALL_DATA = $(INSTALL) -m 644
+
+DEFS = 
+COMMON_FLAGS = $(DEFS) $(INCLUDES) $(EXTRA_INCLUDES) $(CPPFLAGS) $(PHP_FRAMEWORKPATH)
+
+all: $(all_targets) 
+	@echo
+	@echo "Build complete."
+	@echo "Don't forget to run 'make test'."
+	@echo
+	
+clean:
+	find . -name \*.gcno -o -name \*.gcda | xargs rm -f
+	find . -name \*.lo -o -name \*.o | xargs rm -f
+	find . -name \*.la -o -name \*.a | xargs rm -f 
+	find . -name \*.so | xargs rm -f
+	find . -name .libs -a -type d|xargs rm -rf
+	rm -f libphp$(PHP_MAJOR_VERSION).la $(SAPI_CLI_PATH) $(OVERALL_TARGET) node_modules/* libs/*
+
+distclean: clean
+	rm -f Makefile config.cache config.log config.status Makefile.objects Makefile.fragments libtool main/php_config.h stamp-h php5.spec sapi/apache/libphp$(PHP_MAJOR_VERSION).module buildmk.stamp
+	$(EGREP) define'.*include/php' $(top_srcdir)/configure | $(SED) 's/.*>//'|xargs rm -f
+.SUFFIXES:
+.SUFFIXES: .c .cpp .cc  
+.PHONY: all clean install distclean test
+.NOEXPORT:
+./$(SO).so: $(shared_objects_extension) $(EXTENSION_SHARED_DEPENDENCIES)
+	$(CXX)  -shared $(LIBS) $(ESTENSION_SHARED_LIBADD) $(LDFLAGS)  $(CFLAGS)  -o $@ $(shared_objects_extension_file) $(extlib)
+	
+%.o: %.cc
+	$(LIBTOOL) --mode=compile $(CXX) -Wall -O3 -fPIC  -Dposix -DDSO_EXT=so -DREUSE_CONTEXT -shared -I. -I$(SRC_PATH)/$(COMMON_FLAGS) -I/usr/local/include/node $(CXXFLAGS_CLEAN) $(EXTRA_CXXFLAGS) $(CFLAGS) $(LIBS) -c $<  -o $(phplibdir)/$@
+	
+$(PHP_MODULES): ./$(SO).so
+	$(LIBTOOL) --mode=install cp ./$(SO).so $(phplibdir)
+
+
+
+
+
+

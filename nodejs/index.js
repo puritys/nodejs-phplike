@@ -1,11 +1,11 @@
 var PL = require("./node_modules/phplike");
-var sprintf = require("sprintf").sprintf;
+//var sprintf = require("sprintf").sprintf;
 var fs = require("fs");
 var _Directory = require("fs").Directory;
 var File = require("fs").File;
 require("./casting_type.js");
 
-global.sprintf = require("sprintf").sprintf;
+//global.sprintf = require("sprintf").sprintf;
 
 /**
 * str_pad string, length, replace string, left or right 
@@ -98,6 +98,11 @@ global.base64_decode = function (text)
 global.sleep = function (seconds)
 {
     PL.usleep(seconds * 1000 * 1000);    
+}
+
+global.exec = function (cmd)
+{
+    return PL.exec(cmd);    
 }
 
 global.exit = function(code) 

@@ -23,7 +23,7 @@ This project's purpose is to  porting some useful php function to node.js
 * str_pad
 * time
 * date
-* sprintf
+* sprintf (need latest v8 engine!)
 * exit
 * file_get_contents
 * file_put_contents
@@ -40,8 +40,10 @@ This package need node-gyp. you should install node-gyp first.
 
 <h2>Execute phplike sample</h2>
 <pre>
+    require("phplike");
     var tm = time();
     sleep(10);
+    exec("ls -la");
 </pre>
 
 

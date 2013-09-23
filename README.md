@@ -43,7 +43,8 @@ This package need node-gyp. you should install node-gyp first.
     require("phplike");
     var tm = time();
     sleep(10);
-    exec("ls -la");
+    var result = exec("ls -la");
+    print_r(result);
 </pre>
 
 

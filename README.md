@@ -30,9 +30,17 @@ This project's purpose is to  porting some useful php function to node.js
 
 * sudo npm install -g phplike
 
-This package need node-gyp. you should instal node-gyp first.
+This package need node-gyp. you should install node-gyp first.
 
 * sudo npm install -g node-gyp
+
+
+<h2>Execute phplike sample</h2>
+<pre>
+    var tm = time();
+    sleep(10);
+</pre>
+
 
  ======== development ===========
 

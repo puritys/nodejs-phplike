@@ -31,7 +31,8 @@ This project's purpose is to  porting some useful php function to node.js
 * sudo npm install -g phplike
 
 This package need node-gyp. you should instal node-gyp first.
-sudo npm install -g node-gyp
+
+* sudo npm install -g node-gyp
 
  ======== development ===========
 

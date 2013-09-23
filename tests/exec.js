@@ -1,4 +1,5 @@
-var phplike = require ('./../nodejs/phplike');
+//var phplike = require ('./../nodejs/phplike');
+var phplike = require ('./../build/Release/phplike');
 
 var str = "";
 for (var i =0; i < 20; i++) {

@@ -1,10 +1,14 @@
 {
-    "version": "1.0.1",
+    "version": "1.0.3",
     "description": "Implement php function to nodejs ",
     "main": "phplike",
     "contributors": "pipi00000@gmail.com",
     "homepage": "https://github.com/puritys/nodejs-phplike",
     "license" : "BSD",
     "name" : "phplike",
-    "files": ["nodejs", "system", "index.js"]
+    "files": ["nodejs", "system", "index.js", "binding.gyp"],
+    "scripts": {
+      "install": "node-gyp rebuild"
+    },
+    "gypfile": true
 }

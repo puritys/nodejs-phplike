@@ -15,8 +15,4 @@ all:
 	sudo cp index.js  /usr/local/lib/node_modules/phplike/
 	sudo cp casting_type.js  /usr/local/lib/node_modules/phplike/casting_type.js
 
-gyp:
-	node-gyp configure
-	node-gyp build
-	sudo cp build/Release/nodejs-phplike.node /usr/local/lib/node_modules/phplike/node_modules/phplike.node
 

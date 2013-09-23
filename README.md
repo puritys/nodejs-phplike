@@ -25,6 +25,9 @@ This project's purpose is to  porting some useful php function to node.js
 * date
 * sprintf
 * exit
+* file_get_contents
+* file_put_contents
+* unlink
 
 <h2>Install phplike</h2>
 

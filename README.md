@@ -26,6 +26,15 @@ This project's purpose is to  porting some useful php function to node.js
 * sprintf
 * exit
 
+<h2>Install phplike</h2>
+
+* sudo npm install -g phplike
+
+This package need node-gyp. you should instal node-gyp first.
+sudo npm install -g node-gyp
+
+ ======== development ===========
+
 <h2>Install Node.js</h2>
 
 <ul>

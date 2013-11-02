@@ -1,7 +1,7 @@
 #include <unistd.h>
 #include "exec.h"
 
-string exec(string command) 
+string exec(string command, bool showMessage) 
 {
     const int MAX_BUFFER = 2048;
     string res="";
@@ -12,7 +12,10 @@ string exec(string command)
        {
             if (fgets(buffer, MAX_BUFFER, stream) != NULL)
             {
-               res += buffer;
+                if (showMessage == true) {
+                    printf("%s", buffer);
+                } 
+                res += buffer;
             }
        }
        pclose(stream);

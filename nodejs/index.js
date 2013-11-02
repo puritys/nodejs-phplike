@@ -101,12 +101,39 @@ global.sleep = function (seconds)
     PL.usleep(seconds * 1000 * 1000);    
 }
 
-global.exec = function (cmd)
+global.exec = function (cmd, showMessage)
 {
-    return PL.exec(cmd);    
+    if (!isset(showMessage)) {
+        showMessage = true;
+    }
+    return PL.exec(cmd, showMessage);    
 }
 
 global.exit = function(code) 
 {/*{{{*/
     process.exit(code);
 }/*}}}*/
+
+global.isset = function ()
+{//{{{
+  var a = arguments,
+    l = a.length,
+    i = 0,
+    undef;
+
+  if (l === 0)
+  {
+    throw new Error('Empty isset');
+  }
+
+  while (i !== l)
+  {
+    if (a[i] === undef || a[i] === null)
+    {
+      return false;
+    }
+    i++;
+  }
+  return true;
+}//}}}
+

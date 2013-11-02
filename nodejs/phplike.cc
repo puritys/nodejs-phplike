@@ -9,8 +9,9 @@ Handle<Value> node_usleep(const Arguments& args)
 
 Handle<Value> node_exec(const Arguments& args)
 {
-    String::Utf8Value cmd(args[0]); 
-    string s = exec(string(*cmd));
+    String::Utf8Value cmd(args[0]);
+    bool showMessage = args[1]->BooleanValue();
+    string s = exec(string(*cmd), showMessage);
     return String::New(s.c_str());
 }
 

@@ -10,11 +10,11 @@ for (var i =0; i < 20; i++) {
 }
 console.log("start to run exec");
 
-var res = phplike.exec("echo '" + str + "'");
+var res = phplike.exec("echo '" + str + "'", true);
 
 console.log(res);
 
 res = phplike.exec("ls / | wc -l ");
 
-console.log("Counting dir = " + res);
+//console.log("Counting dir = " + res);
 

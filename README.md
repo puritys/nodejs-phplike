@@ -28,6 +28,7 @@ This project's purpose is to  porting some useful php function to node.js
 * file_get_contents
 * file_put_contents
 * unlink
+* isset
 
 <h2>Install phplike</h2>
 
@@ -72,6 +73,8 @@ g++ source.cc  -L/usr/local/lib/node -I/usr/local/lib/node  -lpthread /usr/local
 npm adduser
 *  login
 npm login
+* build release code
+cd ../ npm build  phplike
 * publish package , phplike is a folder
 cd ../ npm publish phplike
 

@@ -12,5 +12,5 @@
     },
     "gypfile": true,
     "os" : ["linux" ],
-    "cpu" : [ "x64", "ia32", "!arm" ]
+    "cpu" : [ "x64", "ia32", "arm" ]
 }

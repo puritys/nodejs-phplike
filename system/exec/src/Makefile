@@ -1,7 +1,7 @@
 SRC_PATH=$(shell pwd)
 CC=g++
 CFLAGS=   
-#LIBS= -lgd
+LIBS= -std=gnu++0x 
 extlib = 
 CXXFILE= exec.cc
 SO = exec

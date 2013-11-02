@@ -67,3 +67,7 @@ This package need node-gyp. you should install node-gyp first.
 <h2>Compile Node.js addon</h2>
 g++ source.cc  -L/usr/local/lib/node -I/usr/local/lib/node  -lpthread /usr/local/lib/node/libv8_base.a -lrt  -ldl  
 
+pack
+npm adduser
+npm publish phplike
+

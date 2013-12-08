@@ -1,0 +1,3 @@
+require("phplike");
+
+exec('ls');

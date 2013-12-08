@@ -95,13 +95,18 @@ global.base64_decode = function (text)
     return new Buffer(text, 'base64').toString();
 }
 
+global.usleep = function (useconds)
+{
+    PL.usleep(useconds);    
+}
+
 
 global.sleep = function (seconds)
 {
     PL.usleep(seconds * 1000 * 1000);    
 }
 
-global.exec = function (cmd, showMessage)
+global.system = global.exec = function (cmd, showMessage)
 {
     if (!isset(showMessage)) {
         showMessage = true;

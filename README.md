@@ -9,8 +9,8 @@ This project's purpose is to  porting some useful php function to node.js
 
 
 <h2>Completed PHP Method</h2>
-* exec
-* usleep
+* exec , system
+* usleep , sleep
 * print_r
 * is_string
 * is_int
@@ -78,3 +78,8 @@ cd ../ npm build  phplike
 * publish package , phplike is a folder
 cd ../ npm publish phplike
 
+
+npm
+---
+
+* https://npmjs.org/package/phplike

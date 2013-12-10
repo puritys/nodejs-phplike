@@ -19,3 +19,8 @@ content = file_get_contents("tmp");
 print_r("tmp = " + content);
 
 unlink("tmp");
+
+mkdir("test55/b/c");
+file_put_contents("test55/b/c/aa", "string");
+var isForce = true;
+rmdir("test55", isForce);

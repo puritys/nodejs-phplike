@@ -27,7 +27,9 @@ This project's purpose is to  porting some useful php function to node.js
 * exit
 * file_get_contents
 * file_put_contents
+* mkdir
 * unlink
+* rmdir (dirname, isForce)
 * isset
 * is_file, is_dir
 * substr (string, start, length)

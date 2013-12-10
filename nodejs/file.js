@@ -26,10 +26,55 @@ global.file_put_contents = function(filename, data) {/*{{{*/
     return true;
 }/*}}}*/
 
+/* mkdir
+ * @param filename
+ */
+global.mkdir = function(dirName) {/*{{{*/
+    var s = dirName.split(/\//);
+    var n =s.length;
+    var dir = "";
+    var i = 0;
+    if (!s[0]) {
+        i = 1;
+        dir = "/";
+    }
+    for (i; i < n; i++) {
+        dir += s[i] + "/";
+        if(fs.existsSync(dir)){
+            continue;
+        }
+        try{
+            fs.mkdirSync(dir);
+        } catch(e) {
+            print_r(e);
+            throw e
+        }
+    }
+};/*}}}*/
 
 global.unlink = function (filename) {
     return fs.unlinkSync(filename);
 }
+
+/*
+ * isForce force to remove dir even this dir is not empty
+ */
+global.rmdir = function (dir, isForce) {
+    if (is_dir(dir)) {
+        if (isForce) {
+            var fileList = readdir(dir);
+            var n = fileList.length;
+            for (var i = 0; i < n ;i++) {
+                if (is_dir(dir + "/" + fileList[i])) {
+                    rmdir(dir + "/" + fileList[i], isForce);
+                } else {
+                    unlink(dir + "/" +fileList[i]);
+                }
+            }
+        }
+        return fs.rmdirSync(dir);
+    } 
+};
 
 global.is_file = function(filename) {/*{{{*/
     if(fs.existsSync(filename)){

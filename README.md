@@ -31,6 +31,7 @@ This project's purpose is to  porting some useful php function to node.js
 * isset
 * is_file, is_dir
 * substr (string, start, length)
+* readdir (get all file list in select directory)
 
 <h2>Install phplike</h2>
 

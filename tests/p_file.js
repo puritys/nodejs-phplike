@@ -1,6 +1,5 @@
-//require('./../nodejs/index.js');
-require('phplike');
-
+require('./../nodejs/index.js');
+//require('phplike');
 var content = file_get_contents("file.js");
 print_r(content);
 

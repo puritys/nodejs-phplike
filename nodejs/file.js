@@ -30,3 +30,36 @@ global.file_put_contents = function(filename, data) {/*{{{*/
 global.unlink = function (filename) {
     return fs.unlinkSync(filename);
 }
+
+global.is_file = function(filename) {/*{{{*/
+    if(fs.existsSync(filename)){
+        return true;
+    }
+    return false;
+}/*}}}*/
+
+global.is_dir = function(filename) {/*{{{*/
+    if(!is_file(filename)) {
+        return false;
+    }
+    var stat = fs.statSync(filename);
+    if (stat.isDirectory()) {
+        return true;
+    }
+
+    return false;
+};/*}}}*/
+
+global.readdir = function (dir) {
+    if (is_dir(dir)) {
+        return fs.readdirSync(dir);
+    } else {
+        return ;
+    }
+
+};
+
+global.substr = function (str, start, length) {
+    return str.substr(start, length);
+};
+

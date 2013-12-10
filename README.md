@@ -29,6 +29,8 @@ This project's purpose is to  porting some useful php function to node.js
 * file_put_contents
 * unlink
 * isset
+* is_file, is_dir
+* substr (string, start, length)
 
 <h2>Install phplike</h2>
 

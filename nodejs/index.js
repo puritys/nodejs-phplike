@@ -6,6 +6,8 @@ var _Directory = require("fs").Directory;
 var File = require("fs").File;
 require("./casting_type.js");
 require("./file.js");
+require("./string.js");
+
 //global.sprintf = require("sprintf").sprintf;
 
 /**

@@ -8,7 +8,7 @@
       ],
       "conditions": [
             ['OS=="linux" and target_arch!="arm"', {
-              "cflags": [""],
+              "cflags": ["-std=gnu++0x"],
               "defines": [
                 "LINUX_DEFINE"
               ],

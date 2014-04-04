@@ -1,11 +1,8 @@
 <h1>Node.js - phplike</h1>
 
-I am a php developer, even my skill of php is not good enough.
-I just want to use javascript to do any programing.
-
-This is my first open source, maybe it will be the last too.
-
 This project's purpose is to  porting some useful php function to node.js
+
+Support synchronous exec to prevent node.js too many callback function, it is make the code easier to maintain.
 
 
 <h2>Completed PHP Method</h2>
@@ -42,12 +39,12 @@ This project's purpose is to  porting some useful php function to node.js
 
 * sudo npm install -g phplike
 
-This package need node-gyp. you should install node-gyp first.
+This package need node-gyp. you should install node-gyp first. npm will auto install node-gyp before you install phpliek.
 
 * sudo npm install -g node-gyp
 
 
-<h2>Execute phplike sample</h2>
+<h2>Execute phplike example</h2>
 <pre>
     require("phplike");
     var tm = time();
@@ -57,7 +54,8 @@ This package need node-gyp. you should install node-gyp first.
 </pre>
 
 
- ======== development ===========
+
+======== Development phplike notes ===========
 
 <h2>Install Node.js</h2>
 

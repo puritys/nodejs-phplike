@@ -2,7 +2,7 @@
 
 This project's purpose is to  porting some useful php function to node.js
 
-Support synchronous exec to prevent node.js too many callback function, it is make the code easier to maintain.
+Support synchronous exec to prevent node.js too many callback function, it will make the code easier to maintain.
 
 
 <h2>Completed PHP Method</h2>

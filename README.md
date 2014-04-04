@@ -55,7 +55,7 @@ This package need node-gyp. you should install node-gyp first. npm will auto ins
 
 
 
-======== Development phplike notes ===========
+======== phplike development  notes ===========
 
 <h2>Install Node.js</h2>
 
@@ -75,13 +75,13 @@ This package need node-gyp. you should install node-gyp first. npm will auto ins
 g++ source.cc  -L/usr/local/lib/node -I/usr/local/lib/node  -lpthread /usr/local/lib/node/libv8_base.a -lrt  -ldl  
 
 <h2>How to publish a new package</h2>
-* create user
+* Create user
 npm adduser
-*  login
+* Login
 npm login
-* build release code
+* Build release code
 cd ../ npm build  phplike
-* publish package , phplike is a folder
+* Publish package , phplike should be a folder
 cd ../ npm publish phplike
 
 

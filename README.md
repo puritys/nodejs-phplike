@@ -76,13 +76,22 @@ g++ source.cc  -L/usr/local/lib/node -I/usr/local/lib/node  -lpthread /usr/local
 
 <h2>How to publish a new package</h2>
 * Create user
+<pre>
 npm adduser
+</pre>
 * Login
+<pre>
 npm login
+</pre>
 * Build release code
+<pre>
 cd ../ npm build  phplike
+</pre>
 * Publish package , phplike should be a folder
+<pre>
 cd ../ npm publish phplike
+</pre>
+
 
 
 npm

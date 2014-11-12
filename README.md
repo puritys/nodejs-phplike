@@ -98,3 +98,12 @@ npm
 ---
 
 * https://npmjs.org/package/phplike
+* 
+
+
+# 中文 phplike Readme
+
+這個 project 主要是讓習慣 php 開發的工程師，能夠快速適應  Node.js ， 我實作了部分 php 相關的 function。
+
+安裝方式可以用 npm install，但是 phplike 目前只支援  Linux 系統，用 windows 系統會遇到 compile fail 的訊息。
+

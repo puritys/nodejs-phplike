@@ -13,7 +13,8 @@ gyp-test:
 	node-gyp build
 	sudo cp build/Release/nodejs-phplike.node /usr/local/lib/node_modules/phplike/node_modules/phplike.node
 
-
+mocha-test:
+	cd tests && mocha *
 
 #npm adduser
 #npm publish

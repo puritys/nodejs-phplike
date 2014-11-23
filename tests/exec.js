@@ -1,20 +1,24 @@
+var phplikeMod = require('./include.js');
+
+
+var assert = require("assert");
+
+//mocha lib/ --grep mthod_get
+describe('exec', function() {
+    it('test_exec', function() {
+        var str = "";
+        for (var i = 0; i < 10; i++) {
+            str += "1";
+        }
+        var printInScreen = false;
+        var res = phplikeMod.exec("echo '" + str + "'", printInScreen);
+        assert.equal("1111111111\n", res);
+    })
+
+});
+
 //var phplike = require ('./../nodejs/phplike');
-var phplike = require ('./../build/Release/phplike');
+//var phplike = require ('./../build/Release/phplike');
 
-var str = "";
-for (var i =0; i < 20; i++) {
-    str += "1";
-    if (i%1000 == 0) {
-        str += "\n";
-    }
-}
-console.log("start to run exec");
 
-var res = phplike.exec("echo '" + str + "'", true);
-
-console.log(res);
-
-res = phplike.exec("ls / | wc -l ");
-
-//console.log("Counting dir = " + res);
 

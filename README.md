@@ -35,6 +35,7 @@ Support synchronous exec to prevent node.js too many callback function, it will 
 * decbin, bindec
 
 
+
 <h2>Install phplike</h2>
 
 * sudo npm install -g phplike
@@ -44,7 +45,11 @@ This package need node-gyp. you should install node-gyp first. npm will auto ins
 * sudo npm install -g node-gyp
 
 
-<h2>Execute phplike example</h2>
+Execute phplike sample code
+-------------------------------
+
+exec(command, printInScreen); 
+
 <pre>
     require("phplike");
     var tm = time();

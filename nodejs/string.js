@@ -1,17 +1,24 @@
+var casting = require("./casting_type");
 
-global.ord = function (str) {
+exports.ord = function (str) {
+    if (!casting.is_string(str)) {
+        return "";
+    }
     return str.charCodeAt(0);
-}
+};
 
-global.chr = function (ord) {
+exports.chr = function (ord) {
+    if (!casting.is_int(ord)) {
+        return "";
+    }
     return String.fromCharCode(ord);
 }
 
-global.decbin = function (dec) {
+exports.decbin = function (dec) {
     return dec.toString(2);
 }
 
-global.bindec = function (bin) {
+exports.bindec = function (bin) {
     bin = bin.toString();
     var n = bin.length;
     var retval = 0;

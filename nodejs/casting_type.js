@@ -1,22 +1,22 @@
-global.is_int = function(n) {
+exports.is_int = function(n) {
    return typeof(n)=='number'&&parseInt(n)==n;
 }
 
-global.is_string = function(str) {
+exports.is_string = function(str) {
     return typeof(str)=="string";
 }
 
-global.is_object = function(str) {
+exports.is_object = function(str) {
     return typeof(str)=="object";
 }
 
-global.is_array = function(data) {
+exports.is_array = function(data) {
     if ( data instanceof Array){
         return true;
     }
     return false;
 }
 
-global.is_numeric = function(n) {
+exports.is_numeric = function(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }

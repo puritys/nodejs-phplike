@@ -4,7 +4,7 @@ This project's purpose is to  porting some useful php function to node.js
 
 Support synchronous exec to prevent node.js too many callback function, it will make the code easier to maintain.
 
-Phplike can not support windows system now, I only have time to support Linux and Mac.
+Phplike can not be executed in  windows system now, I only have time to support Linux and Mac.
 
 Dependency
 -----------
@@ -53,8 +53,10 @@ This package need node-gyp. you should install node-gyp first. npm will auto ins
 * sudo npm install -g node-gyp
 
 
-Execute phplike sample code
+Execute phplike in global mode sample
 -------------------------------
+
+You can require the index.js of phplike, then you will use the phplike function in global object. It means that you don't need prefix to call php function. To execute function like a real php. 
 
 exec(command, printInScreen); 
 
@@ -64,6 +66,19 @@ exec(command, printInScreen);
     sleep(10);
     var result = exec("ls -la");
     print_r(result);
+</pre>
+
+Execute phplike in module mode sample (phplike 2.0)
+------------------------------
+
+You can require module.js of phplike, then you will need prefix to call phplike function, the module mode will not change the method of global object and can separate both of php and node.js.
+
+<pre>
+    var phpmod = require("phplike/module.js");
+    var tm = phpmod.time();
+    phpmod.sleep(10);
+    var result = phpmod.exec("ls -la");
+    phpmod.print_r(result);
 </pre>
 
 

@@ -1,4 +1,4 @@
-require('phplike');
+require('./phplike');
 
 var t = time();
 print_r(t);

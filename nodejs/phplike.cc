@@ -1,5 +1,7 @@
 #include "phplike.h"
 
+
+
 Handle<Value> node_usleep(const Arguments& args)
 {
     unsigned int seconds = args[0]->Uint32Value(); 
@@ -15,9 +17,13 @@ Handle<Value> node_exec(const Arguments& args)
     return String::New(s.c_str());
 }
 
+
+
 void  init (Handle<Object> target){    
    NODE_SET_METHOD(target, "usleep", node_usleep);
    NODE_SET_METHOD(target, "exec", node_exec);
+   NODE_SET_METHOD(target, "requestGet", node_curl_get);
+
 } 
 
 

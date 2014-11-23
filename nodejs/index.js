@@ -1,4 +1,4 @@
-var PL = require("../build/Release/phplike");
+var PL = require("./../build/Release/phplike");
 
 //var sprintf = require("sprintf").sprintf;
 var fs = require("fs");

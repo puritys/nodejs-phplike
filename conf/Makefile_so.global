@@ -19,7 +19,7 @@ ESTENSION_SHARED_LIBADD = -lstdc++
 shared_objects_extension = $(shell echo $(CXXFILE) | sed 's/.cc/.o/g')
 shared_objects_extension_file= 
 
-shared_objects_extension_file=$(shell echo $(shared_objects_extension)  | grep -o [a-zA-Z0-9_]*.o | sed "/[a-zA-Z0-9\_]*.o/i\$(phplibdir)/" | sed  'N;s/\n//g' )
+shared_objects_extension_file=$(shell echo $(shared_objects_extension)  | grep -o [a-zA-Z0-9_\-]*.o | sed "/[a-zA-Z0-9\_]*.o/i\$(phplibdir)/" | sed  'N;s/\n//g' )
 
 #shared_objects_extension_file = $(shell echo $(shared_objects_extension) | sed 'i/[a-zA-Z0-9_\.]+/$(phplibdir)/g' )
 PHP_ZEND_EX =

@@ -1,9 +1,9 @@
 SRC_PATH=$(shell pwd)
 CC=g++
 CFLAGS=  -L/usr/local/lib/node 
-LIBS= -lexec
+LIBS= -lexec -lphplikeCppCurl
 extlib = 
-CXXFILE= phplike.cc
+CXXFILE= phplike.cc phplikeCurl.cc
 SO = phplike
 #include ../conf/Makefile_exe_nodejs.global
 include ../conf/Makefile_so_nodejs.global

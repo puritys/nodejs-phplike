@@ -4,7 +4,7 @@ This project's purpose is to  implement some useful php function to node.js
 
 Support synchronous exec to prevent node.js too many callback function, it will make the code easier to maintain.
 
-Phplike can not be executed in  windows system now, I only have time to support Linux and Mac.
+Phplike can not execut in  windows system now, I only have time to support Linux and Mac.
 
 * npm: https://npmjs.org/package/phplike
 * Git Source: https://github.com/puritys/nodejs-phplike

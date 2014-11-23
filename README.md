@@ -88,8 +88,8 @@ You can require module.js of phplike, then you will need prefix to call phplike 
 
 
 
-Porting Functions in the future
--------------------------------
+Functions will be implemented in the future
+------------------------------------------
 * curl (phplike 2.0,  almost done)
 * intval: convert string to integer
 * strval: convert integer to string

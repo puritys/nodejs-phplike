@@ -147,6 +147,12 @@ npm
 
 安裝方式可以用 npm install，但是 phplike 目前只支援  Linux 系統，用 windows 系統會遇到 compile fail 的訊息。
 
+
+安裝方式： 
+----------
+* npm install phplike
+* sudo /usr/local/bin/npm install -g phplike
+
 必備軟體
 -------------------
 

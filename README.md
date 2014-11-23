@@ -36,6 +36,7 @@ If you install the phplike 2.0 , you will need libcurl package, because phplike 
 * unlink
 * rmdir (dirname, isForce)
 * isset
+* empty (phplike 2.0)
 * is_file, is_dir
 * substr (string, start, length)
 * readdir (get all file list in select directory)
@@ -98,6 +99,17 @@ You can require module.js of phplike, then you will need prefix to call phplike 
     <li>sudo cp deps/uv/include/uv-private/uv-unix.h /usr/local/include/node/uv-private/</li>
 
 </ul>
+
+Porting Functions in the future
+-------------------------------
+* curl (phplike 2.0,  almost done)
+* intval: convert string to integer
+* strval: convert integer to string
+* abs
+* acos
+* strtolower
+* strtoupper
+
 
 <h2>Compile Node.js addon</h2>
 g++ source.cc  -L/usr/local/lib/node -I/usr/local/lib/node  -lpthread /usr/local/lib/node/libv8_base.a -lrt  -ldl  

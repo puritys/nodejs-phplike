@@ -4,6 +4,14 @@ This project's purpose is to  porting some useful php function to node.js
 
 Support synchronous exec to prevent node.js too many callback function, it will make the code easier to maintain.
 
+Phplike can not support windows system now, I only have time to support Linux and Mac.
+
+Dependency
+-----------
+* libcurl (libcurl-7.19)
+
+If you install the phplike 2.0 , you will need libcurl package, because phplike support curl in version 2.0.
+
 
 <h2>Completed PHP Method</h2>
 * exec , system

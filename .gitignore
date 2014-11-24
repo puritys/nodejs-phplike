@@ -4,5 +4,6 @@
 *.o
 *.so
 nodejs/node_modules*
+*build/
 build/*
 *.node

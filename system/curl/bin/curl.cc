@@ -1,5 +1,5 @@
 #include <iostream>
-#include <locale>
+//#include <locale>
 #include "../src/phplikeCppCurl.h"
 
 
@@ -23,7 +23,7 @@ void execute_phplike_GET() {
 }
 
 int main () {
-    std::locale::global (std::locale ("zh_TW.UTF-8"));
+    //locale::global (std::locale ("zh_TW.UTF-8"));
     execute_phplike_GET();
 
 }

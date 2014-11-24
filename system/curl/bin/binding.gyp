@@ -1,18 +1,16 @@
 {
   "targets": [
     {
-      "target_name": "phplike",
+      "target_name": "curl",
+      "type": "executable",
       "sources": [ 
-          "system/exec/src/exec.cc",
-          "system/curl/src/phplikeCppCurl.cc",
-          "nodejs/phplikeCurl.cc",
-          "nodejs/phplike.cc"
+          "curl.cc"
       ],
       "conditions": [
             ['OS=="linux" and target_arch!="arm"', {
               "cflags": ["-std=gnu++0x"],
               "libraries": [
-                  '-lcurl'
+                  '-lphplikeCppCurl'
               ],
               "defines": [
                 "LINUX_DEFINE"
@@ -26,7 +24,7 @@
           ['OS=="linux" and target_arch=="arm"', {
               "cflags": ["-std=gnu++0x"],
               "libraries": [
-                  '-lcurl'
+                  '-lphplikeCppCurl'
               ],
               "defines": [
                 "LINUX_DEFINE"
@@ -37,9 +35,9 @@
             }
           ],
           ['OS=="mac"', {
-              "cflags": ["-std=gnu++0x"],
+              "cflags": [],
               "libraries": [
-                  '/usr/lib/libcurl.dylib'
+                  "/usr/local/lib/node/libphplikeCppCurl.dylib"
               ],
               "defines": [
                 "LINUX_DEFINE"
@@ -48,7 +46,7 @@
                 "include/linux"
               ]
             }
-          ]
+          ],
 
       ]
 

@@ -10,7 +10,7 @@ Phplike can not execut in  windows system now, I only have time to support Linux
 * Git Source: https://github.com/puritys/nodejs-phplike
  
 
-Travis CI status: [![Unit testing](https://travis-ci.org/puritys/nodejs-phplike.png?branch=master)](https://travis-ci.org/puritys/nodejs-phplike) [![Regression testing](https://travis-ci.org/puritys/nodejs-phplike.png?branch=master)](https://travis-ci.org/puritys/nodejs-phplike)
+Travis CI status: [![Unit testing](https://travis-ci.org/puritys/nodejs-phplike.png?branch=master)](https://travis-ci.org/puritys/nodejs-phplike) 
 
 
 

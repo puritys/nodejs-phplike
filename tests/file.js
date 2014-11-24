@@ -5,14 +5,14 @@ var assert = require("assert");
 
 //mocha lib/ --grep _get
 describe('file is exist', function() {
-    var d = phplikeMod.readdir("/home/puritys");
+    //var d = phplikeMod.readdir("/home/puritys");
     it('is_file', function() {
-        var isFile = phplikeMod.is_file("file.js");
+        var isFile = phplikeMod.is_file("./tests/file.js");
         assert.equal(true, isFile);
     })
 
     it('is dir', function() {
-        var isDir = phplikeMod.is_dir("../tests");
+        var isDir = phplikeMod.is_dir("tests");
         assert.equal(true, isDir);
     })
 
@@ -21,7 +21,7 @@ describe('file is exist', function() {
 describe('file handle', function () {
 
     it('read file', function () {
-        var content = phplikeMod.file_get_contents("file.js");
+        var content = phplikeMod.file_get_contents("./tests/file.js");
         var conetnt = phplikeMod.substr(content, 0, 30);
         if (!phplikeMod.empty(content)) {
             assert.equal(true, true);
@@ -32,16 +32,16 @@ describe('file handle', function () {
     });
 
     it('write file', function () {
-        phplikeMod.file_put_contents("tmp", "test");
-        var content = phplikeMod.file_get_contents("tmp");
+        phplikeMod.file_put_contents("./tests/tmp", "test");
+        var content = phplikeMod.file_get_contents("./tests/tmp");
         assert.equal("test", content);
     });
 
     it('delete file', function () {
-        phplikeMod.file_put_contents("tmp", "test");
-        var content = phplikeMod.file_get_contents("tmp");
-        phplikeMod.unlink("tmp");
-        var isFile = !phplikeMod.is_file("tmp");
+        phplikeMod.file_put_contents("./tests/tmp", "test");
+        var content = phplikeMod.file_get_contents("./tests/tmp");
+        phplikeMod.unlink("./tests/tmp");
+        var isFile = !phplikeMod.is_file("./tests/tmp");
         assert.equal(true, isFile);
         
     });
@@ -50,7 +50,7 @@ describe('file handle', function () {
 
 describe('dir handle', function () {
 
-    var dir = "test/55/b/c"; 
+    var dir = "./tests/test/55/b/c"; 
     it('create dir', function () {
         phplikeMod.mkdir(dir);
         var isDir = phplikeMod.is_dir(dir);
@@ -59,7 +59,7 @@ describe('dir handle', function () {
 
     it('delete dir - force', function() {
         var isForce = true;
-        phplikeMod.rmdir("test", isForce);
+        phplikeMod.rmdir("./tests/test", isForce);
         isDir = phplikeMod.is_dir(dir);
         assert.equal(false, isDir);
 

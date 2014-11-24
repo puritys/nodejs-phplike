@@ -4,8 +4,10 @@ node_js:
   
   
 before_script:
-  - "cd ../ && npm build  phplike"
+  - "npm install node-gyp"
   - "npm install mocha"
+  - "npm build  ./"
+
 
 script:
   - "mocha tests/*.js"

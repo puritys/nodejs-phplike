@@ -1,7 +1,7 @@
 SRC_PATH=$(shell pwd)
 CC=g++
 CFLAGS= -L/usr/local/lib/node/ -I./../src/curlpp/include/
-LIBS= -lcurlpp -lphplikeCppCurl
+LIBS= -lphplikeCppCurl
 extlib = 
 CXXFILE= curl.cc
 CXXOUTPUT = curl

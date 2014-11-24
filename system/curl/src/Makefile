@@ -1,7 +1,8 @@
 SRC_PATH=$(shell pwd)
 CC=g++
 CFLAGS=   
-LIBS= -lcurlpp -I./curlpp/include/
+LIBS= 
+#-lcurlpp -I./curlpp/include/
 extlib = 
 CXXFILE= phplikeCppCurl.cc
 SO = phplikeCppCurl

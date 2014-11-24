@@ -1,9 +1,11 @@
+# Preinstall in  Mac system. # 
+# sudo ln -sf /usr/bin/make /usr/bin/gmake
+##############################
 
 .PHONY: src bin
 
 
 all:
-	gmake curlpp
 	gmake src
 	gmake bin
 

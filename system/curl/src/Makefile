@@ -11,11 +11,11 @@ include ../../../conf/Makefile_so.global
 all:
 	sudo cp phplikeCppCurl.so /usr/local/lib/node/libphplikeCppCurl.so
 
-nodeCompile:
+gyp:
 	node-gyp configure
 	node-gyp rebuild
 
-node:
+gyp-install:
 	gmake nodeCompile
 	sudo cp build/Release/phplikeCppCurl.dylib /usr/local/lib/node/libphplikeCppCurl.dylib
 	#sudo cp build/Release/obj.target/phplikeCppCurl/phplikeCppCurl.o /usr/local/lib/node/libphplikeCppCurl.so

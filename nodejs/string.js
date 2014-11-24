@@ -1,5 +1,45 @@
 var casting = require("./casting_type");
 
+/**
+* str_pad 
+* @param str string, 
+* @param len length, 
+* @param chr  string,
+* @param dir direction: left or right 
+*/
+function str_pad(str, len, chr, dir)
+{/*{{{*/
+    str = str.toString();
+    len = (typeof len == 'number') ? len : 0;
+    chr = (typeof chr == 'string') ? chr : ' ';
+    dir = (/left|right|both/i).test(dir) ? dir : 'right';
+    var repeat = function(c, l) {
+
+        var repeat = '';
+        while (repeat.length < l) {
+            repeat += c;
+        }
+        return repeat.substr(0, l);
+    }
+    var diff = len - str.length;
+    if (diff > 0) {
+        switch (dir) {
+            case 'left':
+                str = '' + repeat(chr, diff) + str;
+                break;
+            case 'both':
+                var half = repeat(chr, Math.ceil(diff / 2));
+                str = (half + str + half).substr(1, len);
+                break;
+            default:
+                str = '' + str + repeat(chr, diff);
+        }
+    }
+    return str;
+}/*}}}*/
+
+
+
 exports.ord = function (str) {
     if (!casting.is_string(str)) {
         return "";
@@ -29,3 +69,7 @@ exports.bindec = function (bin) {
     }
     return retval;
 }
+
+
+exports.str_pad = str_pad;
+

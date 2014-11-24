@@ -4,6 +4,7 @@ node_js:
   
   
 before_script:
+  - "cd ../ && npm build  phplike"
   - "npm install mocha"
 
 script:

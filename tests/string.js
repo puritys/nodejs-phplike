@@ -63,6 +63,12 @@ describe('Test function: str_pad', function() {
 
     });
 
+    it("Fill up text into both side", function () {
+        var text = phplikeMod.str_pad("b", 10, "c", "both");
+        assert.equal("ccccbccccc", text);
+    });
+
+
 
 });
  

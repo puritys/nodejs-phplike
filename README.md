@@ -92,6 +92,22 @@ You can require module.js of phplike, then you will need prefix to call phplike 
 </pre>
 
 
+Example code for php curl 
+------------------------------
+<pre>
+require('phplike');
+
+var url = "https://www.google.com.tw/search?q=php+unit+test";
+var header = {"Cookie": "xxx"};
+
+var c = curl_init();
+curl_setopt(c, 'CURLOPT_URL', url);
+var res = curl_exec(c);
+
+curl_close(c);
+</pre>
+
+console.log("respones = " + res);
 
 Functions will be implemented in the future
 ------------------------------------------

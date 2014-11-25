@@ -21,7 +21,9 @@ Dependency
 If you install the phplike 2.0 , you will need libcurl package, because phplike support curl in version 2.0.
 
 
-<h2>Completed PHP Method</h2>
+Completed PHP Method
+-------------------------
+
 * exec , system
 * usleep , sleep
 * print_r

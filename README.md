@@ -51,8 +51,9 @@ Completed PHP Method
 * chr, ord : string to ascii number, ascii number to string
 * decbin, bindec
 * curl_init, curl_setopt, curl_exec, curl_close  (phplike 2.0)
-
-
+* parse_str : parse "a=b&c=d" to {"a": "b", "c": "d"}
+* array_merge
+* clone:  clone a object or array
 
 <h2>Install phplike</h2>
 

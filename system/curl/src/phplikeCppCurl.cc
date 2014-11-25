@@ -128,7 +128,6 @@ void phplikeCppCurl::request(string method, string url, map<string, string> para
     //setOpt(curl, CURLOPT_USERAGENT, "1");
     //setOpt(curl, CURLOPT_COOKIE, "1");
     //setOpt(curl, CURLOPT_VERBOSE, "1");
-    //setOpt(curl, CURLOPT_POSTFIELDS, "1");
     //curl_easy_setopt(curl, CURLOPT_CONNECT_ONLY, "1");
 
     // Handle request header.

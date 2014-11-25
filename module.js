@@ -10,6 +10,8 @@ var str = require("./nodejs/string.js");
 var file = require("./nodejs/file.js");
 var core = require("./nodejs/core.js");
 var curl = require("./nodejs/curl.js");
+var array = require("./nodejs/array.js");
+
 
 
 
@@ -36,5 +38,9 @@ for(var method in core) {
 
 for(var method in curl) {
     exports[method] = curl[method];
+}
+
+for(var method in array) {
+    exports[method] = array[method];
 }
 

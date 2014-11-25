@@ -4,7 +4,8 @@ var fs = require("fs");
 var _Directory = require("fs").Directory;
 var File = require("fs").File;
 var str = require("./string.js");
-
+var casting = require("./casting_type.js");
+var phplikeArray = require("./array.js");
 
 //exports.sprintf = require("sprintf").sprintf;
 
@@ -119,5 +120,26 @@ exports.empty = function (v)
  
 }//}}}
 
+exports.parse_str = function (paramStr) {
+    var i, n;
+    var param = {}, paramSplit, pos;
+    paramSplit = paramStr.split(/&/);
+    n = paramSplit.length;
+    for (i = 0; i < n; i++) {
+        pos = paramSplit[i].indexOf('=');
+        param[paramSplit[i].substring(0, pos)] = paramSplit[i].substring(pos + 1); 
+    }
+    return param;
+};
+
+exports.clone = function (obj) {
+    var res;
+    if (casting.is_array(obj)) {
+        res = phplikeArray.array_merge(obj, []);
+    } else if (casting.is_object(obj)) {
+        res = phplikeArray.array_merge(obj, {});
+    } 
+    return res;
+};
 
 exports.isset = isset;

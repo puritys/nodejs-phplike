@@ -9,6 +9,8 @@ var str = require("./string.js");
 var file = require("./file.js");
 var core = require("./core.js");
 var curl = require("./curl.js");
+var array = require("./array.js");
+
 
 
 //for(var method in PL) {
@@ -29,5 +31,8 @@ for(var method in core) {
 }
 for(var method in curl) {
     global[method] = curl[method];
+}
+for(var method in array) {
+    global[method] = array[method];
 }
 

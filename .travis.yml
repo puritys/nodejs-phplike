@@ -12,3 +12,4 @@ before_script:
 
 script:
   - "istanbul cover _mocha  tests/*.js"
+  - "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"

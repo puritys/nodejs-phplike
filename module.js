@@ -1,15 +1,15 @@
-var cpp = require("./../build/Release/phplike");
+var cpp = require("./build/Release/phplike");
 
 //var sprintf = require("sprintf").sprintf;
 var fs = require("fs");
 var _Directory = require("fs").Directory;
 var File = require("fs").File;
 
-var casting = require("./casting_type.js");
-var str = require("./string.js");
-var file = require("./file.js");
-var core = require("./core.js");
-var curl = require("./curl.js");
+var casting = require("./nodejs/casting_type.js");
+var str = require("./nodejs/string.js");
+var file = require("./nodejs/file.js");
+var core = require("./nodejs/core.js");
+var curl = require("./nodejs/curl.js");
 
 
 

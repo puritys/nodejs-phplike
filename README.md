@@ -145,6 +145,8 @@ Functions will be implemented in the future
 * strval: convert integer to string
 * explode
 * implode
+* urlencode
+* urldecode
 * abs
 * acos
 * strtolower

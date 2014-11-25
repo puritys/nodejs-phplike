@@ -5,9 +5,10 @@ node_js:
   
 before_script:
   - "npm install node-gyp"
+  - "npm install istanbul"
   - "npm install mocha"
   - "npm build  ./"
 
 
 script:
-  - "mocha tests/*.js"
+  - "istanbul cover _mocha  tests/*.js"

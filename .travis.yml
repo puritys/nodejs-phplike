@@ -5,9 +5,12 @@ node_js:
   
 before_script:
   - "npm install node-gyp"
-  - "npm install mocha"
+  - "npm install -g mocha"
+  - "npm install istanbul"
+  - "npm install coveralls"
   - "npm build  ./"
 
 
 script:
-  - "mocha tests/*.js"
+  - "istanbul cover _mocha -- -R spec tests/*.js"
+  - "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"

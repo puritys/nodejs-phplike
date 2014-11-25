@@ -11,6 +11,7 @@ Phplike can not execute in windows system now, I only have time to support Linux
  
 
 Travis CI status: [![Unit testing](https://travis-ci.org/puritys/nodejs-phplike.png?branch=master)](https://travis-ci.org/puritys/nodejs-phplike) 
+[![Coverage Status](https://coveralls.io/repos/puritys/nodejs-phplike/badge.png)](https://coveralls.io/r/puritys/nodejs-phplike)
 
 
 

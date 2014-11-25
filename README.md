@@ -50,6 +50,7 @@ If you install the phplike 2.0 , you will need libcurl package, because phplike 
 * readdir (get all file list in select directory)
 * chr, ord : string to ascii number, ascii number to string
 * decbin, bindec
+* curl_init, curl_setopt, curl_exec, curl_close
 
 
 

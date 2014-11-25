@@ -8,6 +8,7 @@ var casting = require("./casting_type.js");
 var str = require("./string.js");
 var file = require("./file.js");
 var core = require("./core.js");
+var curl = require("./curl.js");
 
 
 //for(var method in PL) {
@@ -25,5 +26,8 @@ for(var method in file) {
 }
 for(var method in core) {
     global[method] = core[method];
+}
+for(var method in curl) {
+    global[method] = curl[method];
 }
 

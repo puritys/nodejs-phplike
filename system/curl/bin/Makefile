@@ -8,6 +8,10 @@ CXXOUTPUT = curl
 include ../../../conf/Makefile_exe.global
 #include /home/program/lib/Makefile_so.global
 
-nodeCompile:
+gyp:
 	node-gyp configure
 	node-gyp build
+
+gyp-run:
+	gmake gyp
+	./build/Release/curl	

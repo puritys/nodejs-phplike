@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h> 
 #include <iostream>
+#include <map>
 #include <curl/curl.h>
 
 #define REQ_HEADER_MAX_LENGTH 3000;
@@ -22,7 +23,9 @@ class phplikeCppCurl {
         phplikeCppCurl();
         ~phplikeCppCurl();
         string phplike_GET(string url);
-        void request(string method, string url);
+        void request(string method, string url, map<string, string> param , map<string, string> header);
         void setOpt(CURL *curl, CURLoption option, string value);
+        string convertParamToString(map<string, string> param);
+        struct curl_slist *convertHeaderToChunk(map<string, string> header);
 
 };

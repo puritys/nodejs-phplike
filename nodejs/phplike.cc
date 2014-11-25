@@ -22,7 +22,7 @@ Handle<Value> node_exec(const Arguments& args)
 void  init (Handle<Object> target){    
    NODE_SET_METHOD(target, "usleep", node_usleep);
    NODE_SET_METHOD(target, "exec", node_exec);
-   NODE_SET_METHOD(target, "requestGet", node_curl_get);
+   NODE_SET_METHOD(target, "request", node_curl_request);
 
 } 
 

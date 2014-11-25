@@ -7,10 +7,10 @@
           "curl.cc"
       ],
       "conditions": [
-            ['OS=="linux" and target_arch!="arm"', {
+            ['OS=="linux"', {
               "cflags": ["-std=gnu++0x"],
               "libraries": [
-                  '-lphplikeCppCurl'
+                  "-L/usr/local/lib/node", "-lphplikeCppCurl"
               ],
               "defines": [
                 "LINUX_DEFINE"
@@ -21,19 +21,6 @@
             }
           ],
 
-          ['OS=="linux" and target_arch=="arm"', {
-              "cflags": ["-std=gnu++0x"],
-              "libraries": [
-                  '-lphplikeCppCurl'
-              ],
-              "defines": [
-                "LINUX_DEFINE"
-              ],
-              "include_dirs": [
-                "include/linux"
-              ]
-            }
-          ],
           ['OS=="mac"', {
               "cflags": [],
               "libraries": [
@@ -46,8 +33,7 @@
                 "include/linux"
               ]
             }
-          ],
-
+          ]
       ]
 
     }

@@ -1,3 +1,7 @@
+SELF_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+include $(SELF_DIR)Makefile.os
+
+
 #建立 exe 目錄
 #MKDIR=$(shell mkdir exe)
 #$(MKDIR)

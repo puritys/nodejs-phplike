@@ -1,8 +1,9 @@
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 
-#include <curl/curl.h>
 #include "phplikeCppCurl.h"
+#include "util.h"
 
 struct string2 {
   char *ptr;
@@ -55,28 +56,65 @@ size_t recvResponse(void *ptr, size_t size, size_t nmemb, struct string2 *s )  {
 
 }
 
-
 /*
-* This is a HTTP protocol client to get the response of url.
+Convert the multi key and value to one string. It can be used in HTTP POST method. 
+Return key=value&keu=value2
 */
-string phplikeCppCurl::phplike_GET(string url) {
+string phplikeCppCurl::convertParamToString(map<string, string> param) {
+    string p = "";
 
-    request("GET", url);
+    for(map<string, string>::iterator it = param.begin(); it != param.end(); ++it) {
+        if (p != "") {
+            p += "&";
+        }
+        p += it->first + "=" + util::urlEncode(it->second);
 
-    return resContent;
-}
+    }
+
+    return p;
+};
+
+
+struct curl_slist *phplikeCppCurl::convertHeaderToChunk(map<string, string> header) {
+
+    struct curl_slist *headerChunk = NULL;
+    string p = "";
+    for(map<string, string>::iterator it = header.begin(); it != header.end(); ++it) {
+        if (p != "") {
+            p += "&";
+        }
+        p = it->first + ": " + util::urlEncode(it->second);
+        headerChunk = curl_slist_append(headerChunk, p.c_str());
+
+    }
+
+
+    return headerChunk;
+};
+
+
 
 /*
 * curl code http://curl.haxx.se/libcurl/c/libcurl-errors.html
+* @param url This shouldn't have any parameter, do not include the character "?", please move to param in Node.js
 */
-void phplikeCppCurl::request(string method, string url ) {/*{{{*/
+void phplikeCppCurl::request(string method, string url, map<string, string> param , map<string, string> header) {/*{{{*/
     CURLcode res;
     CURL *curl;
 
+    std::transform(method.begin(), method.end(), method.begin(), ::toupper);
 
     if (curl_global_init(CURL_GLOBAL_ALL) != CURLE_OK) {
        fprintf(stderr, "curl_global_init() failed\n");
        return ;
+    }
+
+    string paramStr = "";
+    paramStr = convertParamToString(param);
+
+    if ("GET" == method) {
+        url += "?" + paramStr;
+    } else if ("POST" == method) {
     }
 
     resContent = "";
@@ -84,15 +122,22 @@ void phplikeCppCurl::request(string method, string url ) {/*{{{*/
     curl = curl_easy_init();
     setOpt(curl, CURLOPT_URL, url);
     setOpt(curl, CURLOPT_HEADER, "1");
-    //setOpt(curl, CURLOPT_REFERER, "1");
+    //setOpt(curl, CURLOPT_REFERER, "xx");
     //setOpt(curl, CURLOPT_USERAGENT, "1");
     //setOpt(curl, CURLOPT_COOKIE, "1");
     //setOpt(curl, CURLOPT_VERBOSE, "1");
     //setOpt(curl, CURLOPT_POSTFIELDS, "1");
-    //setOpt(curl, CURLOPT_HEADER, "1");
-
     //curl_easy_setopt(curl, CURLOPT_CONNECT_ONLY, "1");
 
+    // Handle request header.
+    struct curl_slist *headerChunk = NULL;
+    if (!header.empty()) {
+        headerChunk = convertHeaderToChunk(header);
+        res = curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headerChunk);
+    }
+
+
+    // Handle response header and content.
     struct string2 resH;
     init_string(&resH);
     res = curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, recvResponse);
@@ -114,7 +159,9 @@ void phplikeCppCurl::request(string method, string url ) {/*{{{*/
         }
     }
 
-
+    if (!header.empty()) {
+        curl_slist_free_all(headerChunk);
+    }
 
     curl_easy_cleanup(curl);
     curl_global_cleanup();

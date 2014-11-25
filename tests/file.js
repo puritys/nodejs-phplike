@@ -4,21 +4,30 @@ var phplikeMod = require('./include.js');
 var assert = require("assert");
 
 //mocha lib/ --grep _get
-describe('file is exist', function() {
+describe('Test function: is_file, file.js', function() {
     //var d = phplikeMod.readdir("/home/puritys");
-    it('is_file', function() {
+    it('Test file is exist.', function() {
         var isFile = phplikeMod.is_file("./tests/file.js");
         assert.equal(true, isFile);
     })
 
-    it('is dir', function() {
+    it('Test file is not exist.', function() {
+        var isFile = phplikeMod.is_file("./xxxxxxxxxxxxxxx");
+        assert.equal(false, isFile);
+    })
+
+
+});
+
+describe('Test function: is_dir, file.js', function () {
+    it('Test directory is exist.', function() {
         var isDir = phplikeMod.is_dir("tests");
         assert.equal(true, isDir);
     })
 
 });
 
-describe('file handle', function () {
+describe('File Handle', function () {
 
     it('read file', function () {
         var content = phplikeMod.file_get_contents("./tests/file.js");

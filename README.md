@@ -52,7 +52,7 @@ Completed PHP Method
 * readdir (get all file list in select directory)
 * chr, ord : string to ascii number, ascii number to string
 * decbin, bindec
-* curl_init, curl_setopt, curl_exec, curl_close
+* curl_init, curl_setopt, curl_exec, curl_close  (phplike 2.0)
 
 
 
@@ -107,13 +107,41 @@ Example code for php curl
     var res = curl_exec(c);
     
     curl_close(c);
+    
+    console.log("respones = " + res);
+
 </pre>
 
-console.log("respones = " + res);
+Example code for php post (Using module mode)
+------------------------------
+<pre>
+    var phplikeMod = require("phplike/module.js");
+    var url = "http://localhost:8080/";
+    var param = {"q": "x"};
+    var header = {"Cookie": "xxx"};
+    var c = phplikeMod.curl_init();
+    phplikeMod.curl_setopt(c, 'CURLOPT_URL', url);
+    phplikeMod.curl_setopt(c, 'CURLOPT_POST', 1);
+    phplikeMod.curl_setopt(c, 'CURLOPT_POSTFIELDS', "a=bbb&c=eee");
+    phplikeMod.curl_setopt(c, 'CURLOPT_HTTPHEADER', header);
+    var res = phplikeMod.curl_exec(c);
+
+</pre>
+
+Example code for making a blocking request 
+------------------------------------------
+<pre>
+var phplikeMod = require('phplike/module.js');
+
+    var url = "http://localhost:8080/";
+    var param = {"q": "x"};
+    var header = {"Cookie": "xxx"};
+    var res = phplikeMod.request("GET", url, param, header);
+
+</pre>
 
 Functions will be implemented in the future
 ------------------------------------------
-* curl (phplike 2.0,  almost done)
 * intval: convert string to integer
 * strval: convert integer to string
 * abs

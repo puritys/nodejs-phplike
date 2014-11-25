@@ -142,6 +142,8 @@ Functions will be implemented in the future
 ------------------------------------------
 * intval: convert string to integer
 * strval: convert integer to string
+* explode
+* implode
 * abs
 * acos
 * strtolower

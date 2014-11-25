@@ -17,21 +17,6 @@ describe('Test method: HTTP GET ', function() {
     });
 });
 
-//describe('Test method: HTTP GET with header', function() {
-//
-//    it('Request with header', function() {
-//        var url = "http://www.puritys.me:8080/";
-//        var param = {"q": "x"};
-//        var header = {"Cookie": "xxx"};
-//        var res = phplikeMod.request("GET", url, param, header);
-//
-//        //console.log(res);
-//        var match = res.match(/unit/);
-//        assert.equal("unit", match[0]);
-//    });
-//
-//
-//});
 
 describe('Test method: HTTP GET  curl_exec', function() {
 
@@ -43,10 +28,45 @@ describe('Test method: HTTP GET  curl_exec', function() {
         phplikeMod.curl_setopt(c, 'CURLOPT_URL', url);
         var res = phplikeMod.curl_exec(c);
         phplikeMod.curl_close(c);
-        console.log(res);
+        //console.log(res);
         var match = res.match(/unit/);
         assert.equal("unit", match[0]);
     });
 
 
 });
+
+describe('Test method: curl_setopt', function() {
+
+    it('CURLOPT_POSTFIELDS - input a string', function() {
+
+        var c = phplikeMod.curl_init();
+        phplikeMod.curl_setopt(c, 'CURLOPT_POSTFIELDS', "a=b&c=d");
+        assert.equal("b", c.param["a"]);
+        assert.equal("d", c.param["c"]);
+    });
+
+    it('CURLOPT_POSTFIELDS - input a object', function() {
+
+        var c = phplikeMod.curl_init();
+        phplikeMod.curl_setopt(c, 'CURLOPT_POSTFIELDS', {"a": "b", "c": "d"});
+        assert.equal("b", c.param["a"]);
+        assert.equal("d", c.param["c"]);
+    });
+
+    it('CURLOPT_POST', function() {
+
+        var c = phplikeMod.curl_init();
+        phplikeMod.curl_setopt(c, 'CURLOPT_POST', 1);
+        assert.equal("POST", c.method);
+
+
+    });
+
+
+
+});
+
+
+
+

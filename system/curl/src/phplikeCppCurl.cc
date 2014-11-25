@@ -112,14 +112,16 @@ void phplikeCppCurl::request(string method, string url, map<string, string> para
     string paramStr = "";
     paramStr = convertParamToString(param);
 
+    curl = curl_easy_init();
     if ("GET" == method) {
         url += "?" + paramStr;
     } else if ("POST" == method) {
+        setOpt(curl, CURLOPT_POST, "1");
+        setOpt(curl, CURLOPT_POSTFIELDS, paramStr);
     }
 
     resContent = "";
 
-    curl = curl_easy_init();
     setOpt(curl, CURLOPT_URL, url);
     setOpt(curl, CURLOPT_HEADER, "1");
     //setOpt(curl, CURLOPT_REFERER, "xx");

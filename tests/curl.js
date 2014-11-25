@@ -69,4 +69,37 @@ describe('Test method: curl_setopt', function() {
 
 
 
+describe('Test method: reformatCurlData', function() {
+
+    it('get param from url', function() {
+        var c = phplikeMod.curl_init();
+        var url = "http://www.google.com.tw/?a=b&a1=cc";
+        c.url = url;
+        c.param = "c=d&c1=dd";
+        var res = phplikeMod.reformatCurlData(c);
+        assert.equal("b", res.param["a"]);
+        assert.equal("d", res.param["c"]);
+        assert.equal("cc", res.param["a1"]);
+        assert.equal("dd", res.param["c1"]);
+        assert.equal("http://www.google.com.tw/", res.url);
+        assert.equal(url, c.url);
+
+
+
+    });
+
+    it('get param from url and merge param which type is object', function() {
+        var c = phplikeMod.curl_init();
+        c.url = "http://www.google.com.tw/?a=b&a1=cc";
+        c.param = {"c": "d", "c1": "dd"};
+        var res = phplikeMod.reformatCurlData(c);
+        assert.equal("b", res.param["a"]);
+        assert.equal("d", res.param["c"]);
+        assert.equal("cc", res.param["a1"]);
+        assert.equal("dd", res.param["c1"]);
+
+    });
+
+});
+
 

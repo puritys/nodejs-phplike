@@ -62,4 +62,42 @@ describe('Test function: time', function() {
 
 });
 
+describe('Test function: parse_str', function() {
+    it('string to object', function() {
+        var str = "a=b&c=d";
+        var res = phplikeMod.parse_str(str);
+        assert.equal("b", res['a']);
+        assert.equal("d", res['c']);
+
+
+
+    })
+
+});
+
+describe('Test function: clone', function() {
+    it('clone a object(assoc array)', function() {
+        var obj = {"a": "aa"};
+        var res = phplikeMod.clone(obj);
+        res["a"] = "bb";
+
+        assert.equal("bb", res['a']);
+        assert.equal("aa", obj['a']);
+    });
+
+    it('clone a array', function() {
+        var obj = [1];
+        var res = phplikeMod.clone(obj);
+        res[0] = 5;
+
+        assert.equal(1, res.length);
+
+        assert.equal(5, res[0]);
+        assert.equal(1, obj[0]);
+    });
+
+
+
+});
+
 

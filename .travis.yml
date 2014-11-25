@@ -5,8 +5,8 @@ node_js:
   
 before_script:
   - "npm install node-gyp"
-  - "npm install istanbul"
   - "npm install mocha"
+  - "npm install istanbul"
   - "npm build  ./"
 
 

@@ -100,4 +100,11 @@ describe('Test function: clone', function() {
 
 });
 
+describe('Test function: getcwd', function() {
+    it('string to object', function() {
+        var res = phplikeMod.getcwd();
+        assert.equal("/", res.substring(0, 1));
+    })
+
+});
 

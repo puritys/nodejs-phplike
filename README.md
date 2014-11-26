@@ -59,6 +59,7 @@ Completed PHP Method
 * parse_str : parse "a=b&c=d" to {"a": "b", "c": "d"}
 * array_merge
 * clone:  clone a object or array
+* getcwd
 
 <h2>Install phplike</h2>
 

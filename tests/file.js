@@ -92,6 +92,24 @@ describe('dir handle', function () {
         phplikeMod.rmdir("test_dir");
     });
 
+    it('create dir from "/"', function () {
+        var cwd = phplikeMod.getcwd();
+        phplikeMod.mkdir(cwd + "/test_dir");
+        var isDir = phplikeMod.is_dir(cwd + "/test_dir");
+        assert.equal(true, isDir);
+        phplikeMod.rmdir(cwd + "/test_dir");
+    });
+
+    it('get exception when create dir in no permission path.', function () {
+        try {
+            phplikeMod.mkdir("/admin");        
+            assert.equal(false, true);
+        } catch (e) {
+            assert.equal(true, true);
+        }
+    });
+
+
     it('delete dir - force', function() {
         var isForce = true;
         phplikeMod.mkdir(dir);

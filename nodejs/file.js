@@ -98,7 +98,7 @@ exports.mkdir = function(dirName) {/*{{{*/
         try{
             fs.mkdirSync(dir);
         } catch(e) {
-            print_r(e);
+            console.log(e);
             throw e
         }
     }

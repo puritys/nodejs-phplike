@@ -68,6 +68,11 @@ exports.date = function (format)
     return format;
 }/*}}}*/
 
+// Get current working directory (path).
+exports.getcwd = function () {//{{{
+    return process.cwd();
+}//}}}
+
 /*
  * @param obj
  * @param prefix space 

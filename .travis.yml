@@ -8,7 +8,7 @@ before_script:
   - "npm install -g mocha"
   - "npm install istanbul"
   - "npm install coveralls"
-  - "npm install phplike"
+  - "npm install -g phplike"
   - "npm build  ./"
 
 

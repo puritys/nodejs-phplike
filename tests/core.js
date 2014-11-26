@@ -108,3 +108,12 @@ describe('Test function: getcwd', function() {
 
 });
 
+describe('Test function: exit', function() {
+    it('run a child process to execute exit function', function() {
+        // Notice! I am not sure it is a good solution to pass exit test.
+        global.process.exit = function () {};
+        phplikeMod.exit();
+    })
+
+});
+

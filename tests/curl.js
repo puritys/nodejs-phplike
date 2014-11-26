@@ -55,14 +55,28 @@ describe('Test method: curl_setopt', function() {
     });
 
     it('CURLOPT_POST', function() {
-
         var c = phplikeMod.curl_init();
         phplikeMod.curl_setopt(c, 'CURLOPT_POST', 1);
         assert.equal("POST", c.method);
-
-
     });
 
+    it('CURLOPT_HTTPGET', function() {
+        var c = phplikeMod.curl_init();
+        phplikeMod.curl_setopt(c, 'CURLOPT_HTTPGET', 1);
+        assert.equal("GET", c.method);
+    });
+
+    it('CURLOPT_HTTPHEADER', function() {
+        var c = phplikeMod.curl_init();
+        phplikeMod.curl_setopt(c, 'CURLOPT_HTTPHEADER', {"Cookie": "test"});
+        assert.equal("test", c.header['Cookie']);
+    });
+
+    it('CURLOPT default option', function() {
+        var c = phplikeMod.curl_init();
+        phplikeMod.curl_setopt(c, 'CURLOPT_UNKNOW', "test");
+        assert.equal("test", c.options['CURLOPT_UNKNOW']);
+    });
 
 
 });

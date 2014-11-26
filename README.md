@@ -19,6 +19,7 @@ Dependency
 * libcurl (libcurl-7.19)
 
 If you install the phplike 2.0 , you will need libcurl package, because phplike support curl in version 2.0.
+
 phplike@2.0.5 support Mac system now.
 
 

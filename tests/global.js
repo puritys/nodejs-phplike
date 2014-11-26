@@ -1,7 +1,7 @@
-// global function test
+// global function test and test the phplike module which has already installed.
 
 global.UNIT_TEST = true;
-require('./../nodejs/index.js');
+require('phplike');
 
 var assert = require("assert");
 
@@ -29,7 +29,14 @@ describe('Test global function: core function', function() {
         assert.equal("dGVzdA==", res);
     });
 
+});
 
+describe('Test global function: is_dir', function() {
+    it('File is not a dir.', function() {
+        var file = 'tests/global.js';
+        var res = is_dir(file);
+        assert.equal(false, res);
+    });
 
 });
 

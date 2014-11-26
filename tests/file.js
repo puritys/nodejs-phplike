@@ -23,7 +23,13 @@ describe('Test function: is_dir, file.js', function () {
     it('Test directory is exist.', function() {
         var isDir = phplikeMod.is_dir("tests");
         assert.equal(true, isDir);
-    })
+    });
+
+    it('File is not a dir.', function() {
+        var file = 'tests/global.js';
+        var res = phplikeMod.is_dir(file);
+        assert.equal(false, res);
+    });
 
 });
 
@@ -40,10 +46,23 @@ describe('File Handle', function () {
 
     });
 
+    it('read a not exist file', function () {
+        var content = phplikeMod.file_get_contents("./tests/file.jsxx");
+        assert.equal("", content);
+
+    });
+
     it('write file', function () {
         phplikeMod.file_put_contents("./tests/tmp", "test");
         var content = phplikeMod.file_get_contents("./tests/tmp");
         assert.equal("test", content);
+    });
+
+    it('write a binary content into file', function () {
+        phplikeMod.file_put_contents("./tests/tmp2", "test", "binary");
+        var content = phplikeMod.file_get_contents("./tests/tmp2");
+        assert.equal("test", content);
+        phplikeMod.unlink("./tests/tmp2");
     });
 
     it('delete file', function () {
@@ -66,8 +85,17 @@ describe('dir handle', function () {
         assert.equal(true, isDir);
     });
 
+    it('create single level dir', function () {
+        phplikeMod.mkdir("test_dir");
+        var isDir = phplikeMod.is_dir("test_dir");
+        assert.equal(true, isDir);
+        phplikeMod.rmdir("test_dir");
+    });
+
     it('delete dir - force', function() {
         var isForce = true;
+        phplikeMod.mkdir(dir);
+        phplikeMod.file_put_contents(dir + "/tmp", "test");
         phplikeMod.rmdir("./tests/test", isForce);
         isDir = phplikeMod.is_dir(dir);
         assert.equal(false, isDir);

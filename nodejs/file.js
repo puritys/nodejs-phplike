@@ -47,6 +47,10 @@ function rmdir(dir, isForce) {//{{{
     } 
 };//}}}
 
+function unlink(filename) {
+    return fs.unlinkSync(filename);
+}
+
 
 /*
  * @param filename
@@ -100,9 +104,6 @@ exports.mkdir = function(dirName) {/*{{{*/
     }
 };/*}}}*/
 
-exports.unlink = function (filename) {
-    return fs.unlinkSync(filename);
-}
 
 
 
@@ -114,3 +115,4 @@ exports.readdir = readdir;
 exports.is_dir = is_dir;
 exports.is_file = is_file;
 exports.rmdir = rmdir;
+exports.unlink = unlink;

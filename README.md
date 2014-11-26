@@ -1,4 +1,5 @@
-<h1>Node.js - phplike</h1>
+Node.js - phplike
+=======================
 
 This project's purpose is to  implement some useful php function to node.js
 
@@ -7,6 +8,7 @@ Support synchronous exec to prevent node.js too many callback function, it will 
 Phplike can not execute in windows system now, I only have time to support Linux and Mac.
 
 * npm: https://npmjs.org/package/phplike
+* All version: https://registry.npmjs.org/phplike
 * Git Source: https://github.com/puritys/nodejs-phplike
  
 
@@ -17,6 +19,9 @@ Dependency
 * libcurl (libcurl-7.19)
 
 If you install the phplike 2.0 , you will need libcurl package, because phplike support curl in version 2.0.
+
+phplike@2.0.5 support Mac system now.
+
 
 
 Completed PHP Method

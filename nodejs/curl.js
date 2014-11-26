@@ -85,6 +85,6 @@ exports.curl_exec = function (curlInput) {
 
 };
 
-if (UNIT_TEST) {
+if (typeof(UNIT_TEST) != "undefined" && UNIT_TEST === true) {
     exports.reformatCurlData = reformatCurlData;
 }

@@ -15,7 +15,7 @@
               "libraries": [
               ],
               "defines": [
-                "LINUX_DEFINE"
+                "LINUX_DEFINE", "OS_LINUX"
               ],
               "include_dirs": [
                 "include/linux"
@@ -28,7 +28,7 @@
               "libraries": [
               ],
               "defines": [
-                "LINUX_DEFINE"
+                "LINUX_DEFINE", "OS_LINUX"
               ],
               "include_dirs": [
                 "include/linux"
@@ -43,18 +43,20 @@
               "libraries": [
               ],
               "defines": [
-                "LINUX_DEFINE"
+                "LINUX_DEFINE", "OS_LINUX"
               ],
               "include_dirs": [
                 "include/linux"
               ]
             }
           ],
-          ['OS=="win32"', {
+          ['OS=="win"', {
               "cflags": ["-std=c++11"],
+              "type": "static_library",
               "libraries": [
               ],
               "defines": [
+                "OS_WIN"
               ],
               "include_dirs": [
               ]

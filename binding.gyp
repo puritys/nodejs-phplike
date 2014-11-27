@@ -18,7 +18,7 @@
                   '-lcurl'
               ],
               "defines": [
-                "LINUX_DEFINE"
+                "LINUX_DEFINE", "OS_LINUX"
               ],
               "include_dirs": [
                 "include/linux"
@@ -32,7 +32,7 @@
                   '-lcurl'
               ],
               "defines": [
-                "LINUX_DEFINE"
+                "LINUX_DEFINE", "OS_LINUX"
               ],
               "include_dirs": [
                 "include/linux"
@@ -48,10 +48,22 @@
                   '/usr/lib/libcurl.dylib'
               ],
               "defines": [
-                "LINUX_DEFINE"
+                "LINUX_DEFINE", "OS_LINUX"
               ],
               "include_dirs": [
                 "include/linux"
+              ]
+            }
+          ],
+          ['OS=="win"', {
+              "cflags": ["-std=c++11"],
+              "type": "static_library",
+              "libraries": [
+              ],
+              "defines": [
+                "OS_WIN"
+              ],
+              "include_dirs": [
               ]
             }
           ]

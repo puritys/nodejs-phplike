@@ -5,7 +5,15 @@
 Handle<Value> node_usleep(const Arguments& args)
 {
     unsigned int seconds = args[0]->Uint32Value(); 
+
+#ifdef OS_LINUX
     usleep(seconds);
+#endif
+
+#ifdef OS_WIN
+     Sleep(seconds * 1000);
+#endif
+
     return True();
 }
 

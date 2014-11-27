@@ -1,8 +1,14 @@
 #include <iostream>
 #include "v8.h"
 #include "node.h"
-#include <unistd.h>
 
+#ifdef OS_LINUX
+    #include <unistd.h>
+#endif
+
+#ifdef OS_WIN
+    #include <windows.h>
+#endif
 
 using namespace std;
 using namespace v8; 

@@ -69,7 +69,7 @@ Completed PHP Method
 
 * sudo npm install -g phplike
 
-This package need node-gyp. you should install node-gyp first. npm will auto install node-gyp before you install phpliek.
+This package need node-gyp. you should install node-gyp first. npm will auto install node-gyp before you install phplike.
 
 * sudo npm install -g node-gyp
 
@@ -77,9 +77,9 @@ This package need node-gyp. you should install node-gyp first. npm will auto ins
 Execute phplike in global mode sample
 -------------------------------
 
-You can require the index.js of phplike, then you will use the phplike function in global object. It means that you don't need prefix to call php function. To execute function like a real php. 
+You can require the index.js of phplike, then you will use the phplike function in global object. It means that you don't need prefix to call php function. To execute function like a real php coding. 
 
-exec(command, printInScreen); 
+exec(command, printInScreen = true); 
 
 <pre>
     require("phplike");
@@ -140,7 +140,7 @@ Example code for php post (Using module mode)
 Example code for making a blocking request 
 ------------------------------------------
 <pre>
-var phplikeMod = require('phplike/module.js');
+    var phplikeMod = require('phplike/module.js');
 
     var url = "http://localhost:8080/";
     var param = {"q": "x"};

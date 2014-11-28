@@ -14,14 +14,20 @@ Phplike can not execute in windows system now, I only have time to support Linux
 
 Travis CI status: [![Unit testing](https://travis-ci.org/puritys/nodejs-phplike.png?branch=master)](https://travis-ci.org/puritys/nodejs-phplike) [![Coverage Status](https://coveralls.io/repos/puritys/nodejs-phplike/badge.png?branch=master)](https://coveralls.io/r/puritys/nodejs-phplike?branch=master)
 
+How many OS does phplike support?
+---------------------------
+* Linux : Every version of phplike support linux system.
+* Mac :  Supported from phplike@2.0.5  to  latest 
+* Window: Supported only in phplike@2.0.9
+
 Dependency
 -----------
-* libcurl (libcurl-7.19)
+* libcurl (libcurl-7.19) : Linux system require this package.
+* python 2.4 ~ :  phplike use node-gyp to compile C/C++ codes. It needs python 2.7.8~, you can download python from https://www.python.org/downloads/.
+* Visual studio: Windows need this software,  you can download from here  http://www.visualstudio.com/zh-tw/downloads/download-visual-studio-vs#DownloadFamilies_4 .  Notice! If you install vs2010 Express, it only support 32bit, so you should install the 32bit version Node.js too.
 
 If you install the phplike 2.0 , you will need libcurl package, because phplike support curl in version 2.0.
-
-phplike@2.0.5 support Mac system now.
-
+ 
 
 
 Completed PHP Method

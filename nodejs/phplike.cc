@@ -4,14 +4,15 @@
 
 Handle<Value> node_usleep(const Arguments& args)
 {
-    unsigned int seconds = args[0]->Uint32Value(); 
+    unsigned int microSeconds = args[0]->Uint32Value(); 
 
 #ifdef OS_LINUX
-    usleep(seconds);
+    usleep(microSeconds);
 #endif
 
 #ifdef OS_WIN
-     Sleep(seconds * 1000);
+    unsigned int milliSeconds = microSeconds / 1000;
+    Sleep(milliSeconds);
 #endif
 
     return True();

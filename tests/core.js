@@ -103,7 +103,7 @@ describe('Test function: getcwd', function() {
         var res = phplikeMod.getcwd();
         if (process.platform.match(/^win/)) {
             // node.js should install in c:
-            assert.equal("C:", res.substring(0, 2)); 
+            assert.equal("C:", res.substring(0, 2).toUpperCase()); 
         } else {
             assert.equal("/", res.substring(0, 1));
         }

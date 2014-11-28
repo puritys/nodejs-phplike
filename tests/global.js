@@ -19,7 +19,7 @@ describe('Test global function: array_merge', function() {
 
 describe('Test global function: core function', function() {
     it('exec', function() {
-        var command = 'echo "a"';
+        var command = 'echo a';
         var res = exec(command);
         assert.equal("a\n", res);
     });

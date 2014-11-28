@@ -24,7 +24,7 @@ Dependency
 -----------
 * libcurl (libcurl-7.19) : Linux system require this package.
 * python 2.4 ~ :  You will need python 2.7.8~ to run node-gyp. (https://www.python.org/downloads/)
-* Visual studio: Windows need this software,  you can download from here  http://www.visualstudio.com/zh-tw/downloads/download-visual-studio-vs#DownloadFamilies_4
+* Visual studio: Windows need this software,  you can download from here  http://www.visualstudio.com/zh-tw/downloads/download-visual-studio-vs#DownloadFamilies_4 .  Notice! If you install vs2010 Express, it only support 32bit, so you should install the 32bit version Node.js too.
 
 If you install the phplike 2.0 , you will need libcurl package, because phplike support curl in version 2.0.
 

@@ -14,9 +14,16 @@ Phplike can not execute in windows system now, I only have time to support Linux
 
 Travis CI status: [![Unit testing](https://travis-ci.org/puritys/nodejs-phplike.png?branch=master)](https://travis-ci.org/puritys/nodejs-phplike) [![Coverage Status](https://coveralls.io/repos/puritys/nodejs-phplike/badge.png?branch=master)](https://coveralls.io/r/puritys/nodejs-phplike?branch=master)
 
+phplike support how many OS?
+---------------------------
+* Linux : phplike all version
+* Mac :   phplike@2.0.5  ~ latest 
+* Window:  phplike
+
 Dependency
 -----------
 * libcurl (libcurl-7.19)
+* python 2.4 ~
 
 If you install the phplike 2.0 , you will need libcurl package, because phplike support curl in version 2.0.
 

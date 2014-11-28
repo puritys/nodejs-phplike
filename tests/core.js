@@ -43,7 +43,7 @@ describe('Test function: empty', function() {
 describe('Test function: exec', function() {
     it('echo a string', function() {
         var str;
-        var res = phplikeMod.exec("echo 'a'");
+        var res = phplikeMod.exec("echo a");
         assert.equal("a\n", res);
     })
 
@@ -80,7 +80,6 @@ describe('Test function: clone', function() {
         var obj = {"a": "aa"};
         var res = phplikeMod.clone(obj);
         res["a"] = "bb";
-
         assert.equal("bb", res['a']);
         assert.equal("aa", obj['a']);
     });
@@ -89,7 +88,6 @@ describe('Test function: clone', function() {
         var obj = [1];
         var res = phplikeMod.clone(obj);
         res[0] = 5;
-
         assert.equal(1, res.length);
 
         assert.equal(5, res[0]);
@@ -103,7 +101,12 @@ describe('Test function: clone', function() {
 describe('Test function: getcwd', function() {
     it('string to object', function() {
         var res = phplikeMod.getcwd();
-        assert.equal("/", res.substring(0, 1));
+        if (process.platform.match(/^win/)) {
+            // node.js should install in c:
+            assert.equal("C:", res.substring(0, 2)); 
+        } else {
+            assert.equal("/", res.substring(0, 1));
+        }
     })
 
 });

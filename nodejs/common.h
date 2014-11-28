@@ -1,6 +1,7 @@
 #include <iostream>
 #include "v8.h"
 #include "node.h"
+#include <string>
 
 #ifdef OS_LINUX
     #include <unistd.h>

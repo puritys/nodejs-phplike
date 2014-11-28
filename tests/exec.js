@@ -11,7 +11,7 @@ describe('Test function: exec', function() {
             str += "1";
         }
         var printInScreen = false;
-        var res = phplikeMod.exec("echo '" + str + "'", printInScreen);
+        var res = phplikeMod.exec("echo " + str + "", printInScreen);
         assert.equal("1111111111\n", res);
     })
 
@@ -24,7 +24,7 @@ describe('Test function: system', function() {
             str += "1";
         }
         var printInScreen = false;
-        var res = phplikeMod.system("echo '" + str + "'", printInScreen);
+        var res = phplikeMod.system("echo " + str + "", printInScreen);
         assert.equal("1111111111\n", res);
     })
 

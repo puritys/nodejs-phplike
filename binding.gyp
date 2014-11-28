@@ -57,8 +57,8 @@
           ],
           ['OS=="win"', {
               "cflags": ["-std=c++11"],
-              "type": "static_library",
               "libraries": [
+                "wininet"
               ],
               "defines": [
                 "OS_WIN"

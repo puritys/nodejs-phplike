@@ -5,21 +5,6 @@
 #include "phplikeCppCurl.h"
 #include "util.h"
 
-struct string2 {
-  char *ptr;
-  size_t len;
-};
-
-void init_string(struct string2 *s) {
-  s->len = 0;
-  s->ptr = (char *)malloc(s->len+1);
-  if (s->ptr == NULL) {
-    fprintf(stderr, "malloc() failed\n");
-    exit(EXIT_FAILURE);
-  }
-  s->ptr[0] = '\0';
-}
-
 
 
 phplikeCppCurl::phplikeCppCurl() {
@@ -32,35 +17,70 @@ phplikeCppCurl::~phplikeCppCurl() {
 }
 
 
-void phplikeCppCurl::setOpt(CURL *curl, CURLoption option, string value) {
+void phplikeCppCurl::initRequest() {
+    resContent = "";
+    resHeader = "";
+}
 
-    CURLcode res = curl_easy_setopt(curl, option, value.c_str());
-    if (res != CURLE_OK) {
-        cerr << "set option failed. ";
+/**
+* Get hostname, port, ssl, param information from url.
+*
+*/
+struct requestInfo phplikeCppCurl::parseRequestInfoFromUrl(string url) {/*{{{*/
+
+    struct requestInfo rInfo;
+    int pos;
+    string protocol;
+    rInfo.param = "";
+    pos = url.find("://");
+    if (pos == std::string::npos) {
+         throw std::runtime_error("Your input url is wrong, missing http://");
     }
-}
+    protocol = url.substr(0, pos);
+    std::transform(protocol.begin(), protocol.end(), protocol.begin(), ::toupper);
+    if ("HTTPS" == protocol) {
+        rInfo.isSSL = true;
+        rInfo.port = 443;
+    } else {
+        rInfo.isSSL = false;
+        rInfo.port = 80;
+    }
 
-size_t recvResponse(void *ptr, size_t size, size_t nmemb, struct string2 *s )  {
-  size_t new_len = s->len + size*nmemb;
-  s->ptr = (char *)realloc(s->ptr, new_len+1);
-  if (s->ptr == NULL) {
-    fprintf(stderr, "realloc() failed\n");
-    exit(EXIT_FAILURE);
-  }
-  memcpy(s->ptr+s->len, ptr, size*nmemb);
-  s->ptr[new_len] = '\0';
-  s->len = new_len;
+    url = url.substr(pos + 3, url.length() - pos - 3);
 
-  return size*nmemb;
+    pos = url.find("/");
+    if (pos == std::string::npos) {
+        rInfo.path = "/";
+        rInfo.hostname = url;
+        return rInfo;
+    } else {
+        rInfo.hostname = url.substr(0, pos);
+        url = url.substr(pos, url.length() - pos);
+    }
 
+    pos = rInfo.hostname.find(":");
+    if (pos != std::string::npos) {
+        rInfo.port = atoi(rInfo.hostname.substr(pos + 1, rInfo.hostname.length() - pos).c_str());
+        rInfo.hostname = rInfo.hostname.substr(0, pos);
+    }
 
-}
+    pos = url.find("?");
+    if (pos == std::string::npos) {
+        rInfo.path = url;
+        return rInfo;
+    } else {
+        rInfo.path = url.substr(0, pos);
+        rInfo.param = url.substr(pos + 1, url.length() - pos);
+    }
+
+    return rInfo;
+}/*}}}*/
 
 /*
 Convert the multi key and value to one string. It can be used in HTTP POST method. 
 Return key=value&keu=value2
 */
-string phplikeCppCurl::convertParamToString(map<string, string> param) {
+string phplikeCppCurl::convertParamToString(map<string, string> param) {/*{{{*/
     string p = "";
 
     for(map<string, string>::iterator it = param.begin(); it != param.end(); ++it) {
@@ -72,103 +92,30 @@ string phplikeCppCurl::convertParamToString(map<string, string> param) {
     }
 
     return p;
-};
-
-
-struct curl_slist *phplikeCppCurl::convertHeaderToChunk(map<string, string> header) {
-
-    struct curl_slist *headerChunk = NULL;
-    string p = "";
-    for(map<string, string>::iterator it = header.begin(); it != header.end(); ++it) {
-        if (p != "") {
-            p += "&";
-        }
-        p = it->first + ": " + util::urlEncode(it->second);
-        headerChunk = curl_slist_append(headerChunk, p.c_str());
-
-    }
-
-
-    return headerChunk;
-};
-
-
+};/*}}}*/
 
 /*
-* curl code http://curl.haxx.se/libcurl/c/libcurl-errors.html
-* @param url This shouldn't have any parameter, do not include the character "?", please move to param in Node.js
 */
-void phplikeCppCurl::request(string method, string url, map<string, string> param , map<string, string> header) {/*{{{*/
-    CURLcode res;
-    CURL *curl;
+string phplikeCppCurl::convertHeaderToString(map<string, string> headers) {/*{{{*/
+    string p = "";
 
-    std::transform(method.begin(), method.end(), method.begin(), ::toupper);
-
-    if (curl_global_init(CURL_GLOBAL_ALL) != CURLE_OK) {
-       fprintf(stderr, "curl_global_init() failed\n");
-       return ;
-    }
-
-    string paramStr = "";
-    paramStr = convertParamToString(param);
-
-    curl = curl_easy_init();
-    if ("GET" == method) {
-        url += "?" + paramStr;
-    } else if ("POST" == method) {
-        setOpt(curl, CURLOPT_POST, "1");
-        setOpt(curl, CURLOPT_POSTFIELDS, paramStr);
-    }
-
-    resContent = "";
-
-    setOpt(curl, CURLOPT_URL, url);
-    setOpt(curl, CURLOPT_HEADER, "1");
-    //setOpt(curl, CURLOPT_REFERER, "xx");
-    //setOpt(curl, CURLOPT_USERAGENT, "1");
-    //setOpt(curl, CURLOPT_COOKIE, "1");
-    //setOpt(curl, CURLOPT_VERBOSE, "1");
-    //curl_easy_setopt(curl, CURLOPT_CONNECT_ONLY, "1");
-
-    // Handle request header.
-    struct curl_slist *headerChunk = NULL;
-    if (!header.empty()) {
-        headerChunk = convertHeaderToChunk(header);
-        res = curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headerChunk);
-    }
-
-
-    // Handle response header and content.
-    struct string2 resH;
-    init_string(&resH);
-    res = curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, recvResponse);
-    curl_easy_setopt(curl, CURLOPT_HEADERDATA, &resH);
-
-    struct string2 resC;
-    init_string(&resC);
-    res = curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, recvResponse);
-    res = curl_easy_setopt(curl, CURLOPT_WRITEDATA, &resC);
-
-    res = curl_easy_perform(curl);
-
-    if(!res) {
-        resHeader = resH.ptr;
-        resContent = resC.ptr;
-        size_t foundPos = resContent.find("\r\n\r\n");
-         if (foundPos != std::string::npos) {
-            resContent.replace(0, foundPos + 4, "");
+    for(map<string, string>::iterator it = headers.begin(); it != headers.end(); ++it) {
+        if (p != "") {
+            p += "\r\n";
         }
+        p += it->first + ": " + it->second;
+
     }
 
-    if (!header.empty()) {
-        curl_slist_free_all(headerChunk);
-    }
-
-    curl_easy_cleanup(curl);
-    curl_global_cleanup();
+    return p;
+};/*}}}*/
 
 
-}/*}}}*/
+#ifdef OS_LINUX
+    #include "phplikeCppCurl_linux.cc"
+#endif
 
-
+#ifdef OS_WIN
+    #include "phplikeCppCurl_win.cc"
+#endif
 

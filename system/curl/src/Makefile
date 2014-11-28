@@ -11,9 +11,25 @@ SO = phplikeCppCurl
 include ../../../conf/Makefile_so.global
 all:
 	sudo cp phplikeCppCurl.so /usr/local/lib/node/libphplikeCppCurl.so
+
+
+
+
+
+ifneq (, $(CYGWIN_PATH))
+M_CYGWIN_PATH=$(CYGWIN_PATH)
+else
+M_CYGWIN_PATH=C:/cygwin64
+endif
+
+CWD=`echo $(M_CYGWIN_PATH)$(shell pwd) | sed  's/\//\\\/g'`
+
+
+
 gyp:
-	node-gyp configure
-	node-gyp rebuild
+	gmake clean
+	node-gyp configure --CWD=$(CWD)
+	node-gyp build
 
 gyp-ins:
 	gmake gyp

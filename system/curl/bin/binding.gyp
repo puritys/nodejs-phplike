@@ -33,7 +33,21 @@
                 "include/linux"
               ]
             }
+          ],
+
+          ['OS=="win"', {
+              "cflags": [],
+              "libraries": [
+                  "<(CWD)\\..\\src\\build\\Release\\phplikeCppCurl.lib"
+              ],
+              "defines": [
+                "OS_WIN"
+              ],
+              "include_dirs": [
+              ]
+            }
           ]
+
       ]
 
     }

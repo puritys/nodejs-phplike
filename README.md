@@ -22,8 +22,9 @@ phplike support how many OS?
 
 Dependency
 -----------
-* libcurl (libcurl-7.19)
-* python 2.4 ~
+* libcurl (libcurl-7.19) : Linux system require this package.
+* python 2.4 ~ :  You will need python 2.7.8~ to run node-gyp. (https://www.python.org/downloads/)
+* Visual studio: Windows need this software,  you can download from here  http://www.visualstudio.com/zh-tw/downloads/download-visual-studio-vs#DownloadFamilies_4
 
 If you install the phplike 2.0 , you will need libcurl package, because phplike support curl in version 2.0.
 

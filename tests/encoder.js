@@ -18,3 +18,19 @@ describe('base64', function() {
 });
 
 
+describe('urlencode', function() {
+    var text = "a+";
+    var encodeText = "a%2B";
+    it('encode', function() {
+        var res = phplikeMod.urlencode(text);
+        assert.equal(encodeText, res);
+    });
+
+    it('decode', function() {
+        var res = phplikeMod.urldecode(encodeText);
+        assert.equal(text, res);
+    });
+
+});
+
+

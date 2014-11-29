@@ -91,6 +91,14 @@ exports.base64_decode = function (text)
     return new Buffer(text, 'base64').toString();
 }
 
+exports.urlencode = function (text)
+{
+    return encodeURIComponent(text);
+}
+exports.urldecode = function (text)
+{
+    return decodeURIComponent(text);
+}
 exports.usleep = function (useconds)
 {
     PL.usleep(useconds);    

@@ -64,6 +64,10 @@ Completed PHP Method
 * array_merge
 * clone:  clone a object or array
 * getcwd
+* urlencode, urldecode
+* intval: convert string to integer
+* strval: convert integer to string
+
 
 <h2>Install phplike</h2>
 
@@ -151,12 +155,8 @@ Example code for making a blocking request
 
 Functions will be implemented in the future
 ------------------------------------------
-* intval: convert string to integer
-* strval: convert integer to string
 * explode
 * implode
-* urlencode
-* urldecode
 * abs
 * acos
 * strtolower

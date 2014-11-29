@@ -23,7 +23,7 @@ describe('Test function: isset', function() {
 
 });
 
-describe('Test function: empty', function() {
+describe('Test function: empty', function() {//{{{
     it('String is undefined', function() {
         var str;
         var is = phplikeMod.empty(str);
@@ -38,18 +38,18 @@ describe('Test function: empty', function() {
 
 
 
-});
+});//}}}
 
-describe('Test function: exec', function() {
+describe('Test function: exec', function() {//{{{
     it('echo a string', function() {
         var str;
         var res = phplikeMod.exec("echo a");
         assert.equal("a\n", res);
     })
 
-});
+});//}}}
 
-describe('Test function: time', function() {
+describe('Test function: time', function() {//{{{
     it('echo a string', function() {
         var t1 = phplikeMod.time();
         var t2 = phplikeMod.time(1000 * 30);
@@ -60,9 +60,9 @@ describe('Test function: time', function() {
         }
     })
 
-});
+});//}}}
 
-describe('Test function: parse_str', function() {
+describe('Test function: parse_str', function() {//{{{
     it('string to object', function() {
         var str = "a=b&c=d";
         var res = phplikeMod.parse_str(str);
@@ -73,9 +73,9 @@ describe('Test function: parse_str', function() {
 
     })
 
-});
+});//}}}
 
-describe('Test function: clone', function() {
+describe('Test function: clone', function() {//{{{
     it('clone a object(assoc array)', function() {
         var obj = {"a": "aa"};
         var res = phplikeMod.clone(obj);
@@ -96,9 +96,9 @@ describe('Test function: clone', function() {
 
 
 
-});
+});//}}}
 
-describe('Test function: getcwd', function() {
+describe('Test function: getcwd', function() {//{{{
     it('string to object', function() {
         var res = phplikeMod.getcwd();
         if (process.platform.match(/^win/)) {
@@ -109,7 +109,7 @@ describe('Test function: getcwd', function() {
         }
     })
 
-});
+});//}}}
 
 describe('Test function: exit', function() {
     it('run a child process to execute exit function', function() {

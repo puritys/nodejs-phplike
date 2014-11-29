@@ -68,7 +68,48 @@ describe('Test function: str_pad', function() {
         assert.equal("ccccbccccc", text);
     });
 
+});
 
+describe('Test function: String to  integer convertion', function() {
+
+    it("intval, string 55 to int 55", function () {
+        var num = phplikeMod.intval("55");
+        assert.equal(55, num);
+    });
+
+    it("intval, string a55a to int 55", function () {
+        var num = phplikeMod.intval("a55a");
+        assert.equal(55, num);
+    });
+
+    it("intval, string 05 to int 5", function () {
+        var num = phplikeMod.intval("05");
+        assert.equal(5, num);
+    });
+
+    it("intval, string a55a2 to int 55", function () {
+        var num = phplikeMod.intval("a55a2");
+        assert.equal(55, num);
+    });
+});
+
+describe('Test function: integer to string convertion', function() {
+
+    it("strval, int 55 to string '55'", function () {
+        var num = phplikeMod.strval(55);
+        assert.equal("55", num);
+    });
+
+    it("strval, int 0 to string '0'", function () {
+        var num = phplikeMod.strval(0);
+        assert.equal("0", num);
+    });
+
+    it("strval, array  to string ", function () {
+        var num = phplikeMod.strval([3, 5]);
+        assert.equal("3,5", num);
+    });
 
 });
- 
+
+

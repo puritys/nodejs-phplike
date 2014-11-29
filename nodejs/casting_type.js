@@ -19,4 +19,21 @@ exports.is_array = function(data) {
 
 exports.is_numeric = function(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
-}
+};
+
+
+/** casting convert **/
+
+exports.intval = function (val) {
+    if (!val) return 0;
+    val = val.toString().replace(/^[^0-9]+/, '').replace(/[^0-9]+$/, '');
+    return parseInt(val, 10);
+};
+
+exports.strval = function (val) {
+    return val.toString();
+};
+
+
+
+

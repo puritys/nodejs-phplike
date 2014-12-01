@@ -114,8 +114,13 @@ describe('Test function: getcwd', function() {//{{{
 //http://php.net/manual/en/function.mktime.php
 describe('Test function: mktime', function() {//{{{
     it('Verify normal date to time', function() {
+        //-28800   timezone+8 (Asia/Taipei)
+        var begin = phplikeMod.mktime(0, 0, 0, 1, 1, 1970);
+        
         var res = phplikeMod.mktime(1, 1, 1, 5, 6, 2014);
-        assert.equal(1399309261, res);
+
+        // (1399309261 
+        assert.equal(1399338061 + begin, res);
     })
 
 });//}}}

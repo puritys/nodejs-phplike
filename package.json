@@ -1,6 +1,6 @@
 {
-    "version": "2.1.0",
-    "description": "Implement php function to nodejs ",
+    "version": "2.1.1",
+    "description": "Implement php function for nodejs ",
     "main": "phplike",
     "keywords": ["php", "php-like", "curl", "exec"],
     "repository": {

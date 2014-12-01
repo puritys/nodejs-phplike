@@ -111,6 +111,17 @@ describe('Test function: getcwd', function() {//{{{
 
 });//}}}
 
+//http://php.net/manual/en/function.mktime.php
+describe('Test function: mktime', function() {//{{{
+    it('Verify normal date to time', function() {
+        var res = phplikeMod.mktime(1, 1, 1, 5, 6, 2014);
+        assert.equal(1399309261, res);
+    })
+
+});//}}}
+
+
+
 describe('Test function: exit', function() {
     it('run a child process to execute exit function', function() {
         // Notice! I am not sure it is a good solution to pass exit test.

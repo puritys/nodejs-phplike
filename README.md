@@ -43,8 +43,7 @@ Completed PHP Method
 * base64_encode
 * base64_decode
 * str_pad
-* time
-* date
+* time, date, mktime
 * sprintf (need latest v8 engine!)
 * exit
 * file_get_contents

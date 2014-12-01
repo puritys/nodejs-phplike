@@ -68,6 +68,18 @@ exports.date = function (format)
     return format;
 }/*}}}*/
 
+exports.mktime = function (hour, minute, second, month, day, year) {
+   var d = new Date();
+   d.setDate(parseInt(day,10));   
+   d.setMonth(parseInt(month,10)-1);   
+   d.setFullYear(parseInt(year,10));               
+   d.setHours(parseInt(hour,10));        
+   d.setMinutes(parseInt(minute,10));        
+   d.setSeconds(parseInt(second,10));        
+   d.setMilliseconds(0);
+   return parseInt(d.getTime()/1000); 
+};
+
 // Get current working directory (path).
 exports.getcwd = function () {//{{{
     return process.cwd();

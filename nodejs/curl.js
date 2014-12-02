@@ -1,4 +1,7 @@
-var phplikeCpp = require("./../build/Release/phplike");
+var path = require('path');
+var phplikeCpp  = require('bindings')({'bindings': 'phplike', 'module_root': path.dirname(__filename) + '/../'});
+//var phplikeCpp = require("./../build/Release/phplike");
+
 var casting = require("./casting_type.js");
 var core = require("./core.js");
 var phplikeArray = require("./array.js");

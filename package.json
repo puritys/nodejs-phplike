@@ -1,5 +1,5 @@
 {
-    "version": "2.1.1",
+    "version": "2.1.2",
     "description": "Implement php function for nodejs ",
     "main": "phplike",
     "keywords": ["php", "php-like", "curl", "exec"],
@@ -16,7 +16,8 @@
       "install": "node-gyp rebuild"
     },
     "dependencies": {
-       "node-gyp": "^1.0.2"
+       "node-gyp": "^1.0.2",
+       "bindings": "^1.2.1"
     },
     "gypfile": true,
     "os" : ["linux", "mac", "darwin", "win", "win32", "win64" ],

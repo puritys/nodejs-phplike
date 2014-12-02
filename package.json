@@ -1,5 +1,5 @@
 {
-    "version": "2.1.3",
+    "version": "2.1.5",
     "description": "Implement php function for nodejs ",
     "main": "phplike",
     "keywords": ["php", "php-like", "curl", "exec"],
@@ -11,7 +11,7 @@
     "homepage": "https://github.com/puritys/nodejs-phplike",
     "license" : "BSD",
     "name" : "phplike",
-    "files": ["nodejs", "system", "index.js", "module.js", "binding.gyp"],
+    "files": ["nodejs", "system", "index.js", "module.js", "binding.gyp", "package.json"],
     "scripts": {
       "install": "node-gyp rebuild"
     },

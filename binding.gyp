@@ -48,7 +48,7 @@
                   '/usr/lib/libcurl.dylib'
               ],
               "defines": [
-                "LINUX_DEFINE", "OS_LINUX"
+                "LINUX_DEFINE", "OS_LINUX", "OS_MAC"
               ],
               "include_dirs": [
                 "include/linux"

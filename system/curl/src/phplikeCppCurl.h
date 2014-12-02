@@ -3,9 +3,13 @@
 #include <string.h> 
 #include <iostream>
 #include <map>
-#include <malloc.h>
 
-#ifdef OS_LINUX
+
+#ifdef OS_MAC
+    #include <malloc/malloc.h>
+    #include <curl/curl.h>
+#elif OS_LINUX
+    #include <malloc.h>
     #include <curl/curl.h>
 #endif
 

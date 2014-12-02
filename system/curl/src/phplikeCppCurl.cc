@@ -29,7 +29,7 @@ void phplikeCppCurl::initRequest() {
 struct requestInfo phplikeCppCurl::parseRequestInfoFromUrl(string url) {/*{{{*/
 
     struct requestInfo rInfo;
-    int pos;
+    size_t pos;
     string protocol;
     rInfo.param = "";
     pos = url.find("://");

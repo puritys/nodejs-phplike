@@ -37,16 +37,39 @@ describe('urlencode', function() {
 describe('json_encode and decode', function() {
     var text = "a+";
     var encodeText = "a%2B";
-    it('encode', function() {
+    it('encode object', function() {
         var text = {"a": "b"};
         var res = phplikeMod.json_encode(text);
-        assert.equal('{"a": "b"}', res);
+        assert.equal('{"a":"b"}', res);
     });
+
+    it('encode array', function() {
+        var text = ["a", "b"];
+        var res = phplikeMod.json_encode(text);
+        assert.equal('["a","b"]', res);
+    });
+
+    it('encode complicate object', function() {
+        var text = {"user": {"name": "json"}};
+        var res = phplikeMod.json_encode(text);
+        assert.equal('{"user":{"name":"json"}}', res);
+    });
+
+    it('encode missing index', function() {
+        var text = [];
+        text[0] = 5;
+        text[2] = [];
+        var res = phplikeMod.json_encode(text);
+        assert.equal('[5,null,[]]', res);
+    });
+
 
     it('decode', function() {
         var text = '["a", "b"]';
-        var res = phplikeMod.json_decode(encodeText);
-        assert.equal(["a", "b"], res);
+        var res = phplikeMod.json_decode(text);
+        assert.equal("a", res[0]);
+        assert.equal("b", res[1]);
+
     });
 
 });

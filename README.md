@@ -67,6 +67,8 @@ Completed PHP Method
 * intval: convert string to integer
 * strval: convert integer to string
 * trim
+* json_encode, json_decode
+
 
 <h2>Install phplike</h2>
 

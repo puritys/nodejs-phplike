@@ -16,7 +16,7 @@ How many OS does phplike support?
 ---------------------------
 * Linux : Every version of phplike support linux system.
 * Mac :  Supported from phplike@2.0.5  to  latest 
-* Windows: Supported only in phplike@2.1.0 、 phplike@2.1.5 , I had ever test phplike in windows 8 and windows xp.
+* Windows: Supported only in phplike@2.1.0 、 phplike@2.1.6 , I had ever test phplike in windows 8 and windows xp.
 
 Dependency
 -----------

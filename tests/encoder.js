@@ -34,3 +34,21 @@ describe('urlencode', function() {
 });
 
 
+describe('json_encode and decode', function() {
+    var text = "a+";
+    var encodeText = "a%2B";
+    it('encode', function() {
+        var text = {"a": "b"};
+        var res = phplikeMod.json_encode(text);
+        assert.equal('{"a": "b"}', res);
+    });
+
+    it('decode', function() {
+        var text = '["a", "b"]';
+        var res = phplikeMod.json_decode(encodeText);
+        assert.equal(["a", "b"], res);
+    });
+
+});
+
+

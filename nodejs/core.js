@@ -110,10 +110,23 @@ exports.urlencode = function (text)
 {
     return encodeURIComponent(text);
 }
+
 exports.urldecode = function (text)
 {
     return decodeURIComponent(text);
 }
+
+exports.json_encode = function (text)
+{
+    return JSON.stringify(text);
+}
+
+exports.json_decode = function (text)
+{
+    return JSON.parse(text);
+}
+
+
 exports.usleep = function (useconds)
 {
     PL.usleep(useconds);    

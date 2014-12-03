@@ -1,3 +1,14 @@
+Required package
+-----------------
+* npm install bindings
+* npm install node-gyp
+
+
+
+Package information
+-------------------
+
+https://github.com/npm/npm/blob/master/doc/files/package.json.md
 
 
 <h2>Install Node.js</h2>

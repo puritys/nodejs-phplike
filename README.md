@@ -66,7 +66,7 @@ Completed PHP Method
 * urlencode, urldecode
 * intval: convert string to integer
 * strval: convert integer to string
-
+* trim
 
 <h2>Install phplike</h2>
 

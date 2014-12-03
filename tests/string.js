@@ -112,4 +112,20 @@ describe('Test function: integer to string convertion', function() {
 
 });
 
+describe('Test function: trim', function() {
+
+    it("trim space", function () {
+        var res = phplikeMod.trim("      aaa        ");
+        assert.equal("aaa", res);
+    });
+
+    it("trim only space in before and after", function () {
+        var res = phplikeMod.trim("      aa 2        ");
+        assert.equal("aa 2", res);
+    });
+
+
+
+});
+
 

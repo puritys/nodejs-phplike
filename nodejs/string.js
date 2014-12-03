@@ -38,6 +38,10 @@ function str_pad(str, len, chr, dir)
     return str;
 }/*}}}*/
 
+exports.trim = function (str) {
+    return str.replace(/^[\s]+/, '').replace(/[\s]+$/, '');
+};
+
 
 
 exports.ord = function (str) {

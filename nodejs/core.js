@@ -1,5 +1,6 @@
 var path = require('path');
-var PL = require('bindings')({'bindings': 'phplike', 'module_root': path.dirname(__filename) + '/../'});
+var parentPath = path.dirname(__filename) + '/..';
+var PL = require(parentPath + '/node_modules/bindings')({'bindings': 'phplike', 'module_root': parentPath + '/'});
 //var PL = require("./../build/Release/phplike");
 //var sprintf = require("sprintf").sprintf;
 var fs = require("fs");

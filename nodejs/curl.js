@@ -1,5 +1,7 @@
 var path = require('path');
-var phplikeCpp  = require('bindings')({'bindings': 'phplike', 'module_root': path.dirname(__filename) + '/../'});
+var parentPath = path.dirname(__filename) + '/..';
+
+var phplikeCpp  = require(parentPath + '/node_modules/bindings')({'bindings': 'phplike', 'module_root': parentPath + '/'});
 //var phplikeCpp = require("./../build/Release/phplike");
 
 var casting = require("./casting_type.js");

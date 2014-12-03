@@ -13,11 +13,12 @@
     "name" : "phplike",
     "files": ["nodejs", "system", "index.js", "module.js", "binding.gyp", "package.json"],
     "scripts": {
-      "install": "node-gyp rebuild"
+        "prepublish": "mocha tests/",
+        "install": "node-gyp rebuild"
     },
     "dependencies": {
        "node-gyp": "^1.0.2",
-       "bindings": "^1.2.1"
+       "bindings": ">=1.2.1"
     },
     "gypfile": true,
     "os" : ["linux", "mac", "darwin", "win", "win32", "win64" ],

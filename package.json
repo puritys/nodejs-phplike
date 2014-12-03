@@ -1,5 +1,5 @@
 {
-    "version": "2.1.5",
+    "version": "2.1.6",
     "description": "Implement php function for nodejs ",
     "main": "phplike",
     "keywords": ["php", "php-like", "curl", "exec"],
@@ -13,7 +13,6 @@
     "name" : "phplike",
     "files": ["nodejs", "system", "index.js", "module.js", "binding.gyp", "package.json"],
     "scripts": {
-        "prepublish": "mocha tests/",
         "install": "node-gyp rebuild"
     },
     "dependencies": {

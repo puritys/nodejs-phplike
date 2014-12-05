@@ -19,18 +19,27 @@ describe('Test method: HTTP GET ', function() {
 
 
 describe('Test method: HTTP GET  curl_exec', function() {
-
-    it('Request', function() {
+    var resBody, resHeader;
+    before(function(){
         var url = "https://www.google.com.tw/search?q=php+unit+test";
         var header = {"Cookie": "xxx"};
-
         var c = phplikeMod.curl_init();
         phplikeMod.curl_setopt(c, 'CURLOPT_URL', url);
-        var res = phplikeMod.curl_exec(c);
+        resBody = phplikeMod.curl_exec(c);
+        resHeader = phplikeMod.getResponseHeader();
         phplikeMod.curl_close(c);
-        //console.log(res);
-        var match = res.match(/unit/);
+    })
+
+    it('Request', function() {
+        var match = resBody.match(/unit/);
         assert.equal("unit", match[0]);
+        //
+
+    });
+
+    it('Header Handle', function() {
+        assert.equal("-1", resHeader["Expires"]);
+
     });
 
 
@@ -116,4 +125,26 @@ describe('Test method: reformatCurlData', function() {
 
 });
 
+describe('Test method: responseHeaderToHash', function() {
+
+    it('get header', function() {
+        var header = ["HTTP/1.1 200 OK",
+                      "Date: Fri, 05 Dec 2014 05:11:18 GMT",
+                      "Expires: -1",
+                      "Cache-Control: private, max-age=0",
+                      "Content-Type: text/html; charset=Big5",
+                      "Set-Cookie: PREF=ID=43",
+                      "Set-Cookie: NIGbEEw; HttpOnly"];
+
+        var res = phplikeMod.responseHeaderToHash(header.join("\n\r"));
+        assert.equal("Fri, 05 Dec 2014 05:11:18 GMT", res['Date']);
+        assert.equal("-1", res['Expires']);
+        assert.equal("private, max-age=0", res['Cache-Control']);
+        assert.equal("text/html; charset=Big5", res['Content-Type']);
+        assert.equal("PREF=ID=43", res['Set-Cookie'][0]);
+        assert.equal("NIGbEEw; HttpOnly", res['Set-Cookie'][1]);
+
+    });
+
+});
 

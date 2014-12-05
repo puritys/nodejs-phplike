@@ -1,6 +1,16 @@
+var fs = require("fs");
 var path = require('path');
 var parentPath = path.dirname(__filename) + '/..';
-var PL = require(parentPath + '/node_modules/bindings')({'bindings': 'phplike', 'module_root': parentPath + '/'});
+var nativeModule = parentPath + "/binary/" + process.platform + "_" + process.arch + "/";
+
+if (fs.existsSync(nativeModule)) {
+
+    var PL = require(nativeModule +'phplike' );
+
+} else {
+
+    var PL = require(parentPath + '/node_modules/bindings')({'bindings': 'phplike', 'module_root': parentPath + '/'});
+}
 //var PL = require("./../build/Release/phplike");
 //var sprintf = require("sprintf").sprintf;
 var fs = require("fs");

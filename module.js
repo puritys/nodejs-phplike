@@ -1,4 +1,4 @@
-var cpp = require("./build/Release/phplike");
+var path = require('path');
 
 //var sprintf = require("sprintf").sprintf;
 var fs = require("fs");
@@ -14,11 +14,6 @@ var array = require("./nodejs/array.js");
 
 
 
-
-
-for(var method in cpp) {
-    exports[method] = cpp[method];
-}
 
 for(var method in casting) {
     exports[method] = casting[method];

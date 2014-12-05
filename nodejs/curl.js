@@ -40,6 +40,32 @@ function reformatCurlData(curl) {
 
 };
 
+function responseHeaderToHash(str) {
+    if (!str || !casting.is_string(str)) {
+        return "";
+    }
+    var res = {};
+    var strAy = str.split(/[\n\r]+/);
+    var i, text, key, value, pos;
+    for (i in strAy) {
+        text = strAy[i];
+        pos = text.indexOf(": ");
+        key = text.substring(0, pos);
+        value = text.substring(pos + 2, text.length);
+        if (!core.empty(key)) {
+            if (!core.empty(res[key])) {
+                if (!casting.is_array(res[key])) {
+                    res[key] = [res[key]];
+                } 
+                res[key].push(value);
+            } else {
+                res[key] = value;
+            }
+        }
+    }
+    return res;
+}
+
 exports.curl_init = function () {
     return {
         "url": "",
@@ -86,10 +112,23 @@ exports.curl_close = function (curl) {
 exports.curl_exec = function (curlInput) {
     var curl = reformatCurlData(curlInput);
 
-    return phplikeCpp.request(curl.method, curl.url, curl.param, curl.header);
+    var response = this.request(curl.method, curl.url, curl.param, curl.header);
+    curlInput.header = phplikeCpp.nodeCurlGetHeader();
+    return response
 
+};
+
+exports.request = function (method, url, param, header) {
+    var response =  phplikeCpp.request(method, url, param, header);
+    return response;
+
+};
+
+exports.getResponseHeader = function () {
+    return responseHeaderToHash(phplikeCpp.nodeCurlGetHeader());
 };
 
 if (typeof(UNIT_TEST) != "undefined" && UNIT_TEST === true) {
     exports.reformatCurlData = reformatCurlData;
+    exports.responseHeaderToHash = responseHeaderToHash;
 }

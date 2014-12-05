@@ -32,6 +32,7 @@ void  init (Handle<Object> target){
    NODE_SET_METHOD(target, "usleep", node_usleep);
    NODE_SET_METHOD(target, "exec", node_exec);
    NODE_SET_METHOD(target, "request", node_curl_request);
+   NODE_SET_METHOD(target, "nodeCurlGetHeader", nodeCurlGetHeader);
 
 } 
 

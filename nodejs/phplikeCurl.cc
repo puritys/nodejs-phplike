@@ -1,8 +1,9 @@
 #include "common.h"
 #include "../system/curl/src/phplikeCppCurl.h"
 
-Handle<Value> node_curl_request(const Arguments& args)
-{
+string resHeader;
+
+Handle<Value> node_curl_request(const Arguments& args) {
     int i, n;
     phplikeCppCurl *pCurl = new phplikeCppCurl();
     String::Utf8Value method(args[0]); 
@@ -41,7 +42,13 @@ Handle<Value> node_curl_request(const Arguments& args)
 
     pCurl->request(string(*method), string(*url), param, header);
     string content = pCurl->resContent;
-    
+    resHeader = pCurl->resHeader;
     return  String::New(content.c_str());
 }
+
+
+Handle<Value> nodeCurlGetHeader(const Arguments& args) {
+    return String::New(resHeader.c_str());
+}
+
 

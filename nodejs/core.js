@@ -4,14 +4,16 @@ var parentPath = path.dirname(__filename) + '/..';
 var nativeModule = parentPath + "/binary/" + process.platform + "_" + process.arch + "/";
 
 if (fs.existsSync(nativeModule)) {
-
-    var PL = require(nativeModule +'phplike' );
-
+    try {
+        var cpp = require(nativeModule +'phplike' );
+    } catch (e) {
+        console.log("Got Exception. \nThis library could not be loaded, please recompile it.");
+    }
 } else {
 
-    var PL = require(parentPath + '/node_modules/bindings')({'bindings': 'phplike', 'module_root': parentPath + '/'});
+    var cpp = require(parentPath + '/node_modules/bindings')({'bindings': 'phplike', 'module_root': parentPath + '/'});
 }
-//var PL = require("./../build/Release/phplike");
+
 //var sprintf = require("sprintf").sprintf;
 var fs = require("fs");
 var _Directory = require("fs").Directory;
@@ -139,13 +141,13 @@ exports.json_decode = function (text)
 
 exports.usleep = function (useconds)
 {
-    PL.usleep(useconds);    
+    cpp.usleep(useconds);    
 }
 
 
 exports.sleep = function (seconds)
 {
-    PL.usleep(seconds * 1000 * 1000);    
+    cpp.usleep(seconds * 1000 * 1000);    
 }
 
 exports.system = exports.exec = function (cmd, showMessage)
@@ -153,7 +155,7 @@ exports.system = exports.exec = function (cmd, showMessage)
     if (!isset(showMessage)) {
         showMessage = true;
     }
-    return PL.exec(cmd, showMessage);    
+    return cpp.exec(cmd, showMessage);    
 }
 
 exports.exit = function(code) 

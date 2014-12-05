@@ -1,8 +1,18 @@
+var fs = require("fs");
 var path = require('path');
 var parentPath = path.dirname(__filename) + '/..';
+var nativeModule = parentPath + "/binary/" + process.platform + "_" + process.arch + "/";
 
-var phplikeCpp  = require(parentPath + '/node_modules/bindings')({'bindings': 'phplike', 'module_root': parentPath + '/'});
-//var phplikeCpp = require("./../build/Release/phplike");
+if (fs.existsSync(nativeModule)) {
+    try {
+        var cpp = require(nativeModule +'phplike' );
+    } catch (e) {
+        console.log("Got Exception. \nThis library could not be loaded, please recompile it.");
+    }
+} else {
+
+    var cpp = require(parentPath + '/node_modules/bindings')({'bindings': 'phplike', 'module_root': parentPath + '/'});
+}
 
 var casting = require("./casting_type.js");
 var core = require("./core.js");
@@ -113,19 +123,19 @@ exports.curl_exec = function (curlInput) {
     var curl = reformatCurlData(curlInput);
 
     var response = this.request(curl.method, curl.url, curl.param, curl.header);
-    curlInput.header = phplikeCpp.nodeCurlGetHeader();
+    curlInput.header = cpp.nodeCurlGetHeader();
     return response
 
 };
 
 exports.request = function (method, url, param, header) {
-    var response =  phplikeCpp.request(method, url, param, header);
+    var response =  cpp.request(method, url, param, header);
     return response;
 
 };
 
 exports.getResponseHeader = function () {
-    return responseHeaderToHash(phplikeCpp.nodeCurlGetHeader());
+    return responseHeaderToHash(cpp.nodeCurlGetHeader());
 };
 
 if (typeof(UNIT_TEST) != "undefined" && UNIT_TEST === true) {

@@ -36,7 +36,7 @@ struct curl_slist *phplikeCppCurl::convertHeaderToChunk(map<string, string> head
         if (p != "") {
             p += "&";
         }
-        p = it->first + ": " + util::urlEncode(it->second);
+        p = it->first + ": " + it->second;//util::urlEncode(it->second);
         headerChunk = curl_slist_append(headerChunk, p.c_str());
 
     }

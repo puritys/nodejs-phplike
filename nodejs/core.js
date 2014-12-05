@@ -3,7 +3,7 @@ var path = require('path');
 var parentPath = path.dirname(__filename) + '/..';
 var nativeModule = parentPath + "/binary/" + process.platform + "_" + process.arch + "/";
 
-if (fs.existsSync(nativeModule)) {
+if (fs.existsSync(nativeModule) && typeof(UNIT_TEST) == "undefined" ) {
     try {
         var cpp = require(nativeModule +'phplike' );
     } catch (e) {

@@ -4,7 +4,7 @@ var parentPath = path.dirname(__filename);
 var nativeModule = parentPath + "/binary/" + process.platform + "_" + process.arch + "/";
 
 var isNative = false;
-if (fs.existsSync(nativeModule)) {
+if (fs.existsSync(nativeModule) && !fs.existsSync("Makefile")) {
     try {
         var PL = require(nativeModule +'phplike' );
         var res = PL.exec("echo a");

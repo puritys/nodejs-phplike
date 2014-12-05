@@ -13,7 +13,9 @@
     "name" : "phplike",
     "files": ["nodejs", "system", "index.js", "module.js", "binding.gyp", "package.json", "install.js", "binary"],
     "scripts": {
-        "install": "node install.js"
+        "install": "node install.js",
+        "test": "mocha tests",
+        "build": "node-gyp rebuild"
     },
     "dependencies": {
        "node-gyp": "^1.0.2",

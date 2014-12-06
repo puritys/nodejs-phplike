@@ -15,8 +15,8 @@ var res  = proce.exec('node-gyp configure --release', function (error, stdout, s
     var res  = proce.exec('node-gyp build', function (error, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
-
-        proce.exec('cp -r build/Release/ binary/' + name + '');
+        
+        proce.exec('mkdir binary/' + name + ' && cp -r build/Release/*.node binary/' + name + '/');
     });
 
 

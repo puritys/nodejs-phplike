@@ -9,14 +9,16 @@ console.log(name);
 
 var proce = require('child_process');
 
-var res  = proce.exec('node-gyp configure --release', function (error, stdout, stderr) {
+proce.exec('node-gyp configure --release', function (error, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
-    var res  = proce.exec('node-gyp build', function (error, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        
-        proce.exec('mkdir binary/' + name + ' && cp -r build/Release/*.node binary/' + name + '/');
+
+    var proce2 = require('child_process');
+    proce2.exec('node-gyp build', function (error2, stdout2, stderr2) {
+        console.log(stdout2);
+        console.log(stderr2);
+        var proce3 = require('child_process');
+        proce3.exec('mkdir binary/' + name + ' && cp  build/Release/*.node binary/' + name + '/');
     });
 
 

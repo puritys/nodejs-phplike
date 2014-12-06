@@ -1,6 +1,6 @@
 // global function test and test the phplike module which has already installed.
 
-global.UNIT_TEST = true;
+//global.UNIT_TEST = true;
 require('phplike');
 
 var assert = require("assert");

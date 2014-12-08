@@ -142,7 +142,7 @@ exports.json_decode = function (text, type)
                 return String.fromCharCode(parseInt(grp, 16)); } );
 
             text = unescape(text);
-            return text;
+            return JSON.parse(text);
         }
     }
     return JSON.parse(text);

@@ -110,6 +110,15 @@ string phplikeCppCurl::convertHeaderToString(map<string, string> headers) {/*{{{
     return p;
 };/*}}}*/
 
+void phplikeCppCurl::request(string method, string url, map<string, string> param , map<string, string> header) {/*{{{*/
+
+    string paramStr = "";
+    paramStr = convertParamToString(param);
+    request(method, url, paramStr, header);
+
+}/*}}}*/
+
+
 
 #ifdef OS_LINUX
     #include "phplikeCppCurl_linux.cc"

@@ -59,7 +59,7 @@ void phplikeCppCurl::setOpt(CURL *curl, CURLoption option, string value) {
 * curl code http://curl.haxx.se/libcurl/c/libcurl-errors.html
 * @param url This shouldn't have any parameter, do not include the character "?", please move to param in Node.js
 */
-void phplikeCppCurl::request(string method, string url, map<string, string> param , map<string, string> header) {/*{{{*/
+void phplikeCppCurl::request(string method, string url, string paramStr , map<string, string> header) {/*{{{*/
     CURLcode res;
     CURL *curl;
 
@@ -71,8 +71,6 @@ void phplikeCppCurl::request(string method, string url, map<string, string> para
        return ;
     }
 
-    string paramStr = "";
-    paramStr = convertParamToString(param);
 
     curl = curl_easy_init();
     if ("GET" == method) {

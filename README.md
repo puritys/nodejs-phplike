@@ -67,7 +67,7 @@ Completed PHP Method
 * intval: convert string to integer
 * strval: convert integer to string
 * trim
-* json_encode, json_decode
+* json_encode, json_decode, handle multibyte: json_decode(xx, 'JSON_UNESCAPED_UNICODE')
 
 
 <h2>Install phplike</h2>

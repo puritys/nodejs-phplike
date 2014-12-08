@@ -4,13 +4,14 @@
 string resHeader;
 
 Handle<Value> node_curl_request(const Arguments& args) {
-    int i, n;
+    int i, n, curlType = 0;
     phplikeCppCurl *pCurl = new phplikeCppCurl();
     String::Utf8Value method(args[0]); 
     String::Utf8Value url(args[1]);
     Handle<Object> jsParam;
     Handle<Object> jsHeader;
 
+    string paramStr;
     map<string, string> param;
     map<string, string> header;
  
@@ -24,8 +25,11 @@ Handle<Value> node_curl_request(const Arguments& args) {
             Handle<Value>  v = jsParam->Get(b);
             param[c] = string(*String::Utf8Value(v));
         }
+    } else if (args[2]->IsString()) {
+        paramStr = string(*String::Utf8Value(args[2]));
+        curlType = 1;
     }
- 
+
     if (args[3]->IsObject()) {
         jsHeader = Handle<Object>::Cast(args[3]);
         Handle<Array> propertyNames = jsHeader->GetPropertyNames();
@@ -39,8 +43,11 @@ Handle<Value> node_curl_request(const Arguments& args) {
 
     }
 
-
-    pCurl->request(string(*method), string(*url), param, header);
+    if (curlType == 1) {
+        pCurl->request(string(*method), string(*url), paramStr, header);
+    } else {
+        pCurl->request(string(*method), string(*url), param, header);
+    }
     string content = pCurl->resContent;
     resHeader = pCurl->resHeader;
     return  String::New(content.c_str());

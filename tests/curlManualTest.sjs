@@ -1,6 +1,6 @@
 var phplikeMod = require('./include.js');
 
-test2();
+test3();
 
 function test1() {
     var url = "http://localhost:8080/";
@@ -25,6 +25,13 @@ function test2() {
     var res = phplikeMod.curl_exec(c);
 
 
+}
+
+function test3() {
+    var url = "http://localhost:8080/";
+    var param = '{"q": "x"}';
+    var header = {"Cookie": "xxx"};
+    var res = phplikeMod.request("POST", url, param, header);
 }
 
 

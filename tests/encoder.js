@@ -74,4 +74,13 @@ describe('json_encode and decode', function() {
 
 });
 
+describe('json_decode unicode', function() {
+
+    it('decode', function () {
+        var text = '{"value": "\u9078\u64c7"}';
+        var res = phplikeMod.json_decode(text, 'JSON_UNESCAPED_UNICODE');
+        assert.equal('{"value": "選擇"}', res);
+    });
+
+});
 

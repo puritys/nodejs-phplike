@@ -133,8 +133,18 @@ exports.json_encode = function (text)
     return JSON.stringify(text);
 }
 
-exports.json_decode = function (text)
+exports.json_decode = function (text, type)
 {
+    if (typeof(type) !== "undefined") {
+        if (type = "JSON_UNESCAPED_UNICODE") {
+            var r = /\\u([\d\w]{4})/gi;
+            text = text.replace(r, function (match, grp) {
+                return String.fromCharCode(parseInt(grp, 16)); } );
+
+            text = unescape(text);
+            return text;
+        }
+    }
     return JSON.parse(text);
 }
 

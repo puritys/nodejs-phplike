@@ -29,7 +29,7 @@ Dependency
 
 If you install the phplike 2.0 , you will need libcurl package, because phplike support curl in version 2.0.
 
-When the new version of phplike 2.2.0, I committed binary code which already compiled in windows, you can just install phplike without compiling C/C++ now.
+Util the new version of phplike 2.2.0, I committed binary code which already compiled in windows, you can just install phplike without compiling C/C++ now.
 
 
 Completed PHP Method

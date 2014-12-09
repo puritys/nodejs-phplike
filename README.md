@@ -1,9 +1,11 @@
 Node.js - phplike
 =======================
 
-This project's purpose is to  implement some useful php function to node.js
+This project's purpose is to  implement some useful php function to node.js.
 
-Support synchronous exec to prevent node.js too many callback function, it will make the code easier to maintain.
+The second point is that Node.js is a event-driven language and it's method usually have asynchronous IO. phplike make  Node.js to execute with synchronous IO.
+
+phplike Support synchronous exec to prevent node.js too many callback function, it will make the code easier to maintain, and it support curl which just like php curl function. You can make a request synchronously. 
 
 * npm: https://npmjs.org/package/phplike
 * All version: https://registry.npmjs.org/phplike
@@ -17,6 +19,7 @@ How many OS does phplike support?
 * Linux : Every version of phplike support linux system.
 * Mac :  Supported from phplike@2.0.5  to  latest 
 * Windows: Supported only in phplike@2.1.0 、 phplike@2.2.0 , I had ever test phplike in windows 8 and windows xp.
+* Raspberry PI pidora OS with ARM CPU: phplike@2.2.2
 
 Dependency
 -----------

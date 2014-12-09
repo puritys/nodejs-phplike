@@ -28,7 +28,8 @@ Dependency
 * Visual studio: Windows need this software,  you can download from here  http://www.visualstudio.com/zh-tw/downloads/download-visual-studio-vs#DownloadFamilies_4 .  Notice! If you install vs2010 Express, it only support 32bit, so you should install the 32bit version Node.js too.
 
 If you install the phplike 2.0 , you will need libcurl package, because phplike support curl in version 2.0.
- 
+
+When the new version of phplike 2.2.0, I committed binary code which already compiled in windows, you can just install phplike without compiling C/C++ now.
 
 
 Completed PHP Method

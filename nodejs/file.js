@@ -55,14 +55,18 @@ function unlink(filename) {
 /*
  * @param filename
  */
-exports.file_get_contents = function(filename) {/*{{{*/
+exports.file_get_contents = function(filename, type) {/*{{{*/
     var _File = require("fs").File;
 //    f= new _File(filename);
     if (!fs.existsSync(filename)) {
         return "";
     }
-//    return fs.readFileSync(filename , "UTF-8");
-    return fs.readFileSync(filename , "binary");
+
+    if (type && type == "binary") {
+        return fs.readFileSync(filename , "binary");
+    }
+
+    return fs.readFileSync(filename , "UTF-8");
 
 }/*}}}*/
 

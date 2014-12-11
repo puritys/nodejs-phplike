@@ -135,6 +135,8 @@ exports.json_encode = function (text)
 
 exports.json_decode = function (text, type)
 {
+    if (!text) return "";
+
     if (typeof(type) !== "undefined") {
         if (type = "JSON_UNESCAPED_UNICODE") {
             var r = /\\u([\d\w]{4})/gi;

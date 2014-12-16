@@ -94,6 +94,19 @@ describe('Test function: clone', function() {//{{{
         assert.equal(1, obj[0]);
     });
 
+    it('clone string, number', function() {
+        var obj = "a";
+        var res = phplikeMod.clone(obj);
+        assert.equal("a", res);
+
+        obj = 10;
+        var res = phplikeMod.clone(obj);
+        assert.equal(10, res);
+
+
+    });
+
+
 
 
 });//}}}

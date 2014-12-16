@@ -203,6 +203,8 @@ exports.clone = function (obj) {
         res = phplikeArray.array_merge(obj, []);
     } else if (casting.is_object(obj)) {
         res = phplikeArray.array_merge(obj, {});
+    } else {
+        return obj;
     } 
     return res;
 };

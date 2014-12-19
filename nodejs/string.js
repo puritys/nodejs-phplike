@@ -39,6 +39,10 @@ function str_pad(str, len, chr, dir)
 }/*}}}*/
 
 exports.trim = function (str) {
+    if (!casting.is_string(str)) {
+        return "";
+    }
+
     return str.replace(/^[\s]+/, '').replace(/[\s]+$/, '');
 };
 

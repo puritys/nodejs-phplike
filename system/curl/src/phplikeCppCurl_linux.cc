@@ -28,6 +28,7 @@ size_t recvResponse(void *ptr, size_t size, size_t nmemb, struct string2 *s )  {
 
 
 }
+
 struct curl_slist *phplikeCppCurl::convertHeaderToChunk(map<string, string> header) {
 
     struct curl_slist *headerChunk = NULL;
@@ -36,14 +37,14 @@ struct curl_slist *phplikeCppCurl::convertHeaderToChunk(map<string, string> head
         if (p != "") {
             p += "&";
         }
-        p = it->first + ": " + it->second;//util::urlEncode(it->second);
+        p = it->first + ": " + it->second;
         headerChunk = curl_slist_append(headerChunk, p.c_str());
 
     }
 
 
     return headerChunk;
-};
+}
 
 void phplikeCppCurl::setOpt(CURL *curl, CURLoption option, string value) {
 
@@ -78,8 +79,12 @@ void phplikeCppCurl::request(string method, string url, string paramStr , map<st
     } else if ("POST" == method) {
         setOpt(curl, CURLOPT_POST, "1");
         setOpt(curl, CURLOPT_POSTFIELDS, paramStr);
+    } else {
+        setOpt(curl, CURLOPT_CUSTOMREQUEST, method);
+        setOpt(curl, CURLOPT_POSTFIELDS, paramStr);
     }
 
+ 
 
     setOpt(curl, CURLOPT_URL, url);
     setOpt(curl, CURLOPT_HEADER, "1");

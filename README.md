@@ -35,8 +35,14 @@ Until the new version of phplike 2.2.0, I committed binary code which already co
 Completed PHP Method
 -------------------------
 
-* exec , system
+**System function**
+
+* exec : Execute an external program
+* system
+* curl : curl_init, curl_setopt, curl_exec, curl_close
 * usleep , sleep
+
+**basic**
 * print_r
 * is_string
 * is_int
@@ -44,25 +50,33 @@ Completed PHP Method
 * is_array
 * is_numeric
 * is_int
-* base64_encode
-* base64_decode
-* str_pad
-* time, date, mktime
-* sprintf (need latest v8 engine!)
+* isset
+* empty
 * exit
+
+**File Handler**
 * file_get_contents
 * file_put_contents
 * mkdir
 * unlink
 * rmdir (dirname, isForce)
-* isset
-* empty (phplike 2.0)
 * is_file, is_dir
-* substr (string, start, length)
 * readdir (get all file list in select directory)
+
+**Encoder and Decoder**
+
+* json_encode, json_decode, handle multibyte: json_decode(xx, 'JSON_UNESCAPED_UNICODE')
+* md5
+* base64_encode
+* base64_decode
+
+**Others**
+
+* str_pad
+* time, date, mktime
+* substr (string, start, length)
 * chr, ord : string to ascii number, ascii number to string
 * decbin, bindec
-* curl_init, curl_setopt, curl_exec, curl_close  (phplike 2.0)
 * parse_str : parse "a=b&c=d" to {"a": "b", "c": "d"}
 * array_merge
 * clone:  clone a object or array
@@ -71,8 +85,6 @@ Completed PHP Method
 * intval: convert string to integer
 * strval: convert integer to string
 * trim
-* json_encode, json_decode, handle multibyte: json_decode(xx, 'JSON_UNESCAPED_UNICODE')
-
 
 <h2>Install phplike</h2>
 

@@ -74,6 +74,18 @@ describe('File Handle', function () {
         
     });
 
+    it('read file content in binary', function () {
+        var content = phplikeMod.file_get_contents("./tests/file.js", "binary");
+        conetnt = phplikeMod.substr(content, 0, 30);
+        if (!phplikeMod.empty(content)) {
+            assert.equal(true, true);
+        } else {
+            assert.equal(true, false);
+        }
+
+    });
+
+
 });
 
 describe('dir handle', function () {

@@ -39,7 +39,12 @@ function str_pad(str, len, chr, dir)
 }/*}}}*/
 
 exports.trim = function (str) {
-    if (!casting.is_string(str)) {
+
+    if (str && str.toString) {
+        str = str.toString();
+    }
+
+    if (!str) {
         return "";
     }
 

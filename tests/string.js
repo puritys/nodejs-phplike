@@ -124,6 +124,27 @@ describe('Test function: trim', function() {
         assert.equal("aa 2", res);
     });
 
+    it("trim space for number", function () {
+        var res = phplikeMod.trim(123);
+        assert.equal("123", res);
+    });
+
+    it("trim empty variable", function () {
+        var res = phplikeMod.trim();
+        assert.equal("", res);
+
+        var res = phplikeMod.trim(undefined);
+        assert.equal("", res);
+
+        var res = phplikeMod.trim(null);
+        assert.equal("", res);
+
+        var res = phplikeMod.trim(0);
+        assert.equal("", res);
+
+
+    });
+
 
 
 });

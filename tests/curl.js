@@ -146,5 +146,14 @@ describe('Test method: responseHeaderToHash', function() {
 
     });
 
+    it('get header: handle empty header', function() {
+        var header = [];
+
+        var res = phplikeMod.responseHeaderToHash(header.join("\n\r"));
+        assert.equal("", res);
+
+    });
+
+
 });
 

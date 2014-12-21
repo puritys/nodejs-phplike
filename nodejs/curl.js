@@ -1,7 +1,10 @@
 var fs = require("fs");
-var path = require('path');
-var parentPath = path.dirname(__filename) + '/..';
-var nativeModule = parentPath + "/binary/" + process.platform + "_" + process.arch + "/";
+
+if (nativeModule === undefined) {
+    var path = require('path');
+    var parentPath = path.dirname(__filename) + '/..';
+    var nativeModule = parentPath + "/binary/" + process.platform + "_" + process.arch + "/";
+}
 
 if (fs.existsSync(nativeModule) && typeof(UNIT_TEST) == "undefined" ) {
     try {

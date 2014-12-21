@@ -10,8 +10,11 @@ if (fs.existsSync(nativeModule) && typeof(UNIT_TEST) == "undefined" ) {
         console.log("Got Exception. \nThis library could not be loaded, please recompile it.");
     }
 } else {
+    try {
+        var cpp = require(parentPath + '/node_modules/bindings')({'bindings': 'phplike', 'module_root': parentPath + '/'});
+    } catch (e) {
 
-    var cpp = require(parentPath + '/node_modules/bindings')({'bindings': 'phplike', 'module_root': parentPath + '/'});
+    }
 }
 
 var casting = require("./casting_type.js");

@@ -6,6 +6,7 @@
           "system/exec/src/exec.cc",
           "system/curl/src/util.cc",
           "system/curl/src/phplikeCppCurl.cc",
+          "system/md5/src/md5.cc",
           "nodejs/phplikeCurl.cc",
           "nodejs/phplike.cc"
       ],

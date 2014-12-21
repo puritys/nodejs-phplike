@@ -26,6 +26,13 @@ Handle<Value> node_exec(const Arguments& args)
     return String::New(s.c_str());
 }
 
+Handle<Value> node_md5(const Arguments& args)
+{
+    String::Utf8Value text(args[0]);
+    string s = md5(string(*text));
+    return String::New(s.c_str());
+}
+
 
 
 void  init (Handle<Object> target){    
@@ -33,6 +40,8 @@ void  init (Handle<Object> target){
    NODE_SET_METHOD(target, "exec", node_exec);
    NODE_SET_METHOD(target, "request", node_curl_request);
    NODE_SET_METHOD(target, "nodeCurlGetHeader", nodeCurlGetHeader);
+   NODE_SET_METHOD(target, "md5", node_md5);
+
 
 } 
 

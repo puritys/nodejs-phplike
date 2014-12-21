@@ -162,6 +162,10 @@ exports.sleep = function (seconds)
     cpp.usleep(seconds * 1000 * 1000);    
 }
 
+exports.md5 = function (text)
+{
+    return cpp.md5(text);    
+}
 exports.system = exports.exec = function (cmd, showMessage)
 {
     if (!isset(showMessage)) {

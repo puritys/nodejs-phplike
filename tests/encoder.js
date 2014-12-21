@@ -84,3 +84,27 @@ describe('json_decode unicode', function() {
 
 });
 
+describe('md5', function() {
+
+    it('encode "test"', function () {
+        var text = 'test';
+        var res = phplikeMod.md5(text);
+        assert.equal("098f6bcd4621d373cade4e832627b4f6", res);
+    });
+
+    it('encode empty', function () {
+        var text = '';
+        var res = phplikeMod.md5(text);
+        assert.equal("d41d8cd98f00b204e9800998ecf8427e", res);
+    });
+
+    it('encode integet', function () {
+        var text = 12;
+        var res = phplikeMod.md5(text);
+        assert.equal("c20ad4d76fe97759aa27a0c99bff6710", res);
+    });
+
+
+
+});
+

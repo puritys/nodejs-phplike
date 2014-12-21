@@ -37,7 +37,7 @@ Completed PHP Method
 
 **System function**
 
-* exec : Execute an external program
+* <a href="https://github.com/puritys/nodejs-phplike/wiki/function-exec">exec</a> : Execute an external program
 * system
 * curl : curl_init, curl_setopt, curl_exec, curl_close
 * usleep , sleep

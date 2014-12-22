@@ -128,9 +128,9 @@ describe('Test function: getcwd', function() {//{{{
 describe('Test function: mktime', function() {//{{{
     it('Verify normal date to time', function() {
         //-28800   timezone+8 (Asia/Taipei)
-        var begin = phplikeMod.mktime(0, 0, 0, 1, 1, 1970);
-        var res = phplikeMod.mktime(1, 1, 1, 5, 6, 2014);
-        assert.equal(res - begin, 1399334461);
+        var begin = phplikeMod.mktime(1, 1, 1, 5, 6, 2014);
+        var res = phplikeMod.mktime(2, 1, 1, 5, 6, 2014);
+        assert.equal(res - begin, 3600);
     })
 
 });//}}}

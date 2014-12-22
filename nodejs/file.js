@@ -55,7 +55,7 @@ function unlink(filename) {
 /*
  * @param filename
  */
-exports.file_get_contents = function(filename, type) {/*{{{*/
+exports.readfile = exports.file_get_contents = function(filename, type) {/*{{{*/
     var _File = require("fs").File;
 //    f= new _File(filename);
     if (!fs.existsSync(filename)) {

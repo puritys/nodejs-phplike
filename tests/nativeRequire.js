@@ -10,7 +10,7 @@ file.mkdir(nativeModule);
 fs.writeFileSync(nativeModule + "/phplike.node", "");
  
 describe('Test: load native module fail', function() {
-    it('merge index array', function() { 
+    it('core.js', function() { 
 
         try {
             var core = require('./../nodejs/core.js');
@@ -23,7 +23,7 @@ describe('Test: load native module fail', function() {
 });
 
 describe('Test: load native module fail', function() {
-    it('merge index array', function() { 
+    it('curl.js', function() { 
 
         try {
             var core = require('./../nodejs/curl.js');

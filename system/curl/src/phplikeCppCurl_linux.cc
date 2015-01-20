@@ -114,9 +114,12 @@ void phplikeCppCurl::request(string method, string url, string paramStr , map<st
     res = curl_easy_setopt(curl, CURLOPT_WRITEDATA, &resC);
 
     res = curl_easy_perform(curl);
+    long http_code = 0;
+    curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
 
     if(!res) {
-        resHeader = resH.ptr;
+        resHeader = http_code + "\r\n";
+        resHeader += resH.ptr;
         resContent = resC.ptr;
         size_t foundPos = resContent.find("\r\n\r\n");
          if (foundPos != std::string::npos) {

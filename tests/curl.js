@@ -10,10 +10,22 @@ describe('Test method: HTTP GET ', function() {
         var param = {"q": "unit test"};
         var header = {};
         var res = phplikeMod.request("GET", url, param, {});
-
+        header = phplikeMod.getResponseHeader();
         //console.log(res);
         var match = res.match(/unit/);
         assert.equal("unit", match[0]);
+        assert.equal("200", header['status']);
+    });
+});
+
+describe('Test method: HTTP GET 404', function() {
+    it('Fetch google response with query string', function() {
+        var url = "https://www.google.com.tw/notfound";
+        var param = {"q": "unit test"};
+        var header = {};
+        var res = phplikeMod.request("GET", url, param, {});
+        header = phplikeMod.getResponseHeader();
+        assert.equal("404", header['status']);
     });
 });
 

@@ -60,12 +60,22 @@ function responseHeaderToHash(str) {
     if (!str || !casting.is_string(str)) {
         return "";
     }
-    var res = {};
+    var res = {}, regStatus, regRes;
     var strAy = str.split(/[\n\r]+/);
     var i, text, key, value, pos;
+    regStatus = /HTTPs?\/[^\s]+[\s]([0-9]+)[\s].*/i;
     for (i in strAy) {
         text = strAy[i];
         pos = text.indexOf(": ");
+        if (pos === -1) {
+            regRes = text.match(regStatus);
+            if (regRes && regRes[1]) {
+                res['status'] = regRes[1];
+                res['httpCode'] = regRes[0];
+                continue;
+            }
+        }
+
         key = text.substring(0, pos);
         value = text.substring(pos + 2, text.length);
         if (!core.empty(key)) {

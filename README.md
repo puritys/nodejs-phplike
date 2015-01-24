@@ -118,11 +118,11 @@ Execute phplike in module mode sample (phplike 2.0)
 You can require module.js of phplike, then you will need prefix to call phplike function, the module mode will not change the method of global object and can separate both of php and node.js.
 
 <pre>
-    var phpmod = require("phplike/module.js");
-    var tm = phpmod.time();
-    phpmod.sleep(10);
-    var result = phpmod.exec("ls -la");
-    phpmod.print_r(result);
+    var php = require("phplike/module.js");
+    var tm = php.time();
+    php.sleep(10);
+    var result = php.exec("ls -la");
+    php.print_r(result);
 </pre>
 
 
@@ -147,16 +147,16 @@ Example code for php curl
 Example code for php post (Using module mode)
 ------------------------------
 <pre>
-    var phplikeMod = require("phplike/module.js");
+    var php = require("phplike/module.js");
     var url = "http://localhost:8080/";
     var param = {"q": "x"};
     var header = {"Cookie": "xxx"};
-    var c = phplikeMod.curl_init();
-    phplikeMod.curl_setopt(c, 'CURLOPT_URL', url);
-    phplikeMod.curl_setopt(c, 'CURLOPT_POST', 1);
-    phplikeMod.curl_setopt(c, 'CURLOPT_POSTFIELDS', "a=bbb&c=eee");
-    phplikeMod.curl_setopt(c, 'CURLOPT_HTTPHEADER', header);
-    var res = phplikeMod.curl_exec(c);
+    var c = php.curl_init();
+    php.curl_setopt(c, 'CURLOPT_URL', url);
+    php.curl_setopt(c, 'CURLOPT_POST', 1);
+    php.curl_setopt(c, 'CURLOPT_POSTFIELDS', "a=bbb&c=eee");
+    php.curl_setopt(c, 'CURLOPT_HTTPHEADER', header);
+    var res = php.curl_exec(c);
 
 </pre>
 

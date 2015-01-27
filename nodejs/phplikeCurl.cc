@@ -10,14 +10,20 @@ Handle<Value> node_curl_request(const Arguments& args) {
     String::Utf8Value url(args[1]);
     Handle<Object> jsParam;
     Handle<Object> jsHeader;
+    Handle<Object> jsOptions;
+
 
     string paramStr;
     map<string, string> param;
     map<string, string> header;
- 
+    map<string, string> options;
+
+    Handle<Array> propertyNames; 
+
+    // Handle parameter 
     if (args[2]->IsObject()) {
         jsParam = Handle<Object>::Cast(args[2]);
-        Handle<Array> propertyNames = jsParam->GetPropertyNames();
+        propertyNames = jsParam->GetPropertyNames();
         n = propertyNames->Length();
         for (i = 0; i < n ; i++) {
             Handle<Value>  b = propertyNames->Get(Integer::New(i));
@@ -30,9 +36,10 @@ Handle<Value> node_curl_request(const Arguments& args) {
         curlType = 1;
     }
 
+    // Handle header
     if (args[3]->IsObject()) {
         jsHeader = Handle<Object>::Cast(args[3]);
-        Handle<Array> propertyNames = jsHeader->GetPropertyNames();
+        propertyNames = jsHeader->GetPropertyNames();
         n = propertyNames->Length();
         for (i = 0; i < n ; i++) {
             Handle<Value>  b = propertyNames->Get(Integer::New(i));
@@ -43,11 +50,29 @@ Handle<Value> node_curl_request(const Arguments& args) {
 
     }
 
-    if (curlType == 1) {
-        pCurl->request(string(*method), string(*url), paramStr, header);
-    } else {
-        pCurl->request(string(*method), string(*url), param, header);
+    // Handle options
+    if (args[4]->IsObject()) {
+        jsOptions = Handle<Object>::Cast(args[4]);
+        propertyNames = jsOptions->GetPropertyNames();
+        n = propertyNames->Length();
+        for (i = 0; i < n ; i++) {
+            Handle<Value>  b = propertyNames->Get(Integer::New(i));
+            string c = string(*String::Utf8Value(b));
+            Handle<Value>  v = jsOptions->Get(b);
+            options[c] = string(*String::Utf8Value(v));
+        }
+
     }
+
+
+
+
+    if (curlType == 1) {
+        pCurl->request(string(*method), string(*url), paramStr, header, options);
+    } else {
+        pCurl->request(string(*method), string(*url), param, header, options);
+    }
+
     string content = pCurl->resContent;
     resHeader = pCurl->resHeader;
     return  String::New(content.c_str());

@@ -45,10 +45,12 @@ class phplikeCppCurl {
         phplikeCppCurl();
         ~phplikeCppCurl();
         void initRequest();
+        CURLoption getOption(string option);
         requestInfo parseRequestInfoFromUrl(string url);
         string phplike_GET(string url);
-        void request(string method, string url, map<string, string> param, map<string, string> header);
-        void request(string method, string url, string param, map<string, string> header);
+        void request(string method, string url, map<string, string> param, map<string, string> header, map<string, string> options); 
+        void request(string method, string url, string param, map<string, string> header, map<string, string> options);
+
         string convertParamToString(map<string, string> param);
         string convertHeaderToString(map<string, string> param);
 

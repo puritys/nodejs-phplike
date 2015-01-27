@@ -1,4 +1,4 @@
-var phplikeMod = require('./include.js');
+var php = phplikeMod = require('./include.js');
 
 
 var assert = require("assert");
@@ -168,4 +168,27 @@ describe('Test method: responseHeaderToHash', function() {
 
 
 });
+
+//mocha lib/ --grep option
+describe('Test Curl option', function() {
+    it('Test CURLOPT_COOKIEJAR', function() {
+        var tmpFile = "/tmp/cookiejar";
+        var url = "https://www.google.com.tw/search?q=unit%20";
+        if (php.is_file(tmpFile)) {
+            php.unlink(tmpFile);
+        }
+        var c = php.curl_init();
+        php.curl_setopt(c, 'CURLOPT_URL', url);
+        php.curl_setopt(c, 'CURLOPT_COOKIEJAR', tmpFile);
+        var res = php.curl_exec(c);
+
+        if (php.is_file(tmpFile)) {
+            assert.equal(true, true);
+        } else {
+            assert.equal(false, true);
+        }
+        
+    });
+});
+
 

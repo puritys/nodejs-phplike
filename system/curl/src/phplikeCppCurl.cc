@@ -24,7 +24,7 @@ void phplikeCppCurl::initRequest() {
 
 /**
 * Get hostname, port, ssl, param information from url.
-*
+* @return A structure which include the path, parameter, port, host information
 */
 struct requestInfo phplikeCppCurl::parseRequestInfoFromUrl(string url) {/*{{{*/
 
@@ -94,8 +94,11 @@ string phplikeCppCurl::convertParamToString(map<string, string> param) {/*{{{*/
     return p;
 };/*}}}*/
 
-/*
-*/
+
+
+/**
+ * 
+ */
 string phplikeCppCurl::convertHeaderToString(map<string, string> headers) {/*{{{*/
     string p = "";
 
@@ -110,13 +113,32 @@ string phplikeCppCurl::convertHeaderToString(map<string, string> headers) {/*{{{
     return p;
 };/*}}}*/
 
-void phplikeCppCurl::request(string method, string url, map<string, string> param , map<string, string> header) {/*{{{*/
+/**
+ * Method of curl request, the parameters include header and options of curl.
+ */
+void phplikeCppCurl::request(string method, string url, 
+                             map<string, string> param, 
+                             map<string, string> header,
+                             map<string, string> options
+                            ) {/*{{{*/
 
     string paramStr = "";
     paramStr = convertParamToString(param);
-    request(method, url, paramStr, header);
+    request(method, url, paramStr, header, options);
 
 }/*}}}*/
+
+///**
+// * Method of curl request
+// */
+//void phplikeCppCurl::request(string method, string url, map<string, string> param , map<string, string> header, map<string, string> options) {/*{{{*/
+//
+//    string paramStr = "";
+//    paramStr = convertParamToString(param);
+//    request(method, url, paramStr, header, options);
+//
+//}/*}}}*/
+//
 
 
 

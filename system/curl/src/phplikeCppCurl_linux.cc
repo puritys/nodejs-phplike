@@ -1,3 +1,5 @@
+#define GET_CURL_OPTION(name) #name
+
 struct string2 {
   char *ptr;
   size_t len;
@@ -27,6 +29,33 @@ size_t recvResponse(void *ptr, size_t size, size_t nmemb, struct string2 *s )  {
   return size*nmemb;
 
 
+}
+
+CURLoption phplikeCppCurl::getOption(string option) {
+    if (option == "CURLOPT_COOKIEJAR") {
+        return CURLOPT_COOKIEJAR;
+    } else if (option == "CURLOPT_FILE") {
+        return CURLOPT_FILE;
+    } else if (option == "CURLOPT_PORT") {
+        return CURLOPT_PORT;
+    } else if (option == "CURLOPT_TIMEOUT") {
+        return CURLOPT_TIMEOUT;
+    } else if (option == "CURLOPT_USERAGENT") {
+        return CURLOPT_USERAGENT;
+    } else if (option == "CURLOPT_PROXY") {
+        return CURLOPT_PROXY;
+    } else if (option == "CURLOPT_PROXYPORT") {
+        return CURLOPT_PROXYPORT;
+    } else if (option == "CURLOPT_HTTPPROXYTUNNEL") {
+        return CURLOPT_HTTPPROXYTUNNEL;
+    } else if (option == "CURLOPT_SSL_VERIFYHOST") {
+        return CURLOPT_SSL_VERIFYHOST;
+    } else if (option == "CURLOPT_SSL_VERIFYPEER") {
+        return CURLOPT_SSL_VERIFYPEER;
+
+    } else {
+        return CURLOPT_VERBOSE;
+    }
 }
 
 struct curl_slist *phplikeCppCurl::convertHeaderToChunk(map<string, string> header) {
@@ -60,7 +89,7 @@ void phplikeCppCurl::setOpt(CURL *curl, CURLoption option, string value) {
 * curl code http://curl.haxx.se/libcurl/c/libcurl-errors.html
 * @param url This shouldn't have any parameter, do not include the character "?", please move to param in Node.js
 */
-void phplikeCppCurl::request(string method, string url, string paramStr , map<string, string> header) {/*{{{*/
+void phplikeCppCurl::request(string method, string url, string paramStr , map<string, string> header, map<string, string> options) {/*{{{*/
     CURLcode res;
     CURL *curl;
 
@@ -88,6 +117,15 @@ void phplikeCppCurl::request(string method, string url, string paramStr , map<st
 
     setOpt(curl, CURLOPT_URL, url);
     setOpt(curl, CURLOPT_HEADER, "1");
+
+    map<string, string>::iterator it;
+
+    for (it = options.begin(); it != options.end(); ++it) {
+        CURLoption op = getOption(it->first);
+        setOpt(curl, op, it->second);
+
+
+    }
     //setOpt(curl, CURLOPT_REFERER, "xx");
     //setOpt(curl, CURLOPT_USERAGENT, "1");
     //setOpt(curl, CURLOPT_COOKIE, "1");

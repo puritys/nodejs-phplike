@@ -138,14 +138,15 @@ exports.curl_close = function (curl) {
 exports.curl_exec = function (curlInput) {
     var curl = reformatCurlData(curlInput);
 
-    var response = this.request(curl.method, curl.url, curl.param, curl.header);
+    var response = this.request(curl.method, curl.url, curl.param, curl.header, curl.options);
     curlInput.header = cpp.nodeCurlGetHeader();
     return response
 
 };
 
-exports.request = function (method, url, param, header) {
-    var response =  cpp.request(method, url, param, header);
+exports.request = function (method, url, param, header, options) {
+    if (!options) {options = [];}
+    var response =  cpp.request(method, url, param, header, options);
     return response;
 
 };

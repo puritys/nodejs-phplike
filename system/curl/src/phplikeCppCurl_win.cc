@@ -5,7 +5,7 @@
 * curl code http://curl.haxx.se/libcurl/c/libcurl-errors.html
 * @param url This shouldn't have any parameter, do not include the character "?", please move to param in Node.js
 */
-void phplikeCppCurl::request(string method, string url, string paramStr, map<string, string> header) {/*{{{*/
+void phplikeCppCurl::request(string method, string url, string paramStr, map<string, string> header, map<string, string> options) {/*{{{*/
 
     std::transform(method.begin(), method.end(), method.begin(), ::toupper);
 

@@ -35,7 +35,7 @@
     string exec(string command, bool showMessage) 
     {
          string result = "";
-         char   psBuffer[128];
+         char   psBuffer[2048];
          FILE   *pPipe;
   
               /* Run DIR so that it writes its output to a pipe. Open this
@@ -48,7 +48,7 @@
   
          /* Read pipe until end of file, or an error occurs. */
   
-         while(fgets(psBuffer, 128, pPipe))
+         while(fgets(psBuffer, 2048, pPipe))
          {
             result += psBuffer;
          }
@@ -60,7 +60,7 @@
            _pclose(pPipe);
            //printf( "\nProcess returned %d\n", _pclose( pPipe ) );
          }
-        return result;
+         return result;
     }
 
 #endif

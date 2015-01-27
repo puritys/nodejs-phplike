@@ -45,7 +45,6 @@ class phplikeCppCurl {
         phplikeCppCurl();
         ~phplikeCppCurl();
         void initRequest();
-        CURLoption getOption(string option);
         requestInfo parseRequestInfoFromUrl(string url);
         string phplike_GET(string url);
         void request(string method, string url, map<string, string> param, map<string, string> header, map<string, string> options); 
@@ -57,6 +56,7 @@ class phplikeCppCurl {
 
 #ifdef OS_LINUX
         struct curl_slist *convertHeaderToChunk(map<string, string> header);
+        CURLoption getOption(string option);
         void setOpt(CURL *curl, CURLoption option, string value);
 #endif
 

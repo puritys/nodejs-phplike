@@ -23,22 +23,19 @@ How many OS does phplike support?
 * Windows: Supported only in phplike@2.1.0 、 phplike@2.2.0 , I had ever test phplike in windows 8 and windows xp.
 * Raspberry PI pidora OS with ARM CPU: phplike@2.2.2
 
-| OS | Suggest Version |
+| OS       | Suggest Version |
 |----------|:-------------:|
-| Linux | Latest |
-| Mac |  2.0.5  ~ latest |
-| Windows | 2.2.0 |
+| Linux    | Latest |
+| Mac      |  2.0.5  ~ latest |
+| Windows  | 2.2.0 |
 | Raspberry | 2.2.2 |
 
 Dependency
 -----------
-* libcurl (libcurl-7.19) : Linux system require this package.
-* python 2.4 ~ :  phplike use node-gyp to compile C/C++ codes. It needs python 2.7.8~, you can download python from https://www.python.org/downloads/.
-* Visual studio: Windows need this software,  you can download from here  http://www.visualstudio.com/zh-tw/downloads/download-visual-studio-vs#DownloadFamilies_4 .  Notice! If you install vs2010 Express, it only support 32bit, so you should install the 32bit version Node.js too.
+* libcurl (libcurl-7.19) : Linux system should have this package.
+* python 2.4 ~ :  phplike use node-gyp to compile C/C++ codes. It needs python which version must be bigger than 2.7.8, you can download python from here https://www.python.org/downloads/.
 
-If you install the phplike 2.0 , you will need libcurl package, because phplike support curl in version 2.0.
-
-Until the new version of phplike 2.2.0, I committed binary code which already compiled in windows, you can just install phplike without compiling C/C++ now.
+After the new version of phplike 2.2.0, I committed all binary file which already compiled in Windows, Mac and Linux, you can just install the phplike without compiling C/C++ now.
 
 
 Completed PHP Method
@@ -187,6 +184,12 @@ Functions will be implemented in the future
 * acos
 * strtolower
 * strtoupper
+
+
+phplike Development
+------------------
+* Visual studio: Windows will need this software in order to compile C/C++ code,  you can download from here  http://www.visualstudio.com/zh-tw/downloads/download-visual-studio-vs#DownloadFamilies_4 .  Notice! If you install vs2010 Express, it only support 32bit, so you should install the 32bit version Node.js too.
+ 
 
 
 # 中文 phplike Readme

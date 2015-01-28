@@ -1,5 +1,3 @@
-#define GET_CURL_OPTION(name) #name
-
 struct string2 {
   char *ptr;
   size_t len;
@@ -156,7 +154,9 @@ void phplikeCppCurl::request(string method, string url, string paramStr , map<st
     curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
 
     if(!res) {
-        resHeader = http_code + "\r\n";
+        stringstream ss;
+        ss << http_code;
+        resHeader = ss.str() + "\r\n";
         resHeader += resH.ptr;
         resContent = resC.ptr;
         size_t foundPos = resContent.find("\r\n\r\n");

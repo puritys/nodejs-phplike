@@ -161,6 +161,7 @@ Example code for php post (Using module mode)
     php.curl_setopt(c, 'CURLOPT_POSTFIELDS', "a=bbb&c=eee");
     php.curl_setopt(c, 'CURLOPT_HTTPHEADER', header);
     var res = php.curl_exec(c);
+    var responseHeader = php.getResponseHeader(); // Get header
 
 </pre>
 

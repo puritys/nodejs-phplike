@@ -29,7 +29,7 @@ size_t recvResponse(void *ptr, size_t size, size_t nmemb, struct string2 *s )  {
 
 }
 
-CURLoption phplikeCppCurl::getOption(string option) {
+CURLoption phplikeCppCurl::getOption(string option) {/*{{{*/
     if (option == "CURLOPT_COOKIEJAR") {
         return CURLOPT_COOKIEJAR;
     } else if (option == "CURLOPT_FILE") {
@@ -54,7 +54,7 @@ CURLoption phplikeCppCurl::getOption(string option) {
     } else {
         return CURLOPT_VERBOSE;
     }
-}
+}/*}}}*/
 
 struct curl_slist *phplikeCppCurl::convertHeaderToChunk(map<string, string> header) {
 
@@ -87,7 +87,7 @@ void phplikeCppCurl::setOpt(CURL *curl, CURLoption option, string value) {
 * curl code http://curl.haxx.se/libcurl/c/libcurl-errors.html
 * @param url This shouldn't have any parameter, do not include the character "?", please move to param in Node.js
 */
-void phplikeCppCurl::request(string method, string url, string paramStr , map<string, string> header, map<string, string> options) {/*{{{*/
+void phplikeCppCurl::request(string method, string url, string paramStr , map<string, string> header, map<string, string> options, map<string, vector<string>> fileUpload) {/*{{{*/
     CURLcode res;
     CURL *curl;
 
@@ -99,16 +99,48 @@ void phplikeCppCurl::request(string method, string url, string paramStr , map<st
        return ;
     }
 
+    int fileUploadSize = fileUpload.size();
 
     curl = curl_easy_init();
-    if ("GET" == method) {
-        url += "?" + paramStr;
-    } else if ("POST" == method) {
-        setOpt(curl, CURLOPT_POST, "1");
-        setOpt(curl, CURLOPT_POSTFIELDS, paramStr);
+    if (fileUploadSize > 0) {
+        struct curl_httppost *formpost=NULL;
+        struct curl_httppost *lastptr=NULL;
+
+        map<string, vector<string>>::iterator it;
+        for (it = fileUpload.begin(); it != fileUpload.end(); ++it) {
+            vector<string> fileInfo = it->second;
+            string key = it->first;
+            string filePath = fileInfo[1];
+            curl_formadd(
+                &formpost,
+                &lastptr,
+                CURLFORM_COPYNAME, key.c_str(),
+                CURLFORM_FILE, filePath.c_str(),
+                CURLFORM_END);
+        }
+
+        map<string, string> paramArray = parse_str(paramStr);
+        map<string, string>::iterator it2;
+        for (it2 = paramArray.begin(); it2 != paramArray.end(); ++it2) {
+            curl_formadd(
+                &formpost,
+                &lastptr,
+                CURLFORM_COPYNAME, it2->first.c_str(),
+                CURLFORM_COPYCONTENTS, it2->second.c_str(),
+                CURLFORM_END);
+        } 
+
+        curl_easy_setopt(curl, CURLOPT_HTTPPOST, formpost);
     } else {
-        setOpt(curl, CURLOPT_CUSTOMREQUEST, method);
-        setOpt(curl, CURLOPT_POSTFIELDS, paramStr);
+        if ("GET" == method) {
+            url += "?" + paramStr;
+        } else if ("POST" == method) {
+            setOpt(curl, CURLOPT_POST, "1");
+            setOpt(curl, CURLOPT_POSTFIELDS, paramStr);
+        } else {
+            setOpt(curl, CURLOPT_CUSTOMREQUEST, method);
+            setOpt(curl, CURLOPT_POSTFIELDS, paramStr);
+        }
     }
 
  
@@ -121,8 +153,6 @@ void phplikeCppCurl::request(string method, string url, string paramStr , map<st
     for (it = options.begin(); it != options.end(); ++it) {
         CURLoption op = getOption(it->first);
         setOpt(curl, op, it->second);
-
-
     }
     //setOpt(curl, CURLOPT_REFERER, "xx");
     //setOpt(curl, CURLOPT_USERAGENT, "1");

@@ -115,16 +115,18 @@ string phplikeCppCurl::convertHeaderToString(map<string, string> headers) {/*{{{
 
 /**
  * Method of curl request, the parameters include header and options of curl.
+ * Multipart-form/data: http://curl.haxx.se/libcurl/c/CURLOPT_HTTPPOST.html
  */
 void phplikeCppCurl::request(string method, string url, 
                              map<string, string> param, 
                              map<string, string> header,
-                             map<string, string> options
+                             map<string, string> options,
+                             map<string, vector<string>> fileUpload
                             ) {/*{{{*/
 
     string paramStr = "";
     paramStr = convertParamToString(param);
-    request(method, url, paramStr, header, options);
+    request(method, url, paramStr, header, options, fileUpload);
 
 }/*}}}*/
 

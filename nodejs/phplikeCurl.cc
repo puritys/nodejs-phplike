@@ -11,12 +11,16 @@ Handle<Value> node_curl_request(const Arguments& args) {
     Handle<Object> jsParam;
     Handle<Object> jsHeader;
     Handle<Object> jsOptions;
+    Handle<Object> jsFileUpload;
+
 
 
     string paramStr;
     map<string, string> param;
     map<string, string> header;
     map<string, string> options;
+    map<string, vector<string>> fileUpload;
+
 
     Handle<Array> propertyNames; 
 
@@ -64,13 +68,39 @@ Handle<Value> node_curl_request(const Arguments& args) {
 
     }
 
+    // Handle fileUpload
+    if (args[5]->IsObject()) {
+        jsFileUpload = Handle<Object>::Cast(args[5]);
+        propertyNames = jsFileUpload->GetPropertyNames();
+        n = propertyNames->Length();
+ 
+        for (i = 0; i < n ; i++) {
+            vector<string> fileInfo;
+            Handle<Value>  jsFileInfo = propertyNames->Get(Integer::New(i));
+            Handle<Value>  b = propertyNames->Get(Integer::New(i));
+            string c = string(*String::Utf8Value(b));
+
+            Handle<Array>  v = Handle<Array>::Cast(jsFileUpload->Get(b));
+
+            // handle file array
+            Handle<Value> fileName = v->Get(Integer::New(0));
+            Handle<Value> filePath = v->Get(Integer::New(1));
+            fileInfo.push_back(string(*String::Utf8Value(fileName)));
+            fileInfo.push_back(string(*String::Utf8Value(filePath)));
+
+            fileUpload[c] = fileInfo;
+        }
+
+    }
+
+
 
 
 
     if (curlType == 1) {
-        pCurl->request(string(*method), string(*url), paramStr, header, options);
+        pCurl->request(string(*method), string(*url), paramStr, header, options, fileUpload);
     } else {
-        pCurl->request(string(*method), string(*url), param, header, options);
+        pCurl->request(string(*method), string(*url), param, header, options, fileUpload);
     }
 
     string content = pCurl->resContent;

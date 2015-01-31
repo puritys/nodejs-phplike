@@ -32,7 +32,7 @@ var phplikeArray = require("./array.js");
 * phplikeCppCurl only support the precise type of variable, So it must to reformat the value of variable.
 */
 
-function reformatCurlData(curl) {
+function reformatCurlData(curl) {//{{{
     var i, n, param2;
     var url, param, pos, urlParam, urlParamSplit, formatCurl;
     formatCurl = core.clone(curl);
@@ -54,9 +54,9 @@ function reformatCurlData(curl) {
 
     return formatCurl;
 
-};
+};//}}}
 
-function responseHeaderToHash(str) {
+function responseHeaderToHash(str) {//{{{
     if (!str || !casting.is_string(str)) {
         return "";
     }
@@ -90,6 +90,26 @@ function responseHeaderToHash(str) {
         }
     }
     return res;
+}//}}}
+
+/**
+ * If a value of parameter is start from '@', then it will be a file and will be upload.
+ *
+ */
+function parseFileInfo (val) {
+    var fileName,filePath, pos;
+    if (val.indexOf('@') !== 0) {
+        return false;
+    }
+  
+    filePath = val.replace(/^@/, '');
+    pos = val.lastIndexOf('/');
+    if (pos === -1) {
+        fileName = filePath;
+    } else {
+        fileName = val.substring(pos + 1, val.length);
+    }
+    return [fileName, filePath];
 }
 
 exports.curl_init = function () {
@@ -136,17 +156,30 @@ exports.curl_close = function (curl) {
 };
 
 exports.curl_exec = function (curlInput) {
-    var curl = reformatCurlData(curlInput);
+    var key, fileParseResult, curl = reformatCurlData(curlInput);
+    var fileUpload = {};
 
-    var response = this.request(curl.method, curl.url, curl.param, curl.header, curl.options);
+    if (curl.param instanceof Object) {
+        for (key in curl.param) {
+            val = curl.param[key];
+            fileParseResult = parseFileInfo(val);
+            if (fileParseResult) {
+                delete curl.param[key];
+                fileUpload[key] = fileParseResult;
+            }
+        }
+    }
+
+    var response = this.request(curl.method, curl.url, curl.param, curl.header, curl.options, fileUpload);
     curlInput.header = cpp.nodeCurlGetHeader();
     return response
 
 };
 
-exports.request = function (method, url, param, header, options) {
+exports.request = function (method, url, param, header, options, fileUpload) {
     if (!options) {options = [];}
-    var response =  cpp.request(method, url, param, header, options);
+    if (!fileUpload) {fileUpload = [];}
+    var response =  cpp.request(method, url, param, header, options, fileUpload);
     return response;
 
 };
@@ -158,4 +191,5 @@ exports.getResponseHeader = function () {
 if (typeof(UNIT_TEST) != "undefined" && UNIT_TEST === true) {
     exports.reformatCurlData = reformatCurlData;
     exports.responseHeaderToHash = responseHeaderToHash;
+    exports.parseFileInfo = parseFileInfo;
 }

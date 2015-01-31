@@ -194,20 +194,20 @@ describe('Test Curl option', function() {
 //mocha lib/ --grep parseFileInfo
 describe('Test parseFileInfo', function() {
     it('parse file path', function() {
-        var str = "@curl.js"
+        var str = "@index.js"
         
         var res = php.parseFileInfo(str);
-        assert.equal("curl.js", res[0]);
-        assert.equal("curl.js", res[1]);
+        assert.equal("index.js", res[0]);
+        assert.equal("index.js", res[1]);
         
     });
 
     it('parse complicated file path', function() {
-        var str = "@../index.js"
+        var str = "@tests/curl.js"
         
         var res = php.parseFileInfo(str);
-        assert.equal("index.js", res[0]);
-        assert.equal("../index.js", res[1]);
+        assert.equal("curl.js", res[0]);
+        assert.equal("tests/curl.js", res[1]);
         
     });
 

@@ -109,6 +109,9 @@ function parseFileInfo (val) {
     } else {
         fileName = val.substring(pos + 1, val.length);
     }
+    if (!fs.existsSync(filePath)) {
+        return "";
+    }
     return [fileName, filePath];
 }
 

@@ -191,4 +191,45 @@ describe('Test Curl option', function() {
     });
 });
 
+//mocha lib/ --grep parseFileInfo
+describe('Test parseFileInfo', function() {
+    it('parse file path', function() {
+        var str = "@curl.js"
+        
+        var res = php.parseFileInfo(str);
+        assert.equal("curl.js", res[0]);
+        assert.equal("curl.js", res[1]);
+        
+    });
+
+    it('parse complicated file path', function() {
+        var str = "@../index.js"
+        
+        var res = php.parseFileInfo(str);
+        assert.equal("index.js", res[0]);
+        assert.equal("../index.js", res[1]);
+        
+    });
+
+
+    it('file is not exist', function() {
+        var str = "@./curlxxx.js"
+        
+        var res = php.parseFileInfo(str);
+        assert.equal("", res);
+        
+    });
+
+    it('wrong format', function() {
+        var str = "curl.js"
+        
+        var res = php.parseFileInfo(str);
+        assert.equal("", res);
+        
+    });
+
+
+
+});
+
 

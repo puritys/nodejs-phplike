@@ -196,9 +196,14 @@ phplike Development
 # 中文 phplike Readme
 
 這個 project 主要是讓習慣 php 開發的工程師，能夠快速適應  Node.js ， 我實作了部分 php 相關的 function。
+ 
 
-安裝方式可以用 npm install，但是 phplike 目前只支援  Linux 系統，用 windows 系統會遇到 compile fail 的訊息。
-
+支援的 OS
+----------
+* Linux
+* Wdinwos
+* Mac
+* Raspberry PI: Fedora
 
 安裝方式： 
 ----------
@@ -210,8 +215,8 @@ phplike Development
 
 因為 phplike 有使用到 c/c++ 程式，所以有些必備的軟體必需要安裝。
 
-* Linux: 
-* libcurl: phplike 2.0 支援  curl function ，底層就是使用軟體 libcurl 。
+* Linux : 在 phplike 2.0 版本後，已經支援  php curl function ，而底層是使用軟體 libcurl ，所以 Linux 系統必須要安裝這個軟體，當然大部分的 Linux OS 都已經有內建了。
+* Windows: None
 
 
 phplike 支援兩種 require 模式

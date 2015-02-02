@@ -121,7 +121,7 @@ void phplikeCppCurl::request(string method, string url,
                              map<string, string> param, 
                              map<string, string> header,
                              map<string, string> options,
-                             map<string, vector<string>> fileUpload
+                             map<string, vector<string> > fileUpload
                             ) {/*{{{*/
 
     string paramStr = "";

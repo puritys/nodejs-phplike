@@ -49,9 +49,9 @@ class phplikeCppCurl {
         void initRequest();
         requestInfo parseRequestInfoFromUrl(string url);
         string phplike_GET(string url);
-        void request(string method, string url, map<string, string> param, map<string, string> header, map<string, string> options, map<string, vector<string>> fileUpload);
+        void request(string method, string url, map<string, string> param, map<string, string> header, map<string, string> options, map<string, vector<string> > fileUpload);
         // The curl function in linux and windows.
-        void request(string method, string url, string param, map<string, string> header, map<string, string> options, map<string, vector<string>> fileUpload);
+        void request(string method, string url, string param, map<string, string> header, map<string, string> options, map<string, vector<string> > fileUpload);
 
         string convertParamToString(map<string, string> param);
         string convertHeaderToString(map<string, string> param);

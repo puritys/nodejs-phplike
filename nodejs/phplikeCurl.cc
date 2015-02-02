@@ -19,7 +19,7 @@ Handle<Value> node_curl_request(const Arguments& args) {
     map<string, string> param;
     map<string, string> header;
     map<string, string> options;
-    map<string, vector<string>> fileUpload;
+    map<string, vector<string> > fileUpload;
 
 
     Handle<Array> propertyNames; 
@@ -76,7 +76,7 @@ Handle<Value> node_curl_request(const Arguments& args) {
  
         for (i = 0; i < n ; i++) {
             vector<string> fileInfo;
-            Handle<Value>  jsFileInfo = propertyNames->Get(Integer::New(i));
+            //Handle<Value>  jsFileInfo = propertyNames->Get(Integer::New(i));
             Handle<Value>  b = propertyNames->Get(Integer::New(i));
             string c = string(*String::Utf8Value(b));
 

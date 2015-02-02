@@ -87,7 +87,7 @@ void phplikeCppCurl::setOpt(CURL *curl, CURLoption option, string value) {
 * curl code http://curl.haxx.se/libcurl/c/libcurl-errors.html
 * @param url This shouldn't have any parameter, do not include the character "?", please move to param in Node.js
 */
-void phplikeCppCurl::request(string method, string url, string paramStr , map<string, string> header, map<string, string> options, map<string, vector<string>> fileUpload) {/*{{{*/
+void phplikeCppCurl::request(string method, string url, string paramStr , map<string, string> header, map<string, string> options, map<string, vector<string> > fileUpload) {/*{{{*/
     CURLcode res;
     CURL *curl;
 
@@ -106,7 +106,7 @@ void phplikeCppCurl::request(string method, string url, string paramStr , map<st
         struct curl_httppost *formpost=NULL;
         struct curl_httppost *lastptr=NULL;
 
-        map<string, vector<string>>::iterator it;
+        map<string, vector<string> >::iterator it;
         for (it = fileUpload.begin(); it != fileUpload.end(); ++it) {
             vector<string> fileInfo = it->second;
             string key = it->first;

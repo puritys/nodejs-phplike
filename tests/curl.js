@@ -57,7 +57,28 @@ describe('Test method: HTTP GET  curl_exec', function() {
 
 });
 
-describe('Test method: curl_setopt', function() {
+describe('Test method: File Upload , multipart-form/data', function() {
+    it("Simple", function() {
+        var url;
+
+        url = "http://www.puritys.me/unit.php";
+
+        var filePath = php.getcwd();
+        filePath += "/tests/core.js"
+        var param = {"q": "x"};
+        var header = {"Cookie": "xxx"};
+        var file = {"key": filePath};
+        var res = php.request("POST", url, param, header, {}, file);
+        res = php.json_decode(res);
+        assert.equal('key', res['key']);
+        assert.equal('core.js', res['name']);
+
+        //console.log(res);
+    });
+});
+
+
+describe('Test method: curl_setopt', function() {//{{{
 
     it('CURLOPT_POSTFIELDS - input a string', function() {
 
@@ -100,11 +121,11 @@ describe('Test method: curl_setopt', function() {
     });
 
 
-});
+});//}}}
 
 
 
-describe('Test method: reformatCurlData', function() {
+describe('Test method: reformatCurlData', function() {//{{{
 
     it('get param from url', function() {
         var c = phplikeMod.curl_init();
@@ -135,7 +156,7 @@ describe('Test method: reformatCurlData', function() {
 
     });
 
-});
+});//}}}
 
 describe('Test method: responseHeaderToHash', function() {
 

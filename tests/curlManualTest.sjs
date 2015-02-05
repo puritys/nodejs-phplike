@@ -36,9 +36,9 @@ function test3() {
 
 // file upload
 function test4() {
-   //   var url = "http://localhost:8080/";
+    var url = "http://localhost:8080/";
 
-  url = "http://www.puritys.me/mysite/t.php";
+    url = "http://www.puritys.me/unit.php";
 
     var filePath = php.getcwd();
     filePath += "/core.js"

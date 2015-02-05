@@ -75,6 +75,28 @@ describe('Test method: File Upload , multipart-form/data', function() {
 
         //console.log(res);
     });
+
+    it("PHP curl function", function() {
+        var url;
+
+        url = "http://www.puritys.me/unit.php";
+
+        var filePath = "./tests/core.js"
+        var param = {"q": "x", "key": "@" + filePath};
+        var header = {"Cookie": "xxx"};
+        var ch = php.curl_init();
+        php.curl_setopt(ch, 'CURLOPT_URL', url);
+        php.curl_setopt(ch, 'CURLOPT_POST',1);
+        php.curl_setopt(ch, 'CURLOPT_POSTFIELDS', param);
+        var res = php.curl_exec(ch);
+
+        res = php.json_decode(res);
+        assert.equal('key', res['key']);
+        assert.equal('core.js', res['name']);
+
+        //console.log(res);
+    });
+
 });
 
 

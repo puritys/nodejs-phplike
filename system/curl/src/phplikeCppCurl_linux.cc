@@ -190,7 +190,10 @@ void phplikeCppCurl::request(string method, string url, string paramStr , map<st
         resHeader += resH.ptr;
         resContent = resC.ptr;
         size_t foundPos = resContent.find("\r\n\r\n");
-         if (foundPos != std::string::npos) {
+        if (fileUploadSize > 0) {
+            foundPos = resContent.find("\r\n\r\n", foundPos + 1);
+        }
+        if (foundPos != std::string::npos) {
             resContent.replace(0, foundPos + 4, "");
         }
     }

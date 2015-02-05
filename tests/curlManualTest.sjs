@@ -36,17 +36,22 @@ function test3() {
 
 // file upload
 function test4() {
-    var url = "http://localhost:8080/";
+   //   var url = "http://localhost:8080/";
+
+  url = "http://www.puritys.me/mysite/t.php";
+
     var filePath = php.getcwd();
     filePath += "/core.js"
     var param = {"q": "x", "file": "@" + filePath+ ""};
     var header = {"Cookie": "xxx"};
-    var ch = php.curl_init();
-    php.curl_setopt(ch, 'CURLOPT_URL', url);
-    php.curl_setopt(ch, 'CURLOPT_POST',1);
-    php.curl_setopt(ch, 'CURLOPT_POSTFIELDS', param);
-
-    var res = php.curl_exec(ch);
+   // var ch = php.curl_init();
+   // php.curl_setopt(ch, 'CURLOPT_URL', url);
+   // php.curl_setopt(ch, 'CURLOPT_POST',1);
+   // php.curl_setopt(ch, 'CURLOPT_POSTFIELDS', param);
+    var file = {"key": filePath};
+    var res = php.request("POST", url, param, header, {}, file);
+    //php.curl_exec(ch);
+    console.log(res);
 }
 
 

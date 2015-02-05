@@ -168,7 +168,7 @@ exports.curl_exec = function (curlInput) {
             fileParseResult = parseFileInfo(val);
             if (fileParseResult) {
                 delete curl.param[key];
-                fileUpload[key] = fileParseResult;
+                fileUpload[key] = fileParseResult[1];
             }
         }
     }
@@ -180,8 +180,15 @@ exports.curl_exec = function (curlInput) {
 };
 
 exports.request = function (method, url, param, header, options, fileUpload) {
+    var key;
     if (!options) {options = [];}
-    if (!fileUpload) {fileUpload = [];}
+    if (!fileUpload) {
+        fileUpload = [];
+    } else {
+        for (key in fileUpload) {
+            fileUpload[key] = ["null", fileUpload[key]];
+        }
+    }
     var response =  cpp.request(method, url, param, header, options, fileUpload);
     return response;
 

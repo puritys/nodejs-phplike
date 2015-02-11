@@ -76,11 +76,15 @@ Completed PHP Method
 * base64_encode
 * base64_decode
 
+**String**
+
+* sprintf
+* str_pad
+* substr (string, start, length)
+
 **Others**
 
-* str_pad
 * time, date, mktime
-* substr (string, start, length)
 * chr, ord : string to ascii number, ascii number to string
 * decbin, bindec
 * parse_str : parse "a=b&c=d" to {"a": "b", "c": "d"}
@@ -91,6 +95,7 @@ Completed PHP Method
 * intval: convert string to integer
 * strval: convert integer to string
 * trim
+* http_build_query
 
 <h2>Install phplike</h2>
 

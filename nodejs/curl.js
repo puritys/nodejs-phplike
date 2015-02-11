@@ -23,6 +23,8 @@ if (fs.existsSync(nativeModule) && typeof(UNIT_TEST) == "undefined" ) {
 var casting = require("./casting_type.js");
 var core = require("./core.js");
 var phplikeArray = require("./array.js");
+var phpString = require("./string.js");
+
 
 
 
@@ -189,6 +191,10 @@ exports.request = function (method, url, param, header, options, fileUpload) {
             fileUpload[key] = ["null", fileUpload[key]];
         }
     }
+    if (casting.is_object(param)) {
+        param = phpString.http_build_query(param);
+    }
+
     var response =  cpp.request(method, url, param, header, options, fileUpload);
     return response;
 

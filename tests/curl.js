@@ -8,15 +8,34 @@ describe('Test method: HTTP GET ', function() {
     it('Fetch google response with query string', function() {
         var url = "https://www.google.com.tw/search";
         var param = {"q": "unit test"};
-        var header = {};
-        var res = phplikeMod.request("GET", url, param, {});
+        var header = {"user-agent": "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36"};
+        var res = phplikeMod.request("GET", url, param, header);
         header = phplikeMod.getResponseHeader();
         //console.log(res);
         var match = res.match(/unit/);
         assert.equal("unit", match[0]);
         assert.equal("200", header['status']);
     });
+
 });
+
+describe('Test method: HTTP GET Array ', function() {
+    it('should be pass a parameter which type is array', function() {
+        var url = "http://www.puritys.me/unit.php";
+        var param = {"unit": "true", "test": ["a", "b", 1], "test2": {"test3": ["a"]}};
+        var header = {};
+        var res = phplikeMod.request("GET", url, param, {});
+        //console.log(res);
+        res = phplikeMod.json_decode(res, true);
+        assert.equal("b", res["test"][1]);
+        assert.equal(1, res["test"][2]);
+        assert.equal("a", res["test2"]["test3"][0]);
+
+
+    });
+
+});
+
 
 describe('Test method: HTTP GET 404', function() {
     it('Fetch google response with query string', function() {

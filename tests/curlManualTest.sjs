@@ -1,10 +1,10 @@
 var php = require('./include.js');
 
-test4();
+test1();
 
 function test1() {
     var url = "http://localhost:8080/";
-    var param = {"q": "x"};
+    var param = {"q": ["a", "b", "c"]};
     var header = {"Cookie": "xxx"};
     var res = php.request("GET", url, param, header);
 }

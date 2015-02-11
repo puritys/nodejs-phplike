@@ -1,4 +1,4 @@
-var phplikeMod = require('./include.js');
+var php = phplikeMod = require('./include.js');
 
 
 var assert = require("assert");
@@ -149,4 +149,66 @@ describe('Test function: trim', function() {
 
 });
 
+describe("Test sprintf:", function () {
 
+    it("String", function () {
+        var text = "This %s a %s";
+        var str1 = "is";
+        var str2 = "apple";
+        var result = php.sprintf(text, str1, str2);
+        assert.equal("This is a apple", result);
+
+        text = "This %1\$s a %1\$s";
+        result = php.sprintf(text, str1);
+        assert.equal("This is a is", result);
+
+    });
+
+    it("ASCII", function () {
+        var text = "A %c %c";
+        var str1 = "97";
+        var num = 98;
+        var result = php.sprintf(text, str1, num);
+        assert.equal("A a b", result);
+    });
+
+
+    it("Number", function () {
+        var text = "This number is %.2f";
+        var str = 100;
+        var result = php.sprintf(text, str);
+        assert.equal("This number is 100.00", result);
+
+        str = 100.500;
+        result = php.sprintf(text, str);
+        assert.equal("This number is 100.50", result);
+
+    });
+
+
+});
+
+describe("Test http_build_query:", function () {
+
+    it("should be a=b%20c", function () {
+        var param = {"a": "b c"};
+        var expect = "a=b%20c";
+        var result = php.http_build_query(param);
+        assert.equal(expect, result);
+    });
+
+    it("should be a[]=b&a[]=c", function () {
+        var param = {"a": ["b","c"]};
+        var expect = "a[0]=b&a[1]=c";
+        var result = php.http_build_query(param);
+        assert.equal(expect, result);
+    });
+
+    it("should be a[b][0]=d", function () {
+        var param = {"a": {"b": ["d"]}};
+        var expect = "a[b][0]=d";
+        var result = php.http_build_query(param);
+        assert.equal(expect, result);
+    });
+
+});

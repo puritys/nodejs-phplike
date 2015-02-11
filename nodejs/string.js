@@ -108,7 +108,7 @@ exports.sprintf = function () {//{{{
         // Note: casts negative numbers to positive ones
         var number = value >>> 0;
         prefix = prefix && number && {'2': '0b', '8': '0', '16': '0x'}[base] || '';
-        value = prefix + pad(number.toString(base), precision || 0, '0', false);
+        value = prefix + str_pad(number.toString(base), precision || 0, '0', false);
         return justify(value, prefix, leftJustify, minWidth, zeroPad);
     };
 
@@ -189,7 +189,7 @@ exports.sprintf = function () {//{{{
             case 'd': {
                 number = parseInt(+value);
                 prefix = number < 0 ? '-' : positivePrefix;
-                value = prefix + pad(String(Math.abs(number)), precision, '0', false);
+                value = prefix + str_pad(String(Math.abs(number)), precision, '0', false);
                 return justify(value, prefix, leftJustify, minWidth, zeroPad);
             }
             case 'e':

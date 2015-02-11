@@ -185,6 +185,25 @@ describe("Test sprintf:", function () {
 
     });
 
+    it("Number %i", function () {
+        var text = "This number is %i";
+        var str = 100.20;
+        var result = php.sprintf(text, str);
+        assert.equal("This number is 100", result);
+
+
+    });
+
+    it("Binary %b", function () {
+        var text = "This number is %b";
+        var str = 8;
+        var result = php.sprintf(text, str);
+        assert.equal("This number is 1000", result);
+
+
+    });
+
+
 
 });
 

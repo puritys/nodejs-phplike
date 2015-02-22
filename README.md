@@ -190,6 +190,7 @@ Functions will be implemented in the future
 * acos
 * strtolower
 * strtoupper
+* XML DOMDocument
 
 
 phplike Development

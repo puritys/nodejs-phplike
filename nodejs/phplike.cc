@@ -36,13 +36,15 @@ Handle<Value> node_md5(const Arguments& args)
 
 
 void  init (Handle<Object> target){    
+
+   HandleScope scope;
    NODE_SET_METHOD(target, "usleep", node_usleep);
    NODE_SET_METHOD(target, "exec", node_exec);
    NODE_SET_METHOD(target, "request", node_curl_request);
    NODE_SET_METHOD(target, "nodeCurlGetHeader", nodeCurlGetHeader);
    NODE_SET_METHOD(target, "md5", node_md5);
 
-
+   phpXMLDocument::init(target);
 } 
 
 

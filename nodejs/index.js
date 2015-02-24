@@ -10,6 +10,8 @@ var file = require("./file.js");
 var core = require("./core.js");
 var curl = require("./curl.js");
 var array = require("./array.js");
+var xml = require("./xml.js");
+
 
 
 
@@ -34,5 +36,8 @@ for(var method in curl) {
 }
 for(var method in array) {
     global[method] = array[method];
+}
+for(var method in xml) {
+    global[method] = xml[method];
 }
 

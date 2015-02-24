@@ -29,12 +29,48 @@ Handle<Value> phpXMLDocument::load(const Arguments &args) {
     string file = string(*jsFile);
     phpXMLDocument *d = ObjectWrap::Unwrap<phpXMLDocument>(args.This());
     d->doc.LoadFile(file.c_str());
-    return Handle<Value> (String::New("local var"));
+    XMLNode* root = d->doc.RootElement();
+
+    Handle<Object> object = Object::New();
+    for (XMLNode* node=root; node; node=node->NextSibling() ) {
+        XMLNode* firstChild = node->FirstChildElement();
+        Handle<Object> obj = getNodeInfo(node, firstChild);
+
+        if (firstChild) {
+            loadChild(object, firstChild);
+        }
+    }
+    return object;
 }
 
-Handle<Value> getElementsByTagName(const Arguments &args) {
+void phpXMLDocument::loadChild(Handle<Object> object, XMLNode* parentNode) {
+    Handle<Array> arr = Array::New();
+    int index = 0;
+    for (XMLNode* node=parentNode; node; node=node->NextSibling() ) {
+
+        XMLNode* firstChild = node->FirstChildElement();
+        Handle<Object> obj = getNodeInfo(node, firstChild);
+
+        arr->Set(index, obj);
+        index++;
+
+        if (firstChild) {
+            loadChild(obj, firstChild);
+        }
+    }
+    object->Set(String::New("children"), arr);
 
 }
 
+Handle<Object> phpXMLDocument::getNodeInfo(XMLNode* node, XMLNode* firstChild) {
+    Handle<Object> obj = Object::New();
+    XMLElement* element = node->ToElement();
+    Handle<String> key = String::New(element->Name());
+    obj->Set(String::New("key"), key);
 
-
+    if (!firstChild) {
+        Handle<String> val = String::New(element->GetText());
+        obj->Set(String::New("value"), val);
+    }
+    return obj;
+}

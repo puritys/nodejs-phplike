@@ -1,0 +1,8 @@
+<product>
+    <name>product name</name>
+    <description>desc</description>
+    <color>
+        <item>red</item>
+        <item>green</item>
+    </color>
+</product>

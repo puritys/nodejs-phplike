@@ -8,6 +8,8 @@
           "system/curl/src/phplikeCppCurl.cc",
           "system/md5/src/md5.cc",
           "system/basic/src/string.cc",
+          "system/xml/src/tinyxml2.cpp",
+          "nodejs/phplikeXml.cc",
           "nodejs/phplikeCurl.cc",
           "nodejs/phplike.cc"
       ],

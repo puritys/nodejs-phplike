@@ -11,6 +11,8 @@ var file = require("./nodejs/file.js");
 var core = require("./nodejs/core.js");
 var curl = require("./nodejs/curl.js");
 var array = require("./nodejs/array.js");
+var xml = require("./nodejs/xml.js");
+
 
 
 
@@ -39,3 +41,6 @@ for(var method in array) {
     exports[method] = array[method];
 }
 
+for(var method in xml) {
+    exports[method] = xml[method];
+}

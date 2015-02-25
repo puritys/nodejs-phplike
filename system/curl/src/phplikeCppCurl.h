@@ -4,8 +4,8 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <memory.h>
 #include "../../basic/src/string_cpp.h"
-
 
 #ifdef OS_MAC
     #include <malloc/malloc.h>

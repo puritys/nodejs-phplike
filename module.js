@@ -11,7 +11,7 @@ var file = require("./nodejs/file.js");
 var core = require("./nodejs/core.js");
 var curl = require("./nodejs/curl.js");
 var array = require("./nodejs/array.js");
-var xml = require("./nodejs/xml.js");
+var xml = require("./nodejs/DOMDocument.js");
 
 
 

@@ -10,7 +10,7 @@ var file = require("./file.js");
 var core = require("./core.js");
 var curl = require("./curl.js");
 var array = require("./array.js");
-var xml = require("./xml.js");
+var xml = require("./DOMDocument.js");
 
 
 

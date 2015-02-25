@@ -52,7 +52,7 @@ Handle<Value> phpXMLDocument::parseXML(phpXMLDocument *d) {
     Handle<Object> object = Object::New();
     for (XMLNode* node=root; node; node=node->NextSibling() ) {
         XMLNode* firstChild = node->FirstChildElement();
-        Handle<Object> obj = getNodeInfo(node, firstChild);
+        object = getNodeInfo(root, firstChild);
 
         if (firstChild) {
             loadChild(object, firstChild);
@@ -82,8 +82,8 @@ void phpXMLDocument::loadChild(Handle<Object> object, XMLNode* parentNode) {/*{{
 Handle<Object> phpXMLDocument::getNodeInfo(XMLNode* node, XMLNode* firstChild) {/*{{{*/
     Handle<Object> obj = Object::New();
     XMLElement* element = node->ToElement();
-    Handle<String> key = String::New(element->Name());
-    obj->Set(String::New("key"), key);
+    Handle<String> name = String::New(element->Name());
+    obj->Set(String::New("name"), name);
     setAttributesIntoJs(obj, node); 
     if (!firstChild) {
         Handle<String> val = String::New(element->GetText());
@@ -100,9 +100,9 @@ void phpXMLDocument::setAttributesIntoJs(Handle<Object> obj, XMLNode* node) {/*{
     if (attr) {
         for (; attr; attr = attr->Next()) {
             if (attr) {
-                Handle<String> key = String::New(attr->Name());
+                Handle<String> name = String::New(attr->Name());
                 Handle<String> value = String::New(attr->Value());
-                attrObj->Set(key, value);
+                attrObj->Set(name, value);
             }
         }
         obj->Set(String::New("attributes"), attrObj);

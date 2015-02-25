@@ -1,4 +1,5 @@
 var fs = require("fs");
+var DOMNodeMod = require("./xml/DOMNode");
 
 if (nativeModule === undefined) {
     var path = require('path');
@@ -44,6 +45,30 @@ o.loadXML = function (content) {
         console.log(e);
     }
     return this.json;
+};
+
+o.getElementsByTagName = function (name) {
+    var result = [], node, phpNode;
+
+    if (this.json.name === name) {
+        phpNode = new DOMNodeMod(this.json);
+        result.push(phpNode);
+        return result;
+    }
+    var glob = function (childNodes, result) {
+        for (var index in childNodes ) {
+            node = childNodes[index];
+            if (node.name === name) {
+                phpNode = new DOMNodeMod(node);
+                result.push(phpNode);
+            } else if (node.childNodes) {
+                glob(node.childNodes, result);
+            }
+        }
+    };
+    glob(this.json.childNodes, result);
+
+    return result;
 };
 
 exports.DOMDocument = DOMDocument;

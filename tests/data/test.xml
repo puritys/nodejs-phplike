@@ -1,5 +1,5 @@
 <product>
-    <name>product name</name>
+    <name class="product" style="margin: 10px" alt="test">product name</name>
     <description>desc</description>
     <color>
         <item>red</item>

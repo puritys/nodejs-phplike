@@ -7,7 +7,7 @@ describe('Test: parse simple XML', function() {
 
     it('Load xml file', function() {
         var doc = new php.DOMDocument();
-        var result = doc.load("data/test.xml");
+        var result = doc.load("tests/data/test.xml");
         //console.log(result);
         //console.log(result['childNodes'][2]['childNodes']);
         //console.log(result['childNodes'][0]['attributes']);

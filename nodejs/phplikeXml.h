@@ -1,6 +1,6 @@
-
 #include "../system/xml/src/tinyxml2.h"
 using namespace tinyxml2;
+
 
 class phpXMLDocument : public node::ObjectWrap {
     public:
@@ -13,7 +13,7 @@ class phpXMLDocument : public node::ObjectWrap {
         static void setAttributesIntoJs(Handle<Object> obj, XMLNode* node);
         static Handle<Value> parseXML(phpXMLDocument *doc);
 
-        XMLDocument doc;
+        tinyxml2::XMLDocument doc;
 
 };
 

@@ -23,7 +23,7 @@ How many OS does phplike support?
 * Windows: Supported only in phplike@2.1.0 、 phplike@2.2.8 , I had ever test phplike in windows 8 and windows xp.
 * Raspberry PI(Pidora OS with ARM CPU): phplike@2.2.2 ~
 
-| OS       | Suggested Version |
+| OS       | Suggested phplie Version |
 |----------|:-------------:|
 | Linux    | Latest |
 | Mac      | 2.0.5  ~ latest |
@@ -112,7 +112,7 @@ Completed PHP Method
 
 * sudo npm install -g phplike
 
-This package need node-gyp. you should install node-gyp first. npm will auto install node-gyp before you install phplike.
+If your computer has a not common OS, then you will need to install node-gyp first. Phplike compile C/C++ code  using node-gyp module. Usually, NPM will auto install node-gyp when you install phplike.
 
 * sudo npm install -g node-gyp
 

@@ -82,7 +82,7 @@ Completed PHP Method
 * str_pad
 * substr (string, start, length)
 
-** XML Parser**
+**XML Parser**
 
 * DOMDocument
  * getElementsByTagName

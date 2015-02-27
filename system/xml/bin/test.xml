@@ -1,6 +1,8 @@
 <site>
     <css class="x">
+aaa
         <item class="c" class2="d">a</item>
         <item>b</item>
+bbb
     </css>
 </site>

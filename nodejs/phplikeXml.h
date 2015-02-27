@@ -10,6 +10,7 @@ class phpXMLDocument : public node::ObjectWrap {
         static Handle<Value> loadXML(const Arguments &args);
         static void loadChild(Handle<Object> object, XMLNode* node);
         static Handle<Object> getNodeInfo(XMLNode* node, XMLNode* firstChild);
+        static Handle<Object> getTextNodeInfo(XMLNode* node);
         static void setAttributesIntoJs(Handle<Object> obj, XMLNode* node);
         static Handle<Value> parseXML(phpXMLDocument *doc);
 

@@ -11,12 +11,20 @@ describe('Test: parse simple XML', function() {
         //console.log(result);
         //console.log(result['childNodes'][2]['childNodes']);
         //console.log(result['childNodes'][0]['attributes']);
+        //console.log(result['childNodes'][3]['childNodes']);
+
+
         assert.equal('product', result['name']);
         assert.equal('red', result['childNodes'][2]['childNodes'][0]['value']);
         assert.equal('item', result['childNodes'][2]['childNodes'][0]['name']);
 
 
         assert.equal('product', result['childNodes'][0]['attributes']['class']);
+
+        assert.equal('a', result['childNodes'][3]['childNodes'][0]['value']);
+
+
+
     })
 
     it('Load xml content', function() {
@@ -95,8 +103,47 @@ describe('Test: getElementsByTagName', function() {
 
     });
 
+});
+
+describe('Test: element', function() {
+    var XML = ['<product>',
+              '<a>test <b class="x">b</b> zzz </a>',
+            '</product>'].join("\n");
+    var doc = new php.DOMDocument();
+    doc.loadXML(XML);
+
+    it("Get first child", function () {
+        var nodes = doc.getElementsByTagName("a");
+        var firstChild = nodes[0].firstChild;
+        //console.log(nodes);
+        //console.log(firstChild);
+        assert.equal('test ', firstChild.nodeValue);
+    });
+
+    it("Get last child", function () {
+        var nodes = doc.getElementsByTagName("a");
+        var lastChild = nodes[0].lastChild;
+        //console.log(nodes);
+        assert.equal(' zzz ', lastChild.nodeValue);
+
+    });
+
+    it("should not has attribute", function () {
+        var nodes = doc.getElementsByTagName("a");
+        var hasAttr = nodes[0].hasAttributes();
+        //console.log(nodes);
+        assert.equal(false, hasAttr);
+    });
+
+    it("should has attribute", function () {
+        var nodes = doc.getElementsByTagName("b");
+        var hasAttr = nodes[0].hasAttributes();
+        //console.log(nodes);
+        assert.equal(true, hasAttr);
+    });
 
 
 
 
 });
+ 

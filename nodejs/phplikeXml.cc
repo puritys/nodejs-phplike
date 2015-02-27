@@ -51,8 +51,11 @@ Handle<Value> phpXMLDocument::parseXML(phpXMLDocument *d) {
 
     Handle<Object> object = Object::New();
     for (XMLNode* node=root; node; node=node->NextSibling() ) {
-        XMLNode* firstChild = node->FirstChildElement();
-        object = getNodeInfo(root, firstChild);
+        XMLNode* firstChildElement = node->FirstChildElement();
+        XMLNode* firstChild = node->FirstChild();
+
+
+        object = getNodeInfo(root, firstChildElement);
 
         if (firstChild) {
             loadChild(object, firstChild);
@@ -60,18 +63,29 @@ Handle<Value> phpXMLDocument::parseXML(phpXMLDocument *d) {
     }
     return object;
 }
+
 void phpXMLDocument::loadChild(Handle<Object> object, XMLNode* parentNode) {/*{{{*/
     Handle<Array> arr = Array::New();
     int index = 0;
     for (XMLNode* node=parentNode; node; node=node->NextSibling() ) {
 
-        XMLNode* firstChild = node->FirstChildElement();
-        Handle<Object> obj = getNodeInfo(node, firstChild);
+        XMLNode* firstChildElement = node->FirstChildElement();
+        XMLNode* firstChild = node->FirstChild();
+
+
+        XMLElement* isElement = node->ToElement();
+        Handle<Object> obj;
+
+        if (isElement) {
+            obj = getNodeInfo(node, firstChildElement);
+        } else {
+            obj = getTextNodeInfo(node);
+        }
 
         arr->Set(index, obj);
         index++;
 
-        if (firstChild) {
+        if (firstChildElement) {
             loadChild(obj, firstChild);
         }
     }
@@ -88,9 +102,21 @@ Handle<Object> phpXMLDocument::getNodeInfo(XMLNode* node, XMLNode* firstChild) {
     if (!firstChild) {
         Handle<String> val = String::New(element->GetText());
         obj->Set(String::New("value"), val);
-   }
+    }
     return obj;
 }/*}}}*/
+
+Handle<Object> phpXMLDocument::getTextNodeInfo(XMLNode* node) {/*{{{*/
+    Handle<Object> obj = Object::New();
+    obj->Set(String::New("name"), String::New("text"));
+
+    string value = node->Value();
+    obj->Set(String::New("value"), String::New(value.c_str()));
+
+    return obj;
+}/*}}}*/
+
+
 
 void phpXMLDocument::setAttributesIntoJs(Handle<Object> obj, XMLNode* node) {/*{{{*/
     Handle<Object> attrObj = Object::New();

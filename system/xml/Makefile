@@ -11,7 +11,7 @@ SO =
 include ../../conf/Makefile_so.global
 
 
-#all:
+all:
 #	sudo cp phplikeCppCurl.so /usr/local/lib/node/libphplikeCppCurl.so
 
 
@@ -33,6 +33,7 @@ gyp:
 	cd src && gmake clean
 	cd src && node-gyp configure --CWD=$(CWD)
 	cd src && node-gyp build
+	cd src/build/Release && cp tinyxml2.so libtinyxml2.so 
 
 gyp-ins:
 	gmake gyp

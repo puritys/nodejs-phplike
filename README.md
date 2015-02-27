@@ -82,6 +82,16 @@ Completed PHP Method
 * str_pad
 * substr (string, start, length)
 
+** XML Parser**
+
+* DOMDocument
+ * getElementsByTagName
+
+* DOMNode
+ * firstChild
+ * lastChild
+ * hasAttributes
+
 **Others**
 
 * time, date, mktime
@@ -96,6 +106,7 @@ Completed PHP Method
 * strval: convert integer to string
 * trim
 * http_build_query
+
 
 <h2>Install phplike</h2>
 

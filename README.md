@@ -88,7 +88,7 @@ Completed PHP Method
 * DOMDocument
  * getElementsByTagName
 
-* DOMNode
+* DOMElement
  * firstChild
  * lastChild
  * hasAttributes

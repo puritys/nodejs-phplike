@@ -1,5 +1,5 @@
 var fs = require("fs");
-var DOMNodeMod = require("./xml/DOMNode");
+var DOMElementMod = require("./xml/DOMElement");
 
 if (nativeModule === undefined) {
     var path = require('path');
@@ -51,7 +51,7 @@ o.getElementsByTagName = function (name) {
     var result = [], node, phpNode;
 
     if (this.json.name === name) {
-        phpNode = new DOMNodeMod(this.json);
+        phpNode = new DOMElementMod(this.json);
         result.push(phpNode);
         return result;
     }
@@ -59,7 +59,7 @@ o.getElementsByTagName = function (name) {
         for (var index in childNodes ) {
             node = childNodes[index];
             if (node.name === name) {
-                phpNode = new DOMNodeMod(node);
+                phpNode = new DOMElementMod(node);
                 result.push(phpNode);
             } else if (node.childNodes) {
                 glob(node.childNodes, result);

@@ -1,12 +1,26 @@
 #include "tinyxml2.h"
 #include <string>
+#include <iostream>
 using namespace tinyxml2;
 using namespace std;
 
 int main () {
+
+    string bug1 = "<page><head></head></page>";
+
+
+    XMLDocument doc2;
+
+    doc2.Parse(bug1.c_str());
+    XMLElement* elm2 = doc2.FirstChild()->FirstChild()->ToElement();
+ //   elm2->GetText();
+    
+    cout << "name =" <<elm2->Name() <<endl;
+    cout <<  "value  =" << elm2->GetText();
+//    return 4;
     XMLDocument doc;
     doc.LoadFile("test.xml");
-    printf("load end\n");
+
 	XMLElement* elm = doc.FirstChildElement("site")->FirstChildElement("css")->FirstChildElement( "item" );
     string title = elm->Value();
 	printf( "element text = : %s\n", title.c_str() );
@@ -22,10 +36,9 @@ int main () {
 //	title = elm->GetText();
 //	printf( "element text = : %s\n", title.c_str());
 
+    printf("g ");
     XMLNode* node = doc.FirstChildElement()->FirstChildElement();//->FirstChildElement();
-//    printf("g ");
     XMLElement* text;
-  //  node = node->NextSibling();
 
     node = node->FirstChild();
     for (;node; node = node->NextSibling()) {

@@ -93,13 +93,14 @@ void phpXMLDocument::loadChild(Handle<Object> object, XMLNode* parentNode) {/*{{
 
 }/*}}}*/
 
-Handle<Object> phpXMLDocument::getNodeInfo(XMLNode* node, XMLNode* firstChild) {/*{{{*/
+Handle<Object> phpXMLDocument::getNodeInfo(XMLNode* node, XMLNode* firstChildElement) {/*{{{*/
     Handle<Object> obj = Object::New();
     XMLElement* element = node->ToElement();
     Handle<String> name = String::New(element->Name());
     obj->Set(String::New("name"), name);
     setAttributesIntoJs(obj, node); 
-    if (!firstChild) {
+
+    if (!firstChildElement && node->FirstChild()) {
         Handle<String> val = String::New(element->GetText());
         obj->Set(String::New("value"), val);
     }

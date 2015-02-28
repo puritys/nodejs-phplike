@@ -23,9 +23,18 @@ describe('Test: parse simple XML', function() {
 
         assert.equal('a', result['childNodes'][3]['childNodes'][0]['value']);
 
-
-
     })
+
+    it('Get empty tag', function() {
+        var XML = ['<product>',
+                  '<name></name>',
+                '</product>'].join("\n");
+        var doc = new php.DOMDocument();
+        var result = doc.loadXML(XML);
+        //console.log(result);
+        assert.equal('name', result['childNodes'][0]['name']);
+    });
+
 
     it('Load xml content', function() {
         var XML = ['<product>',

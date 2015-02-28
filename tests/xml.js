@@ -144,14 +144,26 @@ describe('Test: element', function() {
         assert.equal(false, hasAttr);
     });
 
-    it("should has attribute", function () {
+    it("should has attributes", function () {
         var nodes = doc.getElementsByTagName("b");
         var hasAttr = nodes[0].hasAttributes();
         //console.log(nodes);
         assert.equal(true, hasAttr);
     });
 
+    it("should has the attribute which I assigned", function () {
+        var nodes = doc.getElementsByTagName("b");
+        var hasAttr = nodes[0].hasAttribute('class');
+        //console.log(nodes);
+        assert.equal(true, hasAttr);
+    });
 
+    it("should get specific attribute value which I assigned", function () {
+        var nodes = doc.getElementsByTagName("b");
+        var value = nodes[0].getAttribute('class');
+        //console.log(nodes);
+        assert.equal("x", value);
+    });
 
 
 });

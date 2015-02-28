@@ -6,7 +6,7 @@
     2 attribute
     3 text
  */
-function DOMNode(node) {
+function DOMElement(node) {
     this.nodeName = node.name;
     this.nodeValue = node.value;
     if (node.attributes) {
@@ -17,23 +17,33 @@ function DOMNode(node) {
         && node.childNodes.length > 0
        ) {
         
-        this.firstChild = new DOMNode(node.childNodes[0]);
+        this.firstChild = new DOMElement(node.childNodes[0]);
         if (node.childNodes.length === 1) {
-            this.lastChild = new DOMNode(this.firstChild);
+            this.lastChild = new DOMElement(this.firstChild);
         } else {
-            this.lastChild = new DOMNode(node.childNodes[node.childNodes.length - 1]);
+            this.lastChild = new DOMElement(node.childNodes[node.childNodes.length - 1]);
         }
-
+        this.childNodes = node.childNodes;
     }
+
+
 }
 
-var o = DOMNode.prototype;
+var o = DOMElement.prototype;
 
 o.nodeName = "";
 o.nodeValue = 1;
 o.firstChild = "";
 o.lastChild = "";
 o.attributes = {};
+
+o.getAttribute = function (name) {
+    if (this.attributes[name]) {
+        return this.attributes[name];
+    }
+    return "";
+};
+
 
 o.hasAttributes = function () {
     if (this.attributes) {
@@ -45,7 +55,12 @@ o.hasAttributes = function () {
 };
 
 
+o.hasAttribute = function (name) {
+    if (this.attributes[name]) {
+        return true;
+    }
+    return false;
+};
 
 
-
-module.exports = DOMNode;
+module.exports = DOMElement;

@@ -32,6 +32,7 @@ How many OS does phplike support?
 
 Dependency
 -----------
+* phplike have been already tested in Node.js version 10 ~ 11.
 * libcurl (libcurl-7.19) : Linux system should have this package.
 * python 2.4 ~ :  phplike use node-gyp to compile C/C++ codes. It needs python which version must be bigger than 2.7.8, you can download python from here https://www.python.org/downloads/.
 

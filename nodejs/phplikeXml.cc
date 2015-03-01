@@ -103,6 +103,9 @@ Handle<Object> phpXMLDocument::getNodeInfo(XMLNode* node, XMLNode* firstChildEle
     if (!firstChildElement && node->FirstChild()) {
         Handle<String> val = String::New(element->GetText());
         obj->Set(String::New("value"), val);
+    } else {
+        Handle<String> val = String::New("");
+        obj->Set(String::New("value"), val);
     }
     return obj;
 }/*}}}*/
@@ -132,8 +135,10 @@ void phpXMLDocument::setAttributesIntoJs(Handle<Object> obj, XMLNode* node) {/*{
                 attrObj->Set(name, value);
             }
         }
-        obj->Set(String::New("attributes"), attrObj);
     }
+
+    obj->Set(String::New("attributes"), attrObj);
+
 }/*}}}*/
 
 

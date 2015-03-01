@@ -33,7 +33,23 @@ describe('Test: parse simple XML', function() {
         var result = doc.loadXML(XML);
         //console.log(result);
         assert.equal('name', result['childNodes'][0]['name']);
+        assert.equal('', result['childNodes'][0]['value']);
+
     });
+
+    it('Get empty attributes', function() {
+        var XML = ['<product>',
+                  '<name></name>',
+                '</product>'].join("\n");
+        var doc = new php.DOMDocument();
+        var result = doc.loadXML(XML);
+        //console.log(result);
+        //console.log(typeof result['childNodes'][0]['attributes']);
+        assert.equal(true, result['childNodes'][0]['attributes'] instanceof Object);
+        assert.equal(false, result['childNodes'][0]['attributes'] instanceof Array);
+
+    });
+
 
 
     it('Load xml content', function() {

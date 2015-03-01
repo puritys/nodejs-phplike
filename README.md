@@ -83,11 +83,12 @@ Completed PHP Method
 * substr (string, start, length)
 
 **XML Parser**
+<a href="https://github.com/puritys/nodejs-phplike/wiki/XML-Parser">XML Parser Document</a>
 
 * DOMDocument
  * getElementsByTagName
 
-* DOMNode
+* DOMElement
  * firstChild
  * lastChild
  * hasAttributes

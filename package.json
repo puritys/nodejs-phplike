@@ -1,8 +1,8 @@
 {
-    "version": "2.2.14",
+    "version": "2.2.15",
     "description": "Implement php function for nodejs ",
     "main": "phplike",
-    "keywords": ["php", "php-like", "curl", "exec"],
+    "keywords": ["php", "php-like", "curl", "exec", "xml parser"],
     "repository": {
         "type": "git",
         "url": "git@github.com:puritys/nodejs-phplike.git"

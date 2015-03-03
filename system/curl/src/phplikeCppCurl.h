@@ -42,7 +42,8 @@ class phplikeCppCurl {
         char httpVersion[5];
         string resHeader;
         string resContent;
-
+        size_t contentLength;
+        char *resContentPointer;
         //Method
         phplikeCppCurl();
         ~phplikeCppCurl();

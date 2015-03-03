@@ -50,10 +50,11 @@ CURLoption phplikeCppCurl::getOption(string option) {/*{{{*/
         return CURLOPT_SSL_VERIFYHOST;
     } else if (option == "CURLOPT_SSL_VERIFYPEER") {
         return CURLOPT_SSL_VERIFYPEER;
-
-    } else {
+    } else if (option == "CURLOPT_VERBOSE") {
         return CURLOPT_VERBOSE;
     }
+
+    return CURLOPT_USERAGENT;
 }/*}}}*/
 
 struct curl_slist *phplikeCppCurl::convertHeaderToChunk(map<string, string> header) {
@@ -96,7 +97,7 @@ void phplikeCppCurl::request(
 ) {/*{{{*/
     CURLcode res;
     CURL *curl;
-
+    contentLength  = 0;
     initRequest();
     std::transform(method.begin(), method.end(), method.begin(), ::toupper);
 
@@ -189,7 +190,7 @@ void phplikeCppCurl::request(
     long http_code = 0;
     curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
 
-    if(!res) {
+    if (!res) {
         stringstream ss;
         ss << http_code;
         resHeader = ss.str() + "\r\n";
@@ -199,9 +200,12 @@ void phplikeCppCurl::request(
         if (fileUploadSize > 0) {
             foundPos = resContent.find("\r\n\r\n", foundPos + 1);
         }
-        if (foundPos != std::string::npos) {
-            resContent.replace(0, foundPos + 4, "");
-        }
+        //if (foundPos != std::string::npos) {
+        //    resContent.replace(0, foundPos + 4, "");
+        //}
+        size_t contentStartPosition = foundPos + 4;
+        contentLength = resC.len - contentStartPosition;
+        resContentPointer = resC.ptr + contentStartPosition;
     }
 
     if (!header.empty()) {

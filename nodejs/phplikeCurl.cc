@@ -1,7 +1,9 @@
 #include "common.h"
 #include "../system/curl/src/phplikeCppCurl.h"
+#include "node_buffer.h"
 
 string resHeader;
+
 
 Handle<Value> node_curl_request(const Arguments& args) {
     int i, n, curlType = 0;
@@ -94,18 +96,30 @@ Handle<Value> node_curl_request(const Arguments& args) {
     }
 
 
-
-
-
     if (curlType == 1) {
         pCurl->request(string(*method), string(*url), paramStr, header, options, fileUpload);
     } else {
         pCurl->request(string(*method), string(*url), param, header, options, fileUpload);
     }
 
-    string content = pCurl->resContent;
+    //string content = pCurl->resContent;
+
     resHeader = pCurl->resHeader;
-    return  String::New(content.c_str());
+    if (pCurl->contentLength <= 0) {
+        return String::New("");
+    }
+
+    // save binary data into js string.
+    if (
+        jsOptions->Has(String::New("BINARY_RESPONSE")) 
+        && string(*String::Utf8Value(jsOptions->Get(String::New("BINARY_RESPONSE")))) == "1"
+       ) {
+        node::Buffer *buffer = node::Buffer::New(pCurl->contentLength);
+        memcpy(node::Buffer::Data(buffer), pCurl->resContentPointer, pCurl->contentLength);
+        return buffer->handle_;
+    }
+
+    return  String::New(pCurl->resContentPointer, pCurl->contentLength);
 }
 
 

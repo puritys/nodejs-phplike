@@ -1,4 +1,5 @@
-
+clone:
+	git clone git@github.com:puritys/nodejs-phplike-binary.git ./binary
 all:
 	cd system/exec && gmake  
 	cd nodejs && gmake

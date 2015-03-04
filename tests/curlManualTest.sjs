@@ -1,8 +1,8 @@
 var php = require('./include.js');
 
-test1();
+test5();
 
-function test1() {
+function test4() {
     var url = "http://localhost:8080/";
     var param = {"q": ["a", "b", "c"]};
     var header = {"Cookie": "xxx"};
@@ -54,6 +54,17 @@ function test4() {
     console.log(res);
 }
 
-
+function test5() { 
+    var url = 'http://www.puritys.me/edo';
+    var params = {};
+    var header = {};
+     
+     
+    var res = php.request("GET", url, params, header, {"BINARY_RESPONSE": "1"});
+    //var resHeader = php.getResponseHeader();
+    //console.log(resHeader);
+    console.log(res); 
+    php.file_put_contents("/tmps/test.xlsx", res, 'binary');
+}
 
 //console.log(res);

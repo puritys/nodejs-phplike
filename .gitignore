@@ -7,3 +7,4 @@ nodejs/node_modules*
 *build/
 build/*
 coverage/
+binary/

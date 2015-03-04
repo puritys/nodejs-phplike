@@ -54,7 +54,7 @@ CURLoption phplikeCppCurl::getOption(string option) {/*{{{*/
         return CURLOPT_VERBOSE;
     }
 
-    return CURLOPT_USERAGENT;
+    return CURLOPT_VERBOSE; //fixme, set a useless config
 }/*}}}*/
 
 struct curl_slist *phplikeCppCurl::convertHeaderToChunk(map<string, string> header) {
@@ -158,8 +158,11 @@ void phplikeCppCurl::request(
     map<string, string>::iterator it;
 
     for (it = options.begin(); it != options.end(); ++it) {
-        CURLoption op = getOption(it->first);
-        setOpt(curl, op, it->second);
+        size_t curlOptPos = it->first.find("CURLOPT");
+        if (curlOptPos != string::npos) {
+            CURLoption op = getOption(it->first);
+            setOpt(curl, op, it->second);
+        }
     }
     //setOpt(curl, CURLOPT_REFERER, "xx");
     //setOpt(curl, CURLOPT_USERAGENT, "1");

@@ -4,6 +4,7 @@ Required package
 * npm install node-gyp
 
 
+git clone git@github.com:puritys/nodejs-phplike-binary.git ./binary
 
 Package information
 -------------------

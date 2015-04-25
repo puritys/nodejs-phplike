@@ -193,20 +193,34 @@ void phplikeCppCurl::request(
     long http_code = 0;
     curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
 
+    string headerTmp;
+    size_t contentStartPosition = 0;
+
     if (!res) {
         stringstream ss;
         ss << http_code;
         resHeader = ss.str() + "\r\n";
         resHeader += resH.ptr;
         resContent = resC.ptr;
-        size_t foundPos = resContent.find("\r\n\r\n");
-        if (fileUploadSize > 0) {
-            foundPos = resContent.find("\r\n\r\n", foundPos + 1);
-        }
-        //if (foundPos != std::string::npos) {
-        //    resContent.replace(0, foundPos + 4, "");
-        //}
-        size_t contentStartPosition = foundPos + 4;
+        do {
+            // filter header and get the position of response body.
+            size_t foundPos = resContent.find("\r\n\r\n");
+            if (foundPos > 25) {
+                //headerStatusLineSize 25
+                headerTmp = resContent.substr(0, 25);
+            } else {
+                headerTmp = resContent.substr(0, foundPos);
+            }
+
+            if (headerTmp.find("100 Continue") != std::string::npos) {
+                resContent = resC.ptr + foundPos + 4;
+                contentStartPosition += foundPos + 4;
+            } else {
+                contentStartPosition += foundPos + 4;
+                break;
+            }
+        } while(1);
+
         contentLength = resC.len - contentStartPosition;
         resContentPointer = resC.ptr + contentStartPosition;
     }

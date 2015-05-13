@@ -212,7 +212,7 @@ phplike Development
  
 
 
-# 中文 phplike Readme
+中文 phplike Readme
 
 這個 project 主要是讓習慣 php 開發的工程師，能夠快速適應  Node.js ， 我實作了部分 php 相關的 function。
  

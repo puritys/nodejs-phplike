@@ -43,6 +43,11 @@ void  init (Handle<Object> target){
    NODE_SET_METHOD(target, "request", node_curl_request);
    NODE_SET_METHOD(target, "nodeCurlGetHeader", nodeCurlGetHeader);
    NODE_SET_METHOD(target, "md5", node_md5);
+   NODE_SET_METHOD(target, "nodeSocketConnet", nodeSocketConnet);
+   NODE_SET_METHOD(target, "nodeSocketSend", nodeSocketSend);
+   NODE_SET_METHOD(target, "nodeSocketReceive", nodeSocketReceive);
+
+
 
    phpXMLDocument::init(target);
 } 

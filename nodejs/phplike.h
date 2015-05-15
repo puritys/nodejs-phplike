@@ -2,6 +2,8 @@
 #include "phplikeXml.h"
 #include "../system/exec/src/exec.h"
 #include "../system/md5/src/md5.h"
+#include "phplikeSocket.h"
+
 
 
 

@@ -20,7 +20,7 @@ int main() {
     char *buf;
     buf = phplikeSocketReceive(sockfd);
     cout << "response = " << buf <<endl;
-    close(sockfd);
-
+    phplikeSocketClose(sockfd);
+    free(buf);
     return 1;
 }

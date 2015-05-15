@@ -29,7 +29,7 @@ void phplikeSocketSend(int sockfd, char *msg) {
 }
 
 
-char* phplikeSocketReceive(int sockfd) {
+char* phplikeSocketReceive(int sockfd) {/*{{{*/
     int len = 0, orgLen, readSize = 4;
     char *res = NULL;
     int rc = 0;
@@ -49,4 +49,10 @@ char* phplikeSocketReceive(int sockfd) {
         }
     } 
     return res;
+}/*}}}*/
+
+void phplikeSocketClose(int sockfd) {
+    close(sockfd);
 }
+
+

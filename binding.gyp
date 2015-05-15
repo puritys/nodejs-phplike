@@ -9,6 +9,8 @@
           "system/md5/src/md5.cc",
           "system/basic/src/string.cc",
           "system/xml/src/tinyxml2.cpp",
+          "system/socket/src/socket.cc",
+          "nodejs/phplikeSocket.cc",
           "nodejs/phplikeXml.cc",
           "nodejs/phplikeCurl.cc",
           "nodejs/phplike.cc"

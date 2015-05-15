@@ -94,6 +94,13 @@ Completed PHP Method
  * lastChild
  * hasAttributes
 
+**Socket **
+
+* fsockopen
+* sendcmd
+* fwrite
+* fread
+
 **Others**
 
 * time, date, mktime

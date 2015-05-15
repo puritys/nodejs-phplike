@@ -94,7 +94,7 @@ Completed PHP Method
  * lastChild
  * hasAttributes
 
-**Socket **
+**Socket**
 
 * fsockopen
 * sendcmd

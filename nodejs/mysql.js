@@ -1,17 +1,17 @@
 var socket = require('./socket.js');
-var hexdump = require('hexdump-nodejs');
+//var hexdump = require('hexdump-nodejs');
 
 function mysqli_connect(host, user, password, dbName, port) {
     var serverInfo = [];
     var sockfd = socket.fsockopen(host, port);
-    var res = socket.fread(sockfd, 8);
-    var reader = new packetReader(res);
-    reader.passBytes(4);
-    serverInfo['procotolVersion'] = reader.readInteger(1);
-console.log(serverInfo);
-    var b = new Buffer(res);
-    console.log(b);
-
+//    var res = socket.fread(sockfd, 10);
+//    var reader = new packetReader(res);
+//    reader.passBytes(4);
+//    serverInfo['procotolVersion'] = reader.readInteger(1);
+//console.log(serverInfo);
+//    var b = new Buffer(res);
+//    console.log(b);
+//
     return res;
 }
 

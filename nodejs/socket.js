@@ -32,7 +32,9 @@ function fwrite(socket, msg) {
     cpp.nodeSocketSend(socket, msg);
 }
 function fread(socket, length) {
-    return cpp.nodeSocketReceive(socket);
+    if (typeof(length) === "undefined") length = 0;
+    length = parseInt(length, 10);
+    return cpp.nodeSocketReceive(socket, length);
 }
 
 

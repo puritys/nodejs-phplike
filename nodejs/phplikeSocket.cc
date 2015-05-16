@@ -1,6 +1,7 @@
 #include "common.h"
 #include "phplikeSocket.h"
 
+
 Handle<Value> nodeSocketConnet(const Arguments &args) {
     HandleScope scope;
     String::Utf8Value hostname(args[0]);
@@ -37,10 +38,12 @@ Handle<Value> nodeSocketSend(const Arguments &args) {
 Handle<Value> nodeSocketReceive(const Arguments &args) {
     HandleScope scope;
     unsigned int sockfd = args[0]->Uint32Value();
+    unsigned int length = args[1]->Uint32Value();
+    unsigned int resLength = 0;
     char *buf;
-    buf = phplikeSocketReceive(sockfd);
-    
-    return String::New(buf);
+    buf = phplikeSocketReceive(sockfd, length, &resLength);
+   
+    return String::New(buf, resLength);
 
 }
 

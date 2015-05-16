@@ -29,25 +29,32 @@ void phplikeSocketSend(int sockfd, char *msg) {
 }
 
 
-char* phplikeSocketReceive(int sockfd) {/*{{{*/
-    int len = 0, orgLen, readSize = 4;
+char* phplikeSocketReceive(int sockfd, unsigned int wantedLength, unsigned int *resLength) {/*{{{*/
+    int orgLen, readSize = 1024;
     char *res = NULL;
-    int rc = 0;
+    int rc = 1;
+    *resLength = 0;
     char *buf = new char[readSize];
-    while (1) {
-        rc = recv(sockfd, buf, readSize , 0); 
+    bzero(buf, readSize);
+    // Receive all response until the end.
+    while (rc > 0) {
+        rc = recv(sockfd, buf, readSize, 0); 
         if ( rc == 0 ) {
             return res;
         } else if ( rc == -1 ) {
             return res;
         } else {
-            orgLen = len;
-            len += rc;
-            res = (char*)realloc(res, sizeof(char)* (len + 1));
+            orgLen = *resLength;
+            *resLength += rc;
+            res = (char*)realloc(res, sizeof(char)* (*resLength + 1));
             strncpy(res + orgLen, buf, rc);
-            *(res + len) = '\0';
+            *(res + *resLength) = '\0';
+            if (*resLength >= wantedLength || rc < readSize) {
+                return res;
+            }
         }
-    } 
+    }
+ 
     return res;
 }/*}}}*/
 

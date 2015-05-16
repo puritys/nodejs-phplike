@@ -12,7 +12,7 @@ var curl = require("./curl.js");
 var array = require("./array.js");
 var xml = require("./DOMDocument.js");
 var socket = require("./nodejs/socket.js");
-
+var mysql = require("./nodejs/mysql.js");
 
 
 
@@ -45,3 +45,8 @@ for(method in xml) {
 for(method in socket) {
     global[method] = socket[method];
 }
+for(method in mysql) {
+    global[method] = mysql[method];
+}
+
+

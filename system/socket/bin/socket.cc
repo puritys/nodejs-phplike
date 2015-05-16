@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include "stdio.h"
 #include "../src/socket.h"
 using namespace std;
 
@@ -16,11 +17,24 @@ int main() {
     char msg[20] = "aaaaaab";
     phplikeSocketSend(sockfd, msg);
 
-    //receive messagie
+
     char *buf;
-    buf = phplikeSocketReceive(sockfd);
-    cout << "response = " << buf <<endl;
+    int resLength;
+    buf = phplikeSocketReceive(sockfd, 12909, &resLength);
+    cout << "res length = " << resLength <<endl;
+    for(int j=0; j< resLength;j++)   {
+            printf("%c", buf[j]);
+    }
     phplikeSocketClose(sockfd);
     free(buf);
+
+  //  //receive messagie
+  //  char *buf;
+  //  buf = phplikeSocketReceive(sockfd, 2000);
+  //  cout << "response = " << buf <<endl;
+  //  phplikeSocketClose(sockfd);
+  //  free(buf);
+
+
     return 1;
 }

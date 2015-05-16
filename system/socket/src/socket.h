@@ -7,7 +7,7 @@
 
 int phplikeSocketConnect(char *hostname, int port);
 void phplikeSocketSend(int sockfd, char *msg);
-char* phplikeSocketReceive(int sockfd);
+char* phplikeSocketReceive(int sockfd, unsigned int length, unsigned int *resLength);
 void phplikeSocketClose(int sockfd);
 
 

@@ -11,8 +11,8 @@ var core = require("./core.js");
 var curl = require("./curl.js");
 var array = require("./array.js");
 var xml = require("./DOMDocument.js");
-var socket = require("./nodejs/socket.js");
-var mysql = require("./nodejs/mysql.js");
+var socket = require("./socket.js");
+var mysql = require("./mysql.js");
 
 
 

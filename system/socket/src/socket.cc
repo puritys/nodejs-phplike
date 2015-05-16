@@ -1,7 +1,7 @@
 #include "socket.h"
 #include <stdio.h>
 
-
+//http://linux.die.net/man/2/socket
 int phplikeSocketConnect(char *hostname, int port) {/*{{{*/
     int sockfd = 0;
     struct sockaddr_in serv_addr;
@@ -28,17 +28,32 @@ void phplikeSocketSend(int sockfd, char *msg) {
     send(sockfd, msg, strlen(msg) + 1, MSG_CONFIRM);
 }
 
-
+//http://linux.die.net/man/2/recv
 char* phplikeSocketReceive(int sockfd, unsigned int wantedLength, unsigned int *resLength) {/*{{{*/
-    int orgLen, readSize = 1024;
+    int orgLen = 0, readSize, rc = 1;
     char *res = NULL;
-    int rc = 1;
-    *resLength = 0;
+
+    if (wantedLength >= 100000000) {
+        fprintf(stderr, "The length, you want,  of socket receive data was too long\n");
+        return res;        
+    } else if (wantedLength <= 0) {
+        fprintf(stderr, "The length, you want,  of socket receive data was too short\n");
+        return res;        
+    }
+
+
+    res = (char*) malloc(sizeof(char) * (wantedLength + 1));
+    bzero(res, wantedLength + 1);
+    readSize = wantedLength / 2;
+
     char *buf = new char[readSize];
     bzero(buf, readSize);
+    *resLength = 0;
+
     // Receive all response until the end.
     while (rc > 0) {
-        rc = recv(sockfd, buf, readSize, 0); 
+
+        rc = recv(sockfd, buf, readSize, MSG_WAITALL);
         if ( rc == 0 ) {
             return res;
         } else if ( rc == -1 ) {
@@ -46,15 +61,21 @@ char* phplikeSocketReceive(int sockfd, unsigned int wantedLength, unsigned int *
         } else {
             orgLen = *resLength;
             *resLength += rc;
-            res = (char*)realloc(res, sizeof(char)* (*resLength + 1));
-            strncpy(res + orgLen, buf, rc);
+            res = (char*) realloc(res, sizeof(char) * (orgLen + readSize + 1));
             *(res + *resLength) = '\0';
-            if (*resLength >= wantedLength || rc < readSize) {
+            memcpy(res + orgLen, buf, rc);
+            //printf("orgLen = %d rc = %d reslength = %d\n", orgLen, rc, *resLength);
+            //printf("buf = ");for (int i = 0; i< rc; i++) {printf("%2X ", buf[i]);}printf("\n");
+            //printf("res = ");for (int i = 0; i< *resLength; i++) {printf("%2X ", res[i]);}printf("\n");
+
+            if (rc < readSize) {
+                return res;
+            } else if (*resLength >= wantedLength) {
                 return res;
             }
         }
     }
- 
+    free(buf); 
     return res;
 }/*}}}*/
 

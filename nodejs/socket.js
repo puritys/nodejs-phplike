@@ -24,17 +24,22 @@ function fsockopen(hostname, port) {
     return cpp.nodeSocketConnet(hostname, port);
 }
 
-function sendcmd(msg, socket) {
-    cpp.nodeSocketSend(socket, msg);
+function sendcmd(msg, socket, length) {
+    if (typeof(length) === "undefined" || !length) {
+        length = msg.length;
+    }
+    cpp.nodeSocketSend(socket, msg, length);
 }
 
 function fwrite(socket, msg) {
     cpp.nodeSocketSend(socket, msg);
 }
-function fread(socket, length) {
+function fread(socket, length, isBinary) {
     if (typeof(length) === "undefined") length = 0;
+    if (typeof(isBinary) === "undefined") isBinary = false;
+
     length = parseInt(length, 10);
-    return cpp.nodeSocketReceive(socket, length);
+    return cpp.nodeSocketReceive(socket, length, isBinary);
 }
 
 

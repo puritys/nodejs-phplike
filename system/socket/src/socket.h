@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 int phplikeSocketConnect(char *hostname, int port);
-void phplikeSocketSend(int sockfd, char *msg);
+void phplikeSocketSend(int sockfd, char *msg, unsigned int len);
 char* phplikeSocketReceive(int sockfd, unsigned int length, unsigned int *resLength);
 void phplikeSocketClose(int sockfd);
 

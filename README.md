@@ -10,7 +10,8 @@ phplike support synchronous exec function to run system code without callback. I
 * npm: https://npmjs.org/package/phplike
 * All version: https://registry.npmjs.org/phplike
 * Git Source: https://github.com/puritys/nodejs-phplike
- 
+
+Chinese Readme: https://github.com/puritys/nodejs-phplike/wiki/%E4%B8%AD%E6%96%87%E7%89%88-Readme
 
 Travis CI status: [![Unit testing](https://travis-ci.org/puritys/nodejs-phplike.png?branch=master)](https://travis-ci.org/puritys/nodejs-phplike) [![Coverage Status](https://coveralls.io/repos/puritys/nodejs-phplike/badge.png?branch=master)](https://coveralls.io/r/puritys/nodejs-phplike?branch=master)
 
@@ -219,54 +220,5 @@ phplike Development
  
 
 
-中文 phplike Readme
-
-這個 project 主要是讓習慣 php 開發的工程師，能夠快速適應  Node.js ， 我實作了部分 php 相關的 function。
- 
-
-支援的 OS
-----------
-* Linux
-* Wdinwos
-* Mac
-* Raspberry PI: Fedora
-
-安裝方式： 
-----------
-* npm install phplike
-* sudo /usr/local/bin/npm install -g phplike
-
-必備軟體
--------------------
-
-因為 phplike 有使用到 c/c++ 程式，所以有些必備的軟體必需要安裝。
-
-* Linux : 在 phplike 2.0 版本後，已經支援  php curl function ，而底層是使用軟體 libcurl ，所以 Linux 系統必須要安裝這個軟體，當然大部分的 Linux OS 都已經有內建了。
-* Windows: None
-
-
-phplike 支援兩種 require 模式
-------------------------------
-
-第一種是完全實現 php function 的使用方式，所有的 function 都會變成 global function，你只要呼叫 php function 就能直接使用，優點是程式只要 require 一次，然後每個 module 都可以使用，使用範例如下。
-
-<pre>
-    require("phplike");
-    var tm = time();
-    sleep(10);
-    var result = exec("ls -la");
-    print_r(result);
-</pre>
-
-
-第二種則是將所有的 phplike function 宣告在 Node.js Module 裡，使用的時候，必需要先 require phplike module.js，因為不是  global function ，所有每個檔案都會 require phplike 才能正確執行，使用範例如下。
-
-<pre>
-    var phpmod = require("phplike/module.js");
-    var tm = phpmod.time();
-    phpmod.sleep(10);
-    var result = phpmod.exec("ls -la");
-    phpmod.print_r(result);
-</pre>
 
 

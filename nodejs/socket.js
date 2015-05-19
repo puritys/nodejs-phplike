@@ -25,10 +25,18 @@ function fsockopen(hostname, port) {
 }
 
 function sendcmd(msg, socket, length) {
+    var buff;
     if (typeof(length) === "undefined" || !length) {
         length = msg.length;
     }
-    cpp.nodeSocketSend(socket, msg, length);
+
+    if (typeof(msg) === "string") {
+        buff = new Buffer(length);
+        buff.write(msg, 0, length, 'binary');
+        cpp.nodeSocketSend(socket, buff, length);
+    } else {
+        cpp.nodeSocketSend(socket, msg, length);
+    }
 }
 
 function fwrite(socket, msg) {

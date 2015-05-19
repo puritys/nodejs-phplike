@@ -8,7 +8,6 @@ os:
   
 before_script:
   - "npm install node-gyp"
-  - "npm install hexdump-nodejs"
   - "npm install bindings"
   - "npm install -g mocha"
   - "npm install istanbul"

@@ -6,7 +6,7 @@ var packet = require('./mysql/packet.js');
 
 var clientFlags = require('./mysql/clientFlags.js');
 var Crypto = require('crypto');
-var hexdump = require('hexdump-nodejs');
+//var hexdump = require('hexdump-nodejs');
 
 var serverInfo;
 
@@ -79,7 +79,7 @@ function mysql_login(serverInfo, user, password, dbName) {//{{{
 
     }
     var result = writer.getResult();
-    console.log(hexdump(result));
+//    console.log(hexdump(result));
 
     socket.sendcmd(result, serverInfo['session']);
 }//}}}
@@ -124,7 +124,7 @@ function mysqli_connect(host, user, password, dbName, port) {
         reader = new packetReader(res);
         resInfo['header'] = reader.readInteger(1);
 
-        var b = new Buffer(res, 'binary');console.log(hexdump(b));
+       // var b = new Buffer(res, 'binary');console.log(hexdump(b));
         if (resInfo['header'] === 0 ) {
             //Successfully login 
             resInfo['affectedRows'] = reader.readLengthEncodedInteger();
@@ -153,7 +153,7 @@ function mysql_query(sql) {
     writer.writeString(sql);
     result = writer.getResult(0);
         
-    var b = new Buffer(result, 'binary');console.log(hexdump(b));
+   // var b = new Buffer(result, 'binary');console.log(hexdump(b));
 
     socket.sendcmd(result, serverInfo['session']);
 
@@ -162,7 +162,7 @@ function mysql_query(sql) {
     reader = new packetReader(res);
     resInfo['header'] = reader.readInteger(1);
 
-     var b = new Buffer(res, 'binary');console.log(hexdump(b));
+    // var b = new Buffer(res, 'binary');console.log(hexdump(b));
     if (resInfo['header'] === 0xFF) {
         // Error
         resInfo = packet.readError(serverInfo, reader);            

@@ -4,7 +4,7 @@ Node.js - phplike
 Chinese Readme: https://github.com/puritys/nodejs-phplike/wiki/%E4%B8%AD%E6%96%87%E7%89%88-Readme
 
 
-This project's purpose is to implement some useful php function for node.js or io.js.
+This project's purpose is to implement some useful PHP functions for Node.js or Io.js.
 
 Second, Node.js is a event-driven language and it's method usually use asynchronous IO. Asynchronous IO is not a bad way for any web system. But somethings, we want to make code be readable and easier. phplike support many synchroous functions for Node.js.
 
@@ -33,13 +33,15 @@ How many OS does phplike support?
 | Windows  | 2.2.8 |
 | Raspberry PI | 2.2.2 ~ latest |
 
+If you have any issue for installing phplike, please open a issue in anytime. I will be pleasant to help you.
+ 
 Dependency
 -----------
-* phplike have been already tested in Node.js version 10 ~ 11.
-* libcurl (libcurl-7.19) : Linux system should have this package.
-* python 2.4 ~ :  phplike use node-gyp to compile C/C++ codes. It needs python which version must be bigger than 2.7.8, you can download python from here https://www.python.org/downloads/.
+* phplike have been already tested in Node.js version from 0.10.x to 0.11.x. I will support io.js in the future.  The version 0.12.x of Node.js is not supported now. 
+* libcurl (libcurl-7.19) : Linux system already have this built-in package.
+* python 2.4 ~ :  phplike use node-gyp to compile C/C++ codes. It needs python which's version must be bigger than 2.7.8, you can download the python from here https://www.python.org/downloads/.
 
-After the new version of phplike 2.2.0, I committed all binary file which already compiled in Windows, Mac and Linux, you can just install the phplike without compiling C/C++ now.
+After the new version of phplike 2.2.0, I committed all binary files which already compiled in Windows, Mac and Linux, you can just install the phplike without compiling C/C++ now.
 
 
 Completed PHP Method

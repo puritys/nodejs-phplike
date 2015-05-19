@@ -6,9 +6,9 @@ Chinese Readme: https://github.com/puritys/nodejs-phplike/wiki/%E4%B8%AD%E6%96%8
 
 This project's purpose is to implement some useful PHP functions for Node.js or Io.js.
 
-Second, Node.js is a event-driven language and it's method usually use asynchronous IO. Asynchronous IO is not a bad way for any web system. But somethings, we want to make code be readable and easier. phplike support many synchroous functions for Node.js.
+Second, Node.js is a event-driven language and it's method usually use asynchronous IO. Asynchronous IO is not a bad way for any web system. But sometimes, we want to make code be readable and easier to be maintained. The phplike support many synchroous functions for Node.js.
 
-phplike support synchronous function "exec", "curl", "fsockopen" executing without callback function. It can reduce  the umber of callback functions, also will make the code easier to maintain, and phplike provide cUrl which is just like php curl function. Let you can make a request synchronously. 
+Phplike support synchronous function "exec", "curl", "fsockopen" executing without callback function. It can reduce  the umber of callback functions, also will make the code easier to maintain, and phplike provide function cUrl which is just like php's function called curl. It will let you make a request synchronously. 
 
 * npm: https://npmjs.org/package/phplike
 * All version: https://registry.npmjs.org/phplike

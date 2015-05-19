@@ -26,7 +26,7 @@ int phplikeSocketConnect(char *hostname, int port) {/*{{{*/
 
 void phplikeSocketSend(int sockfd, char *msg, unsigned int len) {
     //printf("send msg = ");for (int i = 0; i< len; i++) {printf("%2X ", msg[i] & 0xFF);}printf("\n");
-    send(sockfd, msg, len, MSG_CONFIRM);
+    send(sockfd, msg, len, 0);
 }
 
 //http://linux.die.net/man/2/recv

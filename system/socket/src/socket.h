@@ -5,9 +5,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#ifndef MSG_CONFIRM
-#define MSG_CONFIRM 0x800
-#endif
 
 int phplikeSocketConnect(char *hostname, int port);
 void phplikeSocketSend(int sockfd, char *msg, unsigned int len);

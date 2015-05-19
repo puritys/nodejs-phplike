@@ -1,6 +1,9 @@
 Node.js - phplike
 =======================
 
+Chinese Readme: https://github.com/puritys/nodejs-phplike/wiki/%E4%B8%AD%E6%96%87%E7%89%88-Readme
+
+
 This project's purpose is to  implement some useful php function to node.js.
 
 The second point is that Node.js is a event-driven language and it's method usually have asynchronous IO. phplike make  Node.js to execute with synchronous IO.
@@ -11,7 +14,6 @@ phplike support synchronous exec function to run system code without callback. I
 * All version: https://registry.npmjs.org/phplike
 * Git Source: https://github.com/puritys/nodejs-phplike
 
-Chinese Readme: https://github.com/puritys/nodejs-phplike/wiki/%E4%B8%AD%E6%96%87%E7%89%88-Readme
 
 Travis CI status: [![Unit testing](https://travis-ci.org/puritys/nodejs-phplike.png?branch=master)](https://travis-ci.org/puritys/nodejs-phplike) [![Coverage Status](https://coveralls.io/repos/puritys/nodejs-phplike/badge.png?branch=master)](https://coveralls.io/r/puritys/nodejs-phplike?branch=master)
 

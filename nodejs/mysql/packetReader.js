@@ -47,23 +47,32 @@ o.readInteger = function (bytes) {//{{{
 };//}}}
 
 o.readString = function (bytes) {//{{{
-    var res = "", b = 1;
+    var res = "", b = 1, buf, strEnd = 0, index, strLength = 0;
     if (typeof(bytes) === "undefined" || !bytes) {
+        index = this.index;
         while (b !== 0) {
-            if (this.index === this.length) return res;
-            b = this.data.readUInt8(this.index++);
-            if (b === 0) return res;
-            res += String.fromCharCode(b);
+            if (index === this.length) {
+                break;
+            }
+            b = this.data.readUInt8(index);
+            if (b === 0) break;
+            strLength++; index++;
         }
+        res = this.data.toString('UTF8', this.index, this.index + strLength);
+        this.index += strLength + 1;
+        return res;
     } else {
-        while (bytes > 0) {
-            b = this.data.readUInt8(this.index++);
-            res += String.fromCharCode(b);
-            bytes--;
+        var strEnd;
+        if (this.length < this.index + bytes) {
+            strEnd = this.length;
+            bytes = this.length - this.index;
+        } else {
+            strEnd = this.index + bytes;
         }
-
+        res = this.data.toString('UTF8', this.index, strEnd);
+        this.index += bytes; 
+        return res;
     }
-    return res;
 };//}}}
 
 /**

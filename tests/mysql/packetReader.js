@@ -17,7 +17,7 @@ describe('Packet Reader: method readString', function() {/*{{{*/
 
     });
 
-    it('Read a c string', function() {
+    it('Read string without specific length', function() {
         var data = new Buffer(5);
         data.write("abcd", 0);
         data[4] = 0x00;
@@ -179,4 +179,26 @@ describe('Packet Reader: method readLengthEncodedInteger', function() {//{{{
     });
 
 });//}}}
+
+describe('Packet Reader: method readLengthEncodedString', function() {//{{{
+    it("Normal", function() {
+        var buf, tester, res, expect;
+        var datas = [
+          //expect, length, string
+            ["a", 0x01, "a"], ["ab", 0x02, "ab"],
+            ["ab", 0x03, "ab"], ["", 0x00, ""]
+        ];
+        datas.forEach(function (data) {
+            expect = data[0];
+            buf = new Buffer(data[2].length + 1);
+            buf[0] = data[1];
+            buf.write(data[2], 1, data[2].length);
+
+            tester = new packetReader(buf);
+            res = tester.readLengthEncodedString();
+            assert.equal(expect, res, "expect value is " + expect + " but actual value is " + res);
+        });
+    });
+
+});
 

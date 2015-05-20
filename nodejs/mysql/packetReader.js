@@ -9,9 +9,9 @@ var o = packetReader.prototype;
 // https://dev.mysql.com/doc/internals/en/integer.html#packet-Protocol::LengthEncodedInteger
 o.readLengthEncodedInteger = function () {//{{{
     var value = 0;
-    value = this.data[this.index];
+    value = this.data[this.index++];
     if (value < 251) {
-        this.index++;
+
     } else if (value === 251) {
         return null;
     } else if (value === 252) {
@@ -23,6 +23,7 @@ o.readLengthEncodedInteger = function () {//{{{
     } else if (value === 255) {
         // It is a ERR_Packet
         console.log("It is a error packet [0xFF]");
+        return null;
     }
     return value;
 };//}}}

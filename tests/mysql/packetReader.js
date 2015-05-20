@@ -38,7 +38,7 @@ describe('Packet Reader: method readString', function() {/*{{{*/
     });
 });/*}}}*/
 
-describe('Packet Reader: method readInteger', function() {
+describe('Packet Reader: method readInteger', function() {//{{{
 
     it('Read fixed integer', function() {
         var data, test, res;
@@ -74,5 +74,109 @@ describe('Packet Reader: method readInteger', function() {
     });
 
 
-});
+});//}}}
+
+describe('Packet Reader: method isTheEnd', function() {//{{{
+
+    it('Normal', function() {
+        var data, test, res;
+        data = new Buffer(3);
+        data[0] = 0x01;
+        data[1] = 0x02;
+        data[2] = 0x00;
+
+        test = new packetReader(data);
+        res = test.isTheEnd();
+        assert.equal(false, res);
+        
+        test.readInteger(3);
+        res = test.isTheEnd();
+        assert.equal(true, res);
+
+    });
+
+});//}}}
+
+describe('Packet Reader: method passBytes', function() {//{{{
+
+    it('Normal', function() {
+        var data, test, res;
+        data = new Buffer(5);
+        data[0] = 0x01;
+        data[1] = 0x02;
+        data[2] = 0x03;
+        data[3] = 0x04;
+        data[4] = 0x05;
+
+        test = new packetReader(data);
+        test.passBytes(1);
+        res = test.readInteger(1);
+        assert.equal(2, res);
+ 
+        test.passBytes(2);
+        res = test.readInteger(1);
+        assert.equal(5, res);
+    });
+
+});//}}}
+
+describe('Packet Reader: method readLengthEncodedInteger', function() {//{{{
+    it("One Byte", function() {
+        var buf, tester, res, expect;
+        var datas = [
+          //expect, input
+            [1, 1], [2, 2], [250, 250], [null, 251],
+            [null, 255]
+        ];
+        datas.forEach(function (data) {
+            buf = new Buffer(2);
+            buf[0] = data[1];
+            expect = data[0];
+
+            tester = new packetReader(buf);
+            res = tester.readLengthEncodedInteger();
+            assert.equal(expect, res, "expect value is " + expect + " but actual value is " + res);
+        });
+    });
+
+    it('Two bytes', function() {
+        var data, test, res;
+        data = new Buffer(5);
+        data[0] = 252;
+        data[1] = 0x01;
+        data[2] = 0x01;
+
+        test = new packetReader(data);
+        res = test.readLengthEncodedInteger();
+        assert.equal(257, res, "Fail to get two bytes integer");
+    });
+
+    it('Three bytes', function() {
+        var data, test, res, expect;
+        data = new Buffer(5);
+        data[0] = 253;
+        data[1] = 0x01;
+        data[2] = 0x01;
+        data[3] = 0x01;
+
+        expect = (1<< 16) + (1<< 8) + 1;
+        test = new packetReader(data);
+        res = test.readLengthEncodedInteger();
+        assert.equal(expect, res, "Fail to get two bytes integer, actual = " + res);
+    });
+
+    it('Eight bytes', function() {
+        var data, test, res, expect = 0;
+        data = new Buffer(5);
+        data[0] = 254;
+        for (var i = 1; i <=8 ; i++) {
+            data[i] = 0x01;
+            expect = ((expect << 8) | 0x01) >>> 0;
+        }
+        test = new packetReader(data);
+        res = test.readLengthEncodedInteger();
+        assert.equal(expect, res, "Fail to get two bytes integer, actual = " + res);
+    });
+
+});//}}}
 

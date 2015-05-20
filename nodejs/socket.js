@@ -47,6 +47,7 @@ function fread(socket, length, isBinary) {
     if (typeof(isBinary) === "undefined") isBinary = false;
 
     length = parseInt(length, 10);
+    if (length <= 0) return "";
     return cpp.nodeSocketReceive(socket, length, isBinary);
 }
 

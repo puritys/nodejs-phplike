@@ -109,6 +109,10 @@ Completed PHP Method
 **Mysql**
 
 * mysqli_connect
+* mysql_connect
+* mysql_select_db
+* mysql_query
+* mysql_close
 
 **Others**
 

@@ -52,9 +52,10 @@ o.writeFills = function (bytes) {
 }
 
 o.getResult = function (pkNumber) {
-    var packetLength, packetNumber = 1, buffer, i, n, tmpBuf, resIndex = 4;
+    var packetLength, packetNumber = 0, buffer, i, n, tmpBuf, resIndex = 4;
     packetLength = this.index;
     buffer = Buffer(packetLength + 4);
+    if (typeof(pkNumber) != "undefined") packetNumber = pkNumber;
     writeInteger(buffer, 0, 3, packetLength); // start from 0
     writeInteger(buffer, 3, 1, packetNumber); // start from 3
 

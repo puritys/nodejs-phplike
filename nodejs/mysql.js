@@ -3,7 +3,7 @@ var packetReader = require('./mysql/packetReader.js');
 var packetWriter = require('./mysql/packetWriter.js');
 var packet = require('./mysql/packet.js');
 
-
+var commandFlags = require('./mysql/commandFlags.js');
 var clientFlags = require('./mysql/clientFlags.js');
 var Crypto = require('crypto');
 //var hexdump = require('hexdump-nodejs');
@@ -38,10 +38,16 @@ function auth(password, key) {
 };
 
 function readMsg(session) {
-    var res = socket.fread(session, 4);
-    var reader = new packetReader(res);
-    var resLength = reader.readInteger(3);
+    var reder, res, resLength;
+    // Read length;
+    res = socket.fread(session, 4);
+    reader = new packetReader(res);
+    resLength = reader.readInteger(3);
+
+    // Read string
     res = socket.fread(session, resLength, true);
+    reader = new packetReader(res);
+
     return res;
 }
 
@@ -78,13 +84,13 @@ function mysql_login(serverInfo, user, password, dbName) {//{{{
         writer.writeInteger(3, maxPacketSize);
 
     }
-    var result = writer.getResult();
-//    console.log(hexdump(result));
+    var result = writer.getResult(1);
+    //console.log(hexdump(result));
 
     socket.sendcmd(result, serverInfo['session']);
 }//}}}
 
-function mysqli_connect(host, user, password, dbName, port) {
+function mysqli_connect(host, user, password, dbName, port) {//{{{
     var isBinary = true;
     serverInfo = [];
     var session = socket.fsockopen(host, port);
@@ -124,7 +130,7 @@ function mysqli_connect(host, user, password, dbName, port) {
         reader = new packetReader(res);
         resInfo['header'] = reader.readInteger(1);
 
-       // var b = new Buffer(res, 'binary');console.log(hexdump(b));
+        //var b = new Buffer(res, 'binary');console.log(hexdump(b));
         if (resInfo['header'] === 0 ) {
             //Successfully login 
             resInfo['affectedRows'] = reader.readLengthEncodedInteger();
@@ -143,17 +149,19 @@ function mysqli_connect(host, user, password, dbName, port) {
     }
 
     return res;
-}
+}//}}}
 
 // https://dev.mysql.com/doc/internals/en/com-query.html
 function mysql_query(sql) {
-    var result, writer, resInfo = [], res;
+    var i, n, j;
+    var data, result, writer, resInfo = [], res, header, fieldName, val;
+    var resFields = [], dataRows = []; //return
+
     writer = new packetWriter();
     writer.writeInteger(1, 3);
     writer.writeString(sql);
     result = writer.getResult(0);
-        
-   // var b = new Buffer(result, 'binary');console.log(hexdump(b));
+    //var b = new Buffer(result, 'binary');console.log(hexdump(b));
 
     socket.sendcmd(result, serverInfo['session']);
 
@@ -162,15 +170,54 @@ function mysql_query(sql) {
     reader = new packetReader(res);
     resInfo['header'] = reader.readInteger(1);
 
-    // var b = new Buffer(res, 'binary');console.log(hexdump(b));
     if (resInfo['header'] === 0xFF) {
         // Error
         resInfo = packet.readError(serverInfo, reader);            
-        //console.log(resInfo);
         var err = new Error("Error[" +resInfo['errorCode']+"]:" + resInfo['errorMessage']);
         throw err;
     }
-    return res;
+
+
+    //ColumnDefinition handle 
+    while(1) {
+        res = readMsg(serverInfo['session']);
+        var reader = new packetReader(res);
+        if (packet.isColumnDef(serverInfo, reader)) {
+            var columnDef = packet.readColumnDefinition(serverInfo, reader);
+            //console.log(columnDef);
+            //b = new Buffer(res, 'binary');console.log(hexdump(b));
+            resFields.push(columnDef['name']);
+        } else if (packet.isEof(serverInfo, reader)) {
+            //b = new Buffer(res, 'binary');console.log(hexdump(b));
+            if (!resFields || !resFields.length) {
+                continue;
+
+            }
+            break;
+        }
+    }
+
+    i = 0;
+    while(1) {
+        if (!dataRows[i]) dataRows[i] = {};
+
+        res = readMsg(serverInfo['session']);
+        reader = new packetReader(res);
+        //b = new Buffer(res, 'binary');console.log(hexdump(b));
+        header = reader.readInteger(1);
+        reader.index--;
+        if (header === 0xFE) {
+            return dataRows;
+        }
+
+        data = reader.readFieldsValue();
+        for (j in data) {
+            dataRows[i][resFields[j]] = data[j];
+        }
+        i++;
+    }
+
+    return dataRows;
 }
 
 /*******/

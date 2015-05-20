@@ -2,93 +2,13 @@ var socket = require('./socket.js');
 var packetReader = require('./mysql/packetReader.js');
 var packetWriter = require('./mysql/packetWriter.js');
 var packet = require('./mysql/packet.js');
+var encrypt = require('./mysql/encrypt.js');
 
 var commandFlags = require('./mysql/commandFlags.js');
 var clientFlags = require('./mysql/clientFlags.js');
-var Crypto = require('crypto');
 //var hexdump = require('hexdump-nodejs');
 
 var serverInfo;
-
-function sha1(msg) {
-  var hash = Crypto.createHash('sha1');
-  hash.update(msg, 'binary');
-  return hash.digest('binary');
-}
-function xor(a, b) {
-    a = new Buffer(a, 'binary');
-    b = new Buffer(b, 'binary');
-    var result = new Buffer(a.length);
-    for (var i = 0; i < a.length; i++) {
-      result[i] = (a[i] ^ b[i]);
-    }
-    return result;
-};
-
-function auth(password, key) {
-    if (!password) {
-        return new Buffer(0);
-    }
-
-  // password must be in binary format, not utf8
-    var stage1 = sha1((new Buffer(password, "utf8")).toString("binary"));
-    var stage2 = sha1(stage1);
-    var stage3 = sha1(key.toString('binary') + stage2);
-    return xor(stage3, stage1);
-};
-
-function readMsg(session) {
-    var reder, res, resLength;
-    // Read length;
-    res = socket.fread(session, 4);
-    reader = new packetReader(res);
-    resLength = reader.readInteger(3);
-
-    // Read string
-    res = socket.fread(session, resLength, true);
-    reader = new packetReader(res);
-
-    return res;
-}
-
-function mysql_login(serverInfo, user, password, dbName) {//{{{
-    var flags, buffer, maxPacketSize = 1, characterSet, scrambleBuff = "vseeeefgesgtset", authData, authKey;
-    characterSet = 33;
-    flags = 455631;//clientFlags.CLIENT_PLUGIN_AUTH;
-
-    if (serverInfo['protocol41'] === true) {
-
-        writer = new packetWriter();
-        writer.writeInteger(4, flags);
-        writer.writeInteger(4, 0x01 << 24);//maxPacketSize);
-        writer.writeInteger(1, characterSet);
-        writer.writeFills(23);
-        writer.writeStringWithNull(user);
-
-        //https://dev.mysql.com/doc/internals/en/secure-password-authentication.html#packet-Authentication::Native41
-        //SHA1( password ) XOR SHA1( "20-bytes random data from server" <concat> SHA1( SHA1( password ) ) ) 
-
-        authKey =  new Buffer(serverInfo['authPluginDataPart1'].length + serverInfo['authPluginDataPart2'].length);
-
-        authKey.write(serverInfo['authPluginDataPart1'], 0 ,'binary');
-        authKey.write(serverInfo['authPluginDataPart2'], serverInfo['authPluginDataPart1'].length, 'binary');
-
-        authData = auth(password, authKey);
-        var length = authData.length;
-        writer.writeInteger(1, length); //if length < 251
-        writer.writeBuffer(authData);
-        writer.writeStringWithNull(dbName);
-    } else {
-        writer = new packetWriter();
-        writer.writeInteger(2, flags);
-        writer.writeInteger(3, maxPacketSize);
-
-    }
-    var result = writer.getResult(1);
-    //console.log(hexdump(result));
-
-    socket.sendcmd(result, serverInfo['session']);
-}//}}}
 
 function mysqli_connect(host, user, password, dbName, port) {//{{{
     var isBinary = true;
@@ -148,14 +68,86 @@ function mysqli_connect(host, user, password, dbName, port) {//{{{
  
     }
 
-    return res;
+    return serverInfo;
+}//}}}
+
+function mysql_connect(server, user, password) {//{{{
+    var s, host, port = 3306, dbName = "";
+    s = server.split(/:/);
+    host = s[0];
+    if (s[1]) port = s[1];
+    return mysqli_connect(host, user, password, dbName, port);
+};//}}}
+
+function mysql_close(ser) {//{{{
+    var w, session;
+    w = new packetWriter();
+    w.writeInteger(1, commandFlags.COM_PROCESS_KILL);
+    if (ser) {
+        session = ser['session'];
+        w.writeInteger(4, ser['connectId']); 
+    } else {
+        session = serverInfo['session'];
+        w.writeInteger(4, serverInfo['connectId']);
+    }
+    socket.sendcmd(w.getResult(), session); 
+
+    if (ser) ser = null;
+    else serverInfo = null;
+}//}}}
+
+function mysql_login(serverInfo, user, password, dbName) {//{{{
+    var flags, buffer, maxPacketSize = 1, characterSet, scrambleBuff = "vseeeefgesgtset", authData, authKey;
+    characterSet = 33;
+    flags = 455631;//clientFlags.CLIENT_PLUGIN_AUTH;
+
+    if (serverInfo['protocol41'] === true) {
+
+        writer = new packetWriter();
+        writer.writeInteger(4, flags);
+        writer.writeInteger(4, 0x01 << 24);//maxPacketSize);
+        writer.writeInteger(1, characterSet);
+        writer.writeFills(23);
+        writer.writeStringWithNull(user);
+
+        //https://dev.mysql.com/doc/internals/en/secure-password-authentication.html#packet-Authentication::Native41
+        //SHA1( password ) XOR SHA1( "20-bytes random data from server" <concat> SHA1( SHA1( password ) ) ) 
+
+        authKey =  new Buffer(serverInfo['authPluginDataPart1'].length + serverInfo['authPluginDataPart2'].length);
+
+        authKey.write(serverInfo['authPluginDataPart1'], 0 ,'binary');
+        authKey.write(serverInfo['authPluginDataPart2'], serverInfo['authPluginDataPart1'].length, 'binary');
+
+        authData = encrypt.encryptPassword(password, authKey);
+        var length = authData.length;
+        writer.writeInteger(1, length); //if length < 251
+        writer.writeBuffer(authData);
+        writer.writeStringWithNull(dbName);
+    } else {
+        writer = new packetWriter();
+        writer.writeInteger(2, flags);
+        writer.writeInteger(3, maxPacketSize);
+
+    }
+    var result = writer.getResult(1);
+    //console.log(hexdump(result));
+
+    socket.sendcmd(result, serverInfo['session']);
 }//}}}
 
 // https://dev.mysql.com/doc/internals/en/com-query.html
-function mysql_query(sql) {
+function mysql_query(sql, ser) {//{{{
     var i, n, j;
-    var data, result, writer, resInfo = [], res, header, fieldName, val;
+    var data, result, writer, resInfo = [], res, header, fieldName, val, ser;
     var resFields = [], dataRows = []; //return
+
+    if (!ser) {
+        ser = serverInfo;
+    }
+
+    if (!ser || !ser['session']) {
+        throw  new Error("Mysql session is closed.");
+    }
 
     writer = new packetWriter();
     writer.writeInteger(1, 3);
@@ -163,16 +155,16 @@ function mysql_query(sql) {
     result = writer.getResult(0);
     //var b = new Buffer(result, 'binary');console.log(hexdump(b));
 
-    socket.sendcmd(result, serverInfo['session']);
+    socket.sendcmd(result, ser['session']);
 
 
-    res = readMsg(serverInfo['session']);
+    res = readMsg(ser['session']);
     reader = new packetReader(res);
     resInfo['header'] = reader.readInteger(1);
 
     if (resInfo['header'] === 0xFF) {
         // Error
-        resInfo = packet.readError(serverInfo, reader);            
+        resInfo = packet.readError(ser, reader);            
         var err = new Error("Error[" +resInfo['errorCode']+"]:" + resInfo['errorMessage']);
         throw err;
     }
@@ -180,14 +172,14 @@ function mysql_query(sql) {
 
     //ColumnDefinition handle 
     while(1) {
-        res = readMsg(serverInfo['session']);
+        res = readMsg(ser['session']);
         var reader = new packetReader(res);
-        if (packet.isColumnDef(serverInfo, reader)) {
-            var columnDef = packet.readColumnDefinition(serverInfo, reader);
+        if (packet.isColumnDef(ser, reader)) {
+            var columnDef = packet.readColumnDefinition(ser, reader);
             //console.log(columnDef);
             //b = new Buffer(res, 'binary');console.log(hexdump(b));
             resFields.push(columnDef['name']);
-        } else if (packet.isEof(serverInfo, reader)) {
+        } else if (packet.isEof(ser, reader)) {
             //b = new Buffer(res, 'binary');console.log(hexdump(b));
             if (!resFields || !resFields.length) {
                 continue;
@@ -201,7 +193,7 @@ function mysql_query(sql) {
     while(1) {
         if (!dataRows[i]) dataRows[i] = {};
 
-        res = readMsg(serverInfo['session']);
+        res = readMsg(ser['session']);
         reader = new packetReader(res);
         //b = new Buffer(res, 'binary');console.log(hexdump(b));
         header = reader.readInteger(1);
@@ -218,12 +210,52 @@ function mysql_query(sql) {
     }
 
     return dataRows;
-}
+}//}}}
+
+function mysql_select_db(dbName, ser) {//{{{
+    var w, result, reader, res, ser;
+    if (!dbName) return "";
+    if (!ser) {
+        ser = serverInfo;
+    }
+    w = new packetWriter();
+    w.writeInteger(1, commandFlags.COM_INIT_DB)
+    w.writeString(dbName);
+    result = w.getResult();
+    socket.sendcmd(result, ser['session']);
+
+    res = readMsg(ser['session']);
+    reader = new packetReader(res);
+    if (reader.readInteger(1) === 0xFF) {
+        var resInfo = packet.readError(ser, reader);            
+        var err = new Error("Error[" +resInfo['errorCode']+"]:" + resInfo['errorMessage']);
+        throw err;
+    }
+
+};//}}}
+
+function readMsg(session) {//{{{
+    var reder, res, resLength;
+    // Read length;
+    res = socket.fread(session, 4);
+    reader = new packetReader(res);
+    resLength = reader.readInteger(3);
+
+    // Read string
+    res = socket.fread(session, resLength, true);
+    reader = new packetReader(res);
+
+    return res;
+}//}}}
+
+
 
 /*******/
 
 exports.mysqli_connect = mysqli_connect;
+
+exports.mysql_connect = mysql_connect;
 exports.mysql_query = mysql_query;
-
-
+exports.mysql_select_db = mysql_select_db;
+exports.mysql_close = mysql_close;
 

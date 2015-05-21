@@ -6,11 +6,34 @@ var user = "test";
 var password = "test";
 var dbName = "test";
 
+describe("MySql Prepare data", function () {
+
+    it("create db and table", function () {
+        php.mysql_connect(host, user, password);
+        php.mysql_select_db(dbName);
+        php.mysql_query("set names 'UTF8'");
+
+       // php.mysql_create_db("test");
+        var sql = 'create table book ( id int AUTO_INCREMENT, name char(20), sn char(20),  PRIMARY KEY (id))ENGINE=MyISAM;';
+        php.mysql_query(sql);
+        var datas = [
+            ['Better performance', '1234'],
+            ['Node.js', '1235'],
+            ['中文書', '999']
+        ];
+        for (var i in datas)  {
+            php.mysql_query("insert into book(name, sn) values('" +datas[i][0]+"', '" + datas[i][1]+"')");
+        }
+
+    });
+
+});
+
 describe("MySql Query", function () {
     it("mysql_connect", function () {
         var res;
         php.mysql_connect(host, user, password);
-        php.mysql_select_db("test");
+        php.mysql_select_db(dbName);
         res = php.mysql_query("select id from book where id = 1;");
         php.mysql_close();
         //console.log("result ");console.log(res);
@@ -19,7 +42,7 @@ describe("MySql Query", function () {
 
     it("mysql_connect with server variable", function () {
         var res, sock;
-        sock = php.mysql_connect(host, user, password);
+        sock = php.mysql_connect(host + ":3306", user, password);
         php.mysql_select_db("test", sock);
         res = php.mysql_query("select id from book where id = 1;", sock);
         php.mysql_close(sock);

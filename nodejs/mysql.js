@@ -79,6 +79,28 @@ function mysql_connect(server, user, password) {//{{{
     return mysqli_connect(host, user, password, dbName, port);
 };//}}}
 
+function mysql_create_db(dbName, ser) {/*{{{*/
+    var w;
+    ser = (ser) ? ser : serverInfo;
+    w = new packetWriter();
+    w.writeInteger(1, commandFlags.COM_CREATE_DB);
+    w.writeString(dbName);
+    socket.sendcmd(w.getResult(), ser['session']); 
+//    var b = new Buffer(w.getResult(), 'binary');console.log(hexdump(b));
+
+    res = readMsg(ser['session']);
+    reader = new packetReader(res);
+
+//    var b = new Buffer(res, 'binary');console.log(hexdump(b));
+
+    if (reader.readInteger(1) === 0xFF) {
+        var resInfo = packet.readError(ser, reader);            
+        var err = new Error("Error[" +resInfo['errorCode']+"]:" + resInfo['errorMessage']);
+        throw err;
+    }
+    return true;
+};/*}}}*/
+
 function mysql_close(ser) {//{{{
     var w, session;
     w = new packetWriter();
@@ -94,6 +116,7 @@ function mysql_close(ser) {//{{{
 
     if (ser) ser = null;
     else serverInfo = null;
+    return true;
 }//}}}
 
 function mysql_login(serverInfo, user, password, dbName) {//{{{
@@ -151,7 +174,10 @@ function mysql_query(sql, ser) {//{{{
 
     writer = new packetWriter();
     writer.writeInteger(1, 3);
-    writer.writeString(sql);
+    //sql = sql.toString("UTF8");
+    var buf = new Buffer(sql.length);
+    buf.write(sql, 0, sql.length, 'binary');
+    writer.writeBuffer(buf);
     result = writer.getResult(0);
     //var b = new Buffer(result, 'binary');console.log(hexdump(b));
 
@@ -162,18 +188,21 @@ function mysql_query(sql, ser) {//{{{
     reader = new packetReader(res);
     resInfo['header'] = reader.readInteger(1);
 
+    var b = new Buffer(res, 'binary');console.log(hexdump(b));
+
     if (resInfo['header'] === 0xFF) {
         // Error
         resInfo = packet.readError(ser, reader);            
         var err = new Error("Error[" +resInfo['errorCode']+"]:" + resInfo['errorMessage']);
         throw err;
     }
-
+    if (!sql.match(/^[\s]*select/)) {return true;}
 
     //ColumnDefinition handle 
     while(1) {
         res = readMsg(ser['session']);
         var reader = new packetReader(res);
+
         if (packet.isColumnDef(ser, reader)) {
             var columnDef = packet.readColumnDefinition(ser, reader);
             //console.log(columnDef);
@@ -234,6 +263,7 @@ function mysql_select_db(dbName, ser) {//{{{
 
 };//}}}
 
+
 function readMsg(session) {//{{{
     var reder, res, resLength;
     // Read length;
@@ -258,4 +288,4 @@ exports.mysql_connect = mysql_connect;
 exports.mysql_query = mysql_query;
 exports.mysql_select_db = mysql_select_db;
 exports.mysql_close = mysql_close;
-
+exports.mysql_create_db = mysql_create_db;

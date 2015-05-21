@@ -202,3 +202,33 @@ describe('Packet Reader: method readLengthEncodedString', function() {//{{{
 
 });
 
+describe('Packet Reader: method readFieldsValue', function() {//{{{
+    it("Normal", function() {
+        var buf, tester, res, expect;
+        var datas = [
+          //expect, length, string, length, string
+            ["test,ab", 0x04, "test", 0x02, "ab"],
+            ["1'34,ab,bbb", 0x04, "1'34", 0x02, "ab", 0x03, "bbb"],
+        ];
+        datas.forEach(function (data) {
+            var len, strLength = 0, index = 0;
+            len = data.length;
+            expect = data[0];
+            for (var i = 1; i < len; i+=2) strLength += data[i] + 1;
+            buf = new Buffer(strLength);
+            for (var i = 1; i < len; i++) {
+                if (i % 2 === 1) {
+                    buf[index++] = data[i];
+                } else {
+                    buf.write(data[i], index);
+                    index += data[i].length;
+                }
+            }
+            tester = new packetReader(buf);
+            res = tester.readFieldsValue();
+            assert.equal(expect, res, "expect value is " + expect + " but actual value is " + res);
+        });
+    });
+
+});
+

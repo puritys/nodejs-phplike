@@ -8,7 +8,7 @@ var password = "test";
 var dbName = "test";
 
 
-describe("MySql Prepare data", function () {
+describe("MySql Prepare data", function () {//{{{
 
     it("create db and table", function () {
         var mysqlInsertId;
@@ -21,7 +21,10 @@ describe("MySql Prepare data", function () {
         var datas = [
             ['Better performance', '1234'],
             ['Node.js', '1235'],
-            ['中文書', '999']
+            ['中文書', '999'],
+            ['DataForUpdate', '0'],
+
+
         ];
         for (var i in datas)  {
             php.mysql_query("insert into book(name, sn) values('" +datas[i][0]+"', '" + datas[i][1]+"');");
@@ -29,9 +32,9 @@ describe("MySql Prepare data", function () {
             assert.equal(parseInt(i, 10) + 1, mysqlInsertId, "mysqlInsertId should be equal to " + (parseInt(i, 10) + 1));
         }
     });
-});
+});//}}}
 
-describe("MySql Query", function () {
+describe("MySql Query", function () {//{{{
     it("mysql_connect", function () {
         var res;
         php.mysql_connect(host, user, password);
@@ -52,9 +55,6 @@ describe("MySql Query", function () {
         assert.equal(1, res[0]['id']);
     });
 
-
-
-
     it("simple query", function () {
         var res;
         php.mysqli_connect(host, user, password, dbName, 3306);
@@ -74,5 +74,15 @@ describe("MySql Query", function () {
 
     });
 
-});
+    it("update query", function () {
+        var res;
+        php.mysqli_connect(host, user, password, dbName, 3306);
+        php.mysql_query("update book set sn = 1 where id = 4;");
+        res = php.mysql_query("select sn from book where name = 'DataForUpdate'");
+
+        //console.log("result ");console.log(res);
+        assert.equal(1, res[0]['sn']);
+    });
+ 
+});//}}}
 

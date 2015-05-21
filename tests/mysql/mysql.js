@@ -5,7 +5,8 @@ var assert = require("assert");
 var packetReader = require('./../../nodejs/mysql/packetReader.js');
 
 var serverInfo = {
-    "session": "0000"
+    "session": "0000",
+    "protocol41": true
 };
 
 function setResponseBuffer(data) {//{{{
@@ -97,6 +98,47 @@ describe('Mysql: method mysql_query', function() {//{{{
             assert.equal(expect, res);
         });
     });
+
+    it("Update", function() {
+        var buf, tester, res, expect;
+        var datas = [
+          //expect, res sql
+            [3, "00010300", "update"] 
+        ];
+        datas.forEach(function (data) {
+            var res, d, expect;
+            expect = data[0];
+            d = data[1].replace(/[\s]+/, '').length;
+            d += "0000";
+            setResponseBuffer(d);
+            setResponseBuffer(data[1]);
+            php.mysql_query(data[2], serverInfo);
+            res = php.mysql_insert_id(serverInfo);
+            assert.equal(expect, res);
+        });
+    });
+
+    it("Exception", function() {
+        var buf, tester, res, expect;
+        var datas = [
+          //expect, res sql
+            [3, "ff05000000000000  61616100", "select"] 
+        ];
+        datas.forEach(function (data) {
+            var res, d, expect;
+            expect = data[0];
+            d = data[1].replace(/[\s]+/, '').length;
+            d += "0000";
+            setResponseBuffer(d);
+            setResponseBuffer(data[1]);
+            try {
+                php.mysql_query(data[2], serverInfo);
+            } catch (e) {
+                assert.equal("Error[5]:aaa", e.message);
+            }
+        });
+    });
+
 
 });
 

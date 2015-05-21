@@ -33,7 +33,6 @@ o.readLengthEncodedString = function () {//{{{
     len = this.readLengthEncodedInteger();
     str = this.readString(len);
     return str;
-    return value;
 
 };//}}}
 

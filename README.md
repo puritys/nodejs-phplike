@@ -106,7 +106,7 @@ Completed PHP Method
 * fwrite
 * fread
 
-**Mysql**
+**<a href="https://github.com/puritys/nodejs-phplike/wiki/Mysql-in-Node.js">Mysql</a>**
 
 * mysqli_connect
 * mysql_connect

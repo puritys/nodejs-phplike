@@ -56,13 +56,13 @@ function readColumnDefinition(serverInfo, packetReader) {//{{{
     return resInfo;
 }//}}}
 
-function readQueryResult(serverInfo, packetReader) {//{{{
-    var resInfo = {}, length , data;
+function readQueryOkPacket(serverInfo, packetReader) {//{{{
+    var resInfo = {}, length , okInfo = {};
 
-    length = packetReader.readLengthEncodedInteger();
-    data = packetReader.readString(length);
-
-    return data;
+    okInfo.header = packetReader.readInteger(1);
+    okInfo.affectedRows = packetReader.readLengthEncodedInteger();
+    okInfo.lastInsertId = packetReader.readLengthEncodedInteger();
+    return okInfo;
 }//}}}
 
 exports.isEof = isEof;
@@ -70,3 +70,4 @@ exports.readError = readError;
 exports.readColumnDefinition = readColumnDefinition;
 //exports.readResult = readResult;
 exports.isColumnDef = isColumnDef;
+exports.readQueryOkPacket = readQueryOkPacket;

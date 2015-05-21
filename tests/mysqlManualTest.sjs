@@ -1,3 +1,4 @@
+global.MYSQL_DEBUG = 0; // Level 1
 var php = require('./include.js');
 
 var assert = require("assert");
@@ -6,13 +7,14 @@ var user = "test";
 var password = "test";
 var dbName = "test";
 
+
 describe("MySql Prepare data", function () {
 
     it("create db and table", function () {
+        var mysqlInsertId;
         php.mysql_connect(host, user, password);
         php.mysql_select_db(dbName);
-        php.mysql_query("set names 'UTF8'");
-
+        php.mysql_query('drop table if exists book;');
        // php.mysql_create_db("test");
         var sql = 'create table book ( id int AUTO_INCREMENT, name char(20), sn char(20),  PRIMARY KEY (id))ENGINE=MyISAM;';
         php.mysql_query(sql);
@@ -22,11 +24,11 @@ describe("MySql Prepare data", function () {
             ['中文書', '999']
         ];
         for (var i in datas)  {
-            php.mysql_query("insert into book(name, sn) values('" +datas[i][0]+"', '" + datas[i][1]+"')");
+            php.mysql_query("insert into book(name, sn) values('" +datas[i][0]+"', '" + datas[i][1]+"');");
+            mysqlInsertId = php.mysql_insert_id();
+            assert.equal(parseInt(i, 10) + 1, mysqlInsertId, "mysqlInsertId should be equal to " + (parseInt(i, 10) + 1));
         }
-
     });
-
 });
 
 describe("MySql Query", function () {

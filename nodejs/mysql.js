@@ -6,9 +6,21 @@ var encrypt = require('./mysql/encrypt.js');
 
 var commandFlags = require('./mysql/commandFlags.js');
 var clientFlags = require('./mysql/clientFlags.js');
-//var hexdump = require('hexdump-nodejs');
+var hexdump, serverInfo, debug = false, dump;
 
-var serverInfo;
+if (global.MYSQL_DEBUG) {
+    hexdump = require('hexdump-nodejs');
+    debug = global.MYSQL_DEBUG;
+}
+
+function debugVerbose(result, level) {
+    var dump;
+    if (!result) return "";
+    if (debug >= level) {
+        dump = new Buffer(result, 'binary');
+        console.log(hexdump(dump));
+    }
+};
 
 function mysqli_connect(host, user, password, dbName, port) {//{{{
     var isBinary = true;
@@ -41,7 +53,7 @@ function mysqli_connect(host, user, password, dbName, port) {//{{{
         reader.passBytes(13);
     }
 
-    //console.log(serverInfo);var b = new Buffer(res, 'binary');console.log(hexdump(b));return res;
+    if (debug) debugVerbose(res, 3);
     if (user) {
         var resInfo = {};
         mysql_login(serverInfo, user, password, dbName);
@@ -49,8 +61,8 @@ function mysqli_connect(host, user, password, dbName, port) {//{{{
         res = readMsg(serverInfo['session']);
         reader = new packetReader(res);
         resInfo['header'] = reader.readInteger(1);
+        if (debug) debugVerbose(res, 3);
 
-        //var b = new Buffer(res, 'binary');console.log(hexdump(b));
         if (resInfo['header'] === 0 ) {
             //Successfully login 
             resInfo['affectedRows'] = reader.readLengthEncodedInteger();
@@ -63,9 +75,6 @@ function mysqli_connect(host, user, password, dbName, port) {//{{{
             var err = new Error("Error[" +resInfo['errorCode']+"]:" + resInfo['errorMessage']);
             throw err;
         }
-
-
- 
     }
 
     return serverInfo;
@@ -105,14 +114,10 @@ function mysql_close(ser) {//{{{
     var w, session;
     w = new packetWriter();
     w.writeInteger(1, commandFlags.COM_PROCESS_KILL);
-    if (ser) {
-        session = ser['session'];
-        w.writeInteger(4, ser['connectId']); 
-    } else {
-        session = serverInfo['session'];
-        w.writeInteger(4, serverInfo['connectId']);
-    }
-    socket.sendcmd(w.getResult(), session); 
+
+    ser = (ser) ? ser : serverInfo; 
+    w.writeInteger(4, ser['connectId']); 
+    socket.sendcmd(w.getResult(), ser['session']); 
 
     if (ser) ser = null;
     else serverInfo = null;
@@ -158,44 +163,58 @@ function mysql_login(serverInfo, user, password, dbName) {//{{{
     socket.sendcmd(result, serverInfo['session']);
 }//}}}
 
+function mysql_insert_id(ser) {
+    ser = (ser) ? ser : serverInfo; 
+    if (ser['lastInsertId']) {
+        return ser['lastInsertId'];
+    }
+    return "";
+};
+
 // https://dev.mysql.com/doc/internals/en/com-query.html
 function mysql_query(sql, ser) {//{{{
     var i, n, j;
-    var data, result, writer, resInfo = [], res, header, fieldName, val, ser;
+    var data, result, writer, resInfo = [], res, header, fieldName, val, ser, length;
     var resFields = [], dataRows = []; //return
 
-    if (!ser) {
-        ser = serverInfo;
-    }
+    ser = (ser) ? ser : serverInfo; 
 
     if (!ser || !ser['session']) {
         throw  new Error("Mysql session is closed.");
     }
 
     writer = new packetWriter();
-    writer.writeInteger(1, 3);
-    //sql = sql.toString("UTF8");
-    var buf = new Buffer(sql.length);
-    buf.write(sql, 0, sql.length, 'binary');
+    writer.writeInteger(1, commandFlags.COM_QUERY);
+
+    length = Buffer.byteLength(sql); //UTF8 length
+    var buf = new Buffer(length);
+    buf.write(sql, 0, 'UTF8');
     writer.writeBuffer(buf);
     result = writer.getResult(0);
-    //var b = new Buffer(result, 'binary');console.log(hexdump(b));
+    if (debug) debugVerbose(result, 2);
 
     socket.sendcmd(result, ser['session']);
 
-
+    // handle response
     res = readMsg(ser['session']);
     reader = new packetReader(res);
     resInfo['header'] = reader.readInteger(1);
-
-    var b = new Buffer(res, 'binary');console.log(hexdump(b));
+    if (debug) debugVerbose(res, 1);
 
     if (resInfo['header'] === 0xFF) {
         // Error
         resInfo = packet.readError(ser, reader);            
         var err = new Error("Error[" +resInfo['errorCode']+"]:" + resInfo['errorMessage']);
         throw err;
+    } else if (resInfo['header'] === 0x00) {
+        //OK Packet
+        reader.index--;
+        var okInfo = packet.readQueryOkPacket(ser, reader);
+        if (okInfo['lastInsertId'] > 0 ) {
+            ser['lastInsertId'] = okInfo['lastInsertId'];
+        }
     }
+
     if (!sql.match(/^[\s]*select/)) {return true;}
 
     //ColumnDefinition handle 
@@ -289,3 +308,5 @@ exports.mysql_query = mysql_query;
 exports.mysql_select_db = mysql_select_db;
 exports.mysql_close = mysql_close;
 exports.mysql_create_db = mysql_create_db;
+exports.mysql_insert_id = mysql_insert_id;
+

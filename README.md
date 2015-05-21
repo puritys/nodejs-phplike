@@ -113,6 +113,8 @@ Completed PHP Method
 * mysql_select_db
 * mysql_query
 * mysql_close
+* mysql_create_db
+* mysql_insert_id
 
 **Others**
 

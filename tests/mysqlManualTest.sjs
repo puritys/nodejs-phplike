@@ -1,6 +1,6 @@
 global.MYSQL_DEBUG = 0; // Level 1
+global.UNIT_TEST = false;
 var php = require('./include.js');
-
 var assert = require("assert");
 var host = "127.0.0.1";
 var user = "test";
@@ -43,6 +43,9 @@ describe("MySql Query", function () {//{{{
         php.mysql_close();
         //console.log("result ");console.log(res);
         assert.equal(1, res[0]['id']);
+        assert.equal(1, res.length, "rows number is 1, actual value is " + res.length);
+
+
     });
 
     it("mysql_connect with server variable", function () {

@@ -244,7 +244,6 @@ function mysql_query(sql, ser) {//{{{
 
     i = 0;
     while(1) {
-        if (!dataRows[i]) dataRows[i] = {};
 
         res = readMsg(ser['session']);
         reader = new packetReader(res);
@@ -255,6 +254,7 @@ function mysql_query(sql, ser) {//{{{
             return dataRows;
         }
 
+        if (!dataRows[i]) dataRows[i] = {};
         data = reader.readFieldsValue();
         for (j in data) {
             dataRows[i][resFields[j]] = data[j];

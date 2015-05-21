@@ -1,5 +1,7 @@
 //require('./../nodejs/index.js');
-global.UNIT_TEST = true;
+if (typeof(global.UNIT_TEST) === "undefined") {
+    global.UNIT_TEST = true;
+}
 
 var module =  require('./../module.js');
 

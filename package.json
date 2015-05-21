@@ -1,5 +1,5 @@
 {
-    "version": "2.3.3",
+    "version": "2.3.4",
     "description": "Implement php function for nodejs ",
     "main": "phplike",
     "keywords": ["php", "php-like", "curl", "exec", "xml parser", "socket", "mysql"],
@@ -7,7 +7,7 @@
         "type": "git",
         "url": "git@github.com:puritys/nodejs-phplike.git"
     },
-    "contributors": "pipi00000@gmail.com",
+    "contributors": "puritys.chen@outlook.com",
     "homepage": "https://github.com/puritys/nodejs-phplike",
     "license" : "MIT",
     "name" : "phplike",

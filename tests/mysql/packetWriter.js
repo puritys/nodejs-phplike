@@ -63,5 +63,17 @@ describe('Packet Write: method writeBuffer', function() {/*{{{*/
 
 });/*}}}*/
 
+describe('Packet Write: method writeFills', function() {/*{{{*/
+
+    it('Normal', function() {
+        var buf, data, test = new packetWriter();
+        test.writeFills(3);
+        buf = test.getResult();
+        assert.equal(0x00, buf[5], "buf[5] should be equal to 2 , actual value = " + buf[5]);
+        assert.equal(0x00, buf[6], "buf[6] should be equal to 3 , actual value = " + buf[6]);
+
+    });
+
+});/*}}}*/
 
 

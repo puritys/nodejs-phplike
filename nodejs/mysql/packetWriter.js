@@ -69,8 +69,4 @@ o.getResult = function (pkNumber) {
 
 };
 
-o.toString = function () {
-    return this.data.toString();
-};
-
 module.exports = packetWriter;

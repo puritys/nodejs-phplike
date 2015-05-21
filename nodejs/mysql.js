@@ -1,4 +1,9 @@
-var socket = require('./socket.js');
+var socket;
+if (global.UNIT_TEST) {
+    socket = require('./../tests/mock/socket.js');
+} else {
+    socket = require('./socket.js');
+}
 var packetReader = require('./mysql/packetReader.js');
 var packetWriter = require('./mysql/packetWriter.js');
 var packet = require('./mysql/packet.js');
@@ -281,7 +286,6 @@ function mysql_select_db(dbName, ser) {//{{{
     }
 
 };//}}}
-
 
 function readMsg(session) {//{{{
     var reder, res, resLength;

@@ -198,7 +198,7 @@ function mysql_query(sql, ser) {//{{{
     result = writer.getResult(0);
     if (debug) debugVerbose(result, 2);
 
-    socket.sendcmd(result, ser['session']);
+    socket.sendcmd(result, ser['session'], writer.length);
 
     // handle response
     res = readMsg(ser['session']);

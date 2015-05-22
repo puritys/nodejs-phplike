@@ -1,4 +1,4 @@
-global.MYSQL_DEBUG = 0; // Level 1
+global.MYSQL_DEBUG = 4; // Level 1
 global.UNIT_TEST = false;
 var php = require('./include.js');
 var assert = require("assert");
@@ -14,9 +14,10 @@ describe("MySql Prepare data", function () {//{{{
         var mysqlInsertId;
         php.mysql_connect(host, user, password);
         php.mysql_select_db(dbName);
+        php.mysql_query("set NAMES 'UTF8'");
         php.mysql_query('drop table if exists book;');
        // php.mysql_create_db("test");
-        var sql = 'create table book ( id int AUTO_INCREMENT, name char(20), sn char(20),  PRIMARY KEY (id))ENGINE=MyISAM;';
+        var sql = 'create table book ( id int AUTO_INCREMENT, name char(20), sn char(20),  PRIMARY KEY (id)) ENGINE=MyISAM, CHARACTER SET UTF8;';
         php.mysql_query(sql);
         var datas = [
             ['Better performance', '1234'],

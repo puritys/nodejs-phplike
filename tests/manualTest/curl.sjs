@@ -41,7 +41,7 @@ function test4() {
     url = "http://www.puritys.me/unit.php";
 
     var filePath = php.getcwd();
-    filePath += "/core.js"
+    filePath += "/global.sjs"
     var param = {"q": "x", "file": "@" + filePath+ ""};
     var header = {"Cookie": "xxx"};
    // var ch = php.curl_init();
@@ -64,7 +64,7 @@ function test5() {
     //var resHeader = php.getResponseHeader();
     //console.log(resHeader);
     console.log(res); 
-    php.file_put_contents("/tmps/test.xlsx", res, 'binary');
+    php.file_put_contents("/tmp/test.xlsx", res, 'binary');
 }
 
 //console.log(res);

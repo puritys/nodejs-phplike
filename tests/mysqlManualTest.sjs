@@ -1,4 +1,4 @@
-global.MYSQL_DEBUG = 4; // Level 1
+global.MYSQL_DEBUG = 1; // Level 1
 global.UNIT_TEST = false;
 var php = require('./include.js');
 var assert = require("assert");

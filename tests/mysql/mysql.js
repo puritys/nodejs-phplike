@@ -10,13 +10,14 @@ var serverInfo = {
 };
 
 function setResponseBuffer(data) {//{{{
-    var index = 0, len = data.length, buf = new Buffer(data.length);
+    var index = 0, len = data.length, buf = new Buffer(data.length/2);
     for (i = 0; i < len; i+=2) {
         hex = data.substr(i, 2);
         if (!hex) continue;
         hex = parseInt(hex, 16);
         buf[index++] = hex;
     }
+    //console.log(buf);
     socket.setRecv(buf);
 
 }//}}}
@@ -136,6 +137,49 @@ describe('Mysql: method mysql_query', function() {//{{{
             } catch (e) {
                 assert.equal("Error[5]:aaa", e.message);
             }
+        });
+    });
+
+    it("Select", function() {
+        var buf, tester, res, expect;
+        var datas = [
+          //expect, res sql
+            ["a", "00010300", "03 64 65 66 04 74 65 73 74 04 62 6F 6F 6B 04 62 6F 6F 6B 04 6E 61 6D 65 04 6E 61 6D 65 0C 21 00 3C 00 00 00 FE 00 00 00 00 00", "FE 00 00 22 00", "01 61", "FE 00 00 22 00", "select name from book"] 
+        ];
+        datas.forEach(function (data) {
+            var res, d, expect;
+            expect = data[0];
+            d = data[1].replace(/[\s]+/g, '').length.toString(16);
+            d += "000000";
+            setResponseBuffer(d);
+            setResponseBuffer(data[1].replace(/[\s]+/g, ''));
+
+            d = data[2].replace(/[\s]+/g, '').length.toString(16);
+            d += "000000";
+            setResponseBuffer(d);
+            setResponseBuffer(data[2].replace(/[\s]+/g, ''));
+
+            //column end
+            d = data[3].replace(/[\s]+/g, '').length.toString(16);
+            d += "000000";
+            setResponseBuffer(d);
+            setResponseBuffer(data[3].replace(/[\s]+/g, ''));
+
+            d = data[4].replace(/[\s]+/g, '').length.toString(16, 2);
+            if (d.length == 1) d = "0" + d;
+            d += "000000";
+            setResponseBuffer(d);
+            setResponseBuffer(data[4].replace(/[\s]+/g, ''));
+
+            //end
+            d = data[5].replace(/[\s]+/g, '').length.toString(16, 2);
+            if (d.length == 1) d = "0" + d;
+            d += "000000";
+            setResponseBuffer(d);
+            setResponseBuffer(data[5].replace(/[\s]+/g, ''));
+
+            res = php.mysql_query(data[6], serverInfo);
+            assert.equal(expect, res[0]['name']);
         });
     });
 

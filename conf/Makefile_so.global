@@ -19,7 +19,8 @@ AWK = gawk
 phplibdir = $(SRC_PATH)/modules
 PHP_MODULES = $(phplibdir)/$(SO).so
 ESTENSION_SHARED_LIBADD = -lstdc++
-shared_objects_extension = $(shell echo $(CXXFILE) | sed 's/.cc/.o/g')
+shared_objects_extension = $(shell echo $(CXXFILE) | sed 's/.cc/.o/g' | sed 's/.cpp/.o/g')
+
 shared_objects_extension_file= 
 
 # only linux support this command
@@ -83,7 +84,10 @@ distclean: clean
 ./$(SO).so: $(shared_objects_extension) $(EXTENSION_SHARED_DEPENDENCIES)
 	$(CXX)  -shared $(LIBS)  $(LDFLAGS)  -o $@ $(shared_objects_extension_file)
 	
-%.o: %.cc
+%.o: %.cc 
+	$(LIBTOOL) --mode=compile $(CXX) -shared -I. -I$(SRC_PATH)/$(COMMON_FLAGS) $(CXXFLAGS_CLEAN) $(EXTRA_CXXFLAGS) $(CFLAGS) $(LIBS) -c $<  -o $(phplibdir)/$@
+
+%.o: %.cpp
 	$(LIBTOOL) --mode=compile $(CXX) -shared -I. -I$(SRC_PATH)/$(COMMON_FLAGS) $(CXXFLAGS_CLEAN) $(EXTRA_CXXFLAGS) $(CFLAGS) $(LIBS) -c $<  -o $(phplibdir)/$@
 	
 $(PHP_MODULES): ./$(SO).so

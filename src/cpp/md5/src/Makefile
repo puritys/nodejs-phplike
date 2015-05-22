@@ -10,7 +10,7 @@ SO = phplikeCppMd5
 
 include ../../../../conf/Makefile_so.global
 all:
-#	sudo cp phplikeCppBasic.so /usr/local/lib/node/libphplikeCppBasic.so
+	sudo cp phplikeCppMd5.so /usr/local/lib/node/libphplikeCppMd5.so
 
 
 

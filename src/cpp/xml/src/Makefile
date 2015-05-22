@@ -10,7 +10,8 @@ SO = phplikeCppXml
 include ../../../../conf/Makefile_so.global
 
 all:
-	echo " xxxxxxx"
+	sudo cp phplikeCppXml.so /usr/local/lib/node/libphplikeCppXml.so
+
 
 
 ifneq (, $(CYGWIN_PATH))

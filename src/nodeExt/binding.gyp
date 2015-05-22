@@ -13,13 +13,13 @@
       "conditions":[
         ['OS=="linux"', {
           "libraries": [
-              "-L/usr/local/lib/node", "-lphplikeCppCurl","-lexec"
+              "-L/usr/local/lib/node", "-lphplikeCppCurl","-lexec", "-lphplikeCppSocket", "-lphplikeCppXml", "-lphplikeCppMd5", "-lphplikeCppBasic"
           ],
           "defines": [
             "LINUX_DEFINE"
           ],
           "include_dirs": [
-            "include/linux"
+            "include/linux", "includes"
           ]
         }],
         ['OS=="win"', {
@@ -30,7 +30,7 @@
             "OS_WIN"
           ],
           "include_dirs": [
-            
+            "includes" 
           ]
         }]
 

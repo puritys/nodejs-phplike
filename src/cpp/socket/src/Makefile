@@ -10,7 +10,7 @@ SO = phplikeCppSocket
 
 include ../../../../conf/Makefile_so.global
 all:
-#	sudo cp phplikeCppSocket.so /usr/local/lib/node/libphplikeCppSocket.so
+	sudo cp phplikeCppSocket.so /usr/local/lib/node/libphplikeCppSocket.so
 
 
 

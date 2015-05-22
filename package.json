@@ -11,7 +11,7 @@
     "homepage": "https://github.com/puritys/nodejs-phplike",
     "license" : "MIT",
     "name" : "phplike",
-    "files": ["nodejs", "system", "index.js", "module.js", "binding.gyp", "package.json", "install.js", "binary"],
+    "files": ["src", "index.js", "module.js", "binding.gyp", "package.json", "install.js", "binary"],
     "scripts": {
         "install": "node install.js",
         "test": "mocha tests",

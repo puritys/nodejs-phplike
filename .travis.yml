@@ -8,6 +8,7 @@ os:
   :linux
   
 before_script:
+  - "npm install npm"
   - "npm install node-gyp"
   - "npm install bindings"
   - "npm install -g mocha"

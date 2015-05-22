@@ -8,7 +8,7 @@ CXXFILE= util.cc phplikeCppCurl.cc
 SO = phplikeCppCurl
 
 
-include ../../../conf/Makefile_so.global
+include ../../../../conf/Makefile_so.global
 all:
 	sudo cp phplikeCppCurl.so /usr/local/lib/node/libphplikeCppCurl.so
 

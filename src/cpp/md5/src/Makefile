@@ -1,3 +1,19 @@
+SRC_PATH=$(shell pwd)
+CC=g++
+CFLAGS= -L/usr/lib   -I/usr/lib
+LIBS=
+#-lcurlpp -I./curlpp/include/
+extlib = 
+CXXFILE= md5.cc
+SO = phplikeCppMd5
+
+
+include ../../../../conf/Makefile_so.global
+all:
+#	sudo cp phplikeCppBasic.so /usr/local/lib/node/libphplikeCppBasic.so
+
+
+
 
 ifneq (, $(CYGWIN_PATH))
 M_CYGWIN_PATH=$(CYGWIN_PATH)

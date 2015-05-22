@@ -4,13 +4,13 @@ CFLAGS= -L/usr/lib   -I/usr/lib
 LIBS= -lcurl
 #-lcurlpp -I./curlpp/include/
 extlib = 
-CXXFILE= phplikeSocket.cc
-SO = phplikeSocket
+CXXFILE= socket.cc
+SO = phplikeCppSocket
 
 
-include ../../../conf/Makefile_so.global
+include ../../../../conf/Makefile_so.global
 all:
-#	sudo cp phplikeCppCurl.so /usr/local/lib/node/libphplikeCppCurl.so
+#	sudo cp phplikeCppSocket.so /usr/local/lib/node/libphplikeCppSocket.so
 
 
 

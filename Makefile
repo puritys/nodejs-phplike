@@ -15,6 +15,8 @@ gyp-test:
 	node-gyp build
 #	sudo cp build/Release/nodejs-phplike.node /usr/local/lib/node_modules/phplike/node_modules/phplike.node
 
+test: mocha
+
 mocha:
 	mocha tests/*.js
 	mocha tests/mysql/*.js

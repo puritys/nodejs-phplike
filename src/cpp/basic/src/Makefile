@@ -8,9 +8,9 @@ CXXFILE= string.cc
 SO = phplikeCppBasic
 
 
-include ../../../conf/Makefile_so.global
+include ../../../../conf/Makefile_so.global
 all:
-	sudo cp phplikeCppCurl.so /usr/local/lib/node/libphplikeCppBasic.so
+	sudo cp phplikeCppBasic.so /usr/local/lib/node/libphplikeCppBasic.so
 
 
 

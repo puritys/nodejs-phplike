@@ -1,7 +1,7 @@
 #include "common.h"
 #include "phplikeXml.h"
-#include "../system/exec/src/exec.h"
-#include "../system/md5/src/md5.h"
+#include "../../cpp/exec/src/exec.h"
+#include "../../cpp/md5/src/md5.h"
 #include "phplikeSocket.h"
 
 

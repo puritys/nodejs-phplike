@@ -23,7 +23,7 @@ if (fs.existsSync(nativeModule) && !devMode) {
 }
 
 if (isNative == false) {
-    var fileHandle = require('./nodejs/file.js');
+    var fileHandle = require('./src/js/file.js');
     var isForce = true;
 
     if (!devMode) fileHandle.rmdir('./binary', isForce);

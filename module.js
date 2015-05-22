@@ -5,15 +5,15 @@ var fs = require("fs");
 var _Directory = require("fs").Directory;
 var File = require("fs").File;
 
-var casting = require("./nodejs/casting_type.js");
-var str = require("./nodejs/string.js");
-var file = require("./nodejs/file.js");
-var core = require("./nodejs/core.js");
-var curl = require("./nodejs/curl.js");
-var array = require("./nodejs/array.js");
-var xml = require("./nodejs/DOMDocument.js");
-var socket = require("./nodejs/socket.js");
-var mysql = require("./nodejs/mysql.js");
+var casting = require("./src/js/casting_type.js");
+var str = require("./src/js/string.js");
+var file = require("./src/js/file.js");
+var core = require("./src/js/core.js");
+var curl = require("./src/js/curl.js");
+var array = require("./src/js/array.js");
+var xml = require("./src/js/DOMDocument.js");
+var socket = require("./src/js/socket.js");
+var mysql = require("./src/js/mysql.js");
 
 
 

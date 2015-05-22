@@ -3,17 +3,17 @@
     {
       "target_name": "phplike",
       "sources": [ 
-          "system/exec/src/exec.cc",
-          "system/curl/src/util.cc",
-          "system/curl/src/phplikeCppCurl.cc",
-          "system/md5/src/md5.cc",
-          "system/basic/src/string.cc",
-          "system/xml/src/tinyxml2.cpp",
-          "system/socket/src/socket.cc",
-          "nodejs/phplikeSocket.cc",
-          "nodejs/phplikeXml.cc",
-          "nodejs/phplikeCurl.cc",
-          "nodejs/phplike.cc"
+          "src/cpp/exec/src/exec.cc",
+          "src/cpp/curl/src/util.cc",
+          "src/cpp/curl/src/phplikeCppCurl.cc",
+          "src/cpp/md5/src/md5.cc",
+          "src/cpp/basic/src/string.cc",
+          "src/cpp/xml/src/tinyxml2.cpp",
+          "src/cpp/socket/src/socket.cc",
+          "src/nodeExt/phplikeSocket.cc",
+          "src/nodeExt/phplikeXml.cc",
+          "src/nodeExt/phplikeCurl.cc",
+          "src/nodeExt/phplike.cc"
       ],
       "cflags_cc": ["-fexceptions"],
       "conditions": [
@@ -27,7 +27,8 @@
                 "LINUX_DEFINE", "OS_LINUX"
               ],
               "include_dirs": [
-                "include/linux"
+                "include/linux",
+                "src/nodeExt/includes"
               ]
             }
           ],
@@ -41,7 +42,8 @@
                 "LINUX_DEFINE", "OS_LINUX"
               ],
               "include_dirs": [
-                "include/linux"
+                "include/linux",
+                "src/nodeExt/includes"
               ]
             }
           ],
@@ -57,7 +59,8 @@
                 "LINUX_DEFINE", "OS_LINUX", "OS_MAC"
               ],
               "include_dirs": [
-                "include/linux"
+                "include/linux",
+                "src/nodeExt/includes"
               ]
             }
           ],
@@ -70,6 +73,7 @@
                 "OS_WIN"
               ],
               "include_dirs": [
+                "src/nodeExt/includes"
               ]
             }
           ]

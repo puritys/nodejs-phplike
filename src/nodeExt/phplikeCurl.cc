@@ -1,5 +1,5 @@
 #include "common.h"
-#include "../system/curl/src/phplikeCppCurl.h"
+#include "../cpp/curl/src/phplikeCppCurl.h"
 #include "node_buffer.h"
 
 string resHeader;

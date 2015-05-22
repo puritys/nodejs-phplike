@@ -18,7 +18,7 @@
         "build": "node-gyp rebuild"
     },
     "dependencies": {
-       "node-gyp": "^1.0.2",
+       "node-gyp": ">=1.0.2",
        "bindings": ">=1.2.1"
     },
     "gypfile": true,

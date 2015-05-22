@@ -1,7 +1,7 @@
 var phplikeMod = require('./../include.js');
 
 var assert = require("assert");
-var packetWriter = require('./../../nodejs/mysql/packetWriter.js');
+var packetWriter = require('./../../src/js/mysql/packetWriter.js');
 
 //mocha lib/ --grep Packet
 describe('Packet Write: method writeString', function() {/*{{{*/

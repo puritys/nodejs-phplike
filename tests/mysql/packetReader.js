@@ -1,7 +1,7 @@
 var phplikeMod = require('./../include.js');
 
 var assert = require("assert");
-var packetReader = require('./../../nodejs/mysql/packetReader.js');
+var packetReader = require('./../../src/js/mysql/packetReader.js');
 
 //mocha lib/ --grep Packet
 describe('Packet Reader: method readString', function() {/*{{{*/

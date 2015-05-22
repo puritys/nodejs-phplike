@@ -2,7 +2,7 @@ var php = require('./../include.js');
 var socket = require('./../mock/socket.js');
 
 var assert = require("assert");
-var packetReader = require('./../../nodejs/mysql/packetReader.js');
+var packetReader = require('./../../src/js/mysql/packetReader.js');
 
 var serverInfo = {
     "session": "0000",

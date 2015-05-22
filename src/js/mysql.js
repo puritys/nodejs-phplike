@@ -1,6 +1,6 @@
 var socket;
 if (global.UNIT_TEST) {
-    socket = require('./../tests/mock/socket.js');
+    socket = require('./../../tests/mock/socket.js');
 } else {
     socket = require('./socket.js');
 }

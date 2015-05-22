@@ -1,5 +1,5 @@
 var assert = require("assert");
-var file = require("./../nodejs/file.js");
+var file = require("./../src/js/file.js");
 
 var fs = require("fs");
 var path = require('path');

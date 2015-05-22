@@ -1,4 +1,4 @@
-var phplikeMod = require('./include.js');
+var php = require('./include.js');
 
 
 var assert = require("assert");
@@ -7,13 +7,13 @@ var assert = require("assert");
 describe('Test function: isset', function() {
     it('String is undefined', function() {
         var str;
-        var is = phplikeMod.isset(str);
+        var is = php.isset(str);
         assert.equal(false, is);
     })
 
     it('missing argument 1', function() {
         try {
-            var is = phplikeMod.isset();
+            var is = php.isset();
             assert.equal(false, true);
         } catch (e) {
             assert.equal(true, true);
@@ -26,13 +26,13 @@ describe('Test function: isset', function() {
 describe('Test function: empty', function() {//{{{
     it('String is undefined', function() {
         var str;
-        var is = phplikeMod.empty(str);
+        var is = php.empty(str);
         assert.equal(true, is);
     });
 
     it('String is not empty', function() {
         var str = "2";
-        var is = phplikeMod.empty(str);
+        var is = php.empty(str);
         assert.equal(false, is);
     });
 
@@ -43,7 +43,7 @@ describe('Test function: empty', function() {//{{{
 describe('Test function: exec', function() {//{{{
     it('echo a string', function() {
         var str;
-        var res = phplikeMod.exec("echo a");
+        var res = php.exec("echo a");
         assert.equal("a\n", res);
     })
 
@@ -51,8 +51,8 @@ describe('Test function: exec', function() {//{{{
 
 describe('Test function: time', function() {//{{{
     it('echo a string', function() {
-        var t1 = phplikeMod.time();
-        var t2 = phplikeMod.time(1000 * 30);
+        var t1 = php.time();
+        var t2 = php.time(1000 * 30);
         if (t2 > t1 + 25) {
             assert.equal(true, true);
         } else {
@@ -65,7 +65,7 @@ describe('Test function: time', function() {//{{{
 describe('Test function: parse_str', function() {//{{{
     it('string to object', function() {
         var str = "a=b&c=d";
-        var res = phplikeMod.parse_str(str);
+        var res = php.parse_str(str);
         assert.equal("b", res['a']);
         assert.equal("d", res['c']);
 
@@ -78,7 +78,7 @@ describe('Test function: parse_str', function() {//{{{
 describe('Test function: clone', function() {//{{{
     it('clone a object(assoc array)', function() {
         var obj = {"a": "aa"};
-        var res = phplikeMod.clone(obj);
+        var res = php.clone(obj);
         res["a"] = "bb";
         assert.equal("bb", res['a']);
         assert.equal("aa", obj['a']);
@@ -86,7 +86,7 @@ describe('Test function: clone', function() {//{{{
 
     it('clone a array', function() {
         var obj = [1];
-        var res = phplikeMod.clone(obj);
+        var res = php.clone(obj);
         res[0] = 5;
         assert.equal(1, res.length);
 
@@ -96,11 +96,11 @@ describe('Test function: clone', function() {//{{{
 
     it('clone string, number', function() {
         var obj = "a";
-        var res = phplikeMod.clone(obj);
+        var res = php.clone(obj);
         assert.equal("a", res);
 
         obj = 10;
-        var res = phplikeMod.clone(obj);
+        var res = php.clone(obj);
         assert.equal(10, res);
 
 
@@ -113,7 +113,7 @@ describe('Test function: clone', function() {//{{{
 
 describe('Test function: getcwd', function() {//{{{
     it('string to object', function() {
-        var res = phplikeMod.getcwd();
+        var res = php.getcwd();
         if (process.platform.match(/^win/)) {
             // node.js should install in c:
             assert.equal("C:", res.substring(0, 2).toUpperCase()); 
@@ -128,8 +128,8 @@ describe('Test function: getcwd', function() {//{{{
 describe('Test function: mktime', function() {//{{{
     it('Verify normal date to time', function() {
         //-28800   timezone+8 (Asia/Taipei)
-        var begin = phplikeMod.mktime(1, 1, 1, 5, 6, 2014);
-        var res = phplikeMod.mktime(2, 1, 1, 5, 6, 2014);
+        var begin = php.mktime(1, 1, 1, 5, 6, 2014);
+        var res = php.mktime(2, 1, 1, 5, 6, 2014);
         assert.equal(res - begin, 3600);
     })
 
@@ -141,7 +141,7 @@ describe('Test function: exit', function() {
     it('run a child process to execute exit function', function() {
         // Notice! I am not sure it is a good solution to pass exit test.
         global.process.exit = function () {};
-        phplikeMod.exit();
+        php.exit();
     })
 
 });

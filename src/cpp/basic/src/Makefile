@@ -33,7 +33,7 @@ gyp:
 	cd build/Release && cp phplikeCppBasic.so libphplikeCppBasic.so
 gyp-ins:
 	gmake gyp
-#	sudo cp build/Release/phplikeCppCurl.$(soExt) /usr/local/lib/node/libphplikeCppCurl.$(soExt)
-#	sudo ldconfig
+	sudo cp build/Release/phplikeCppBasic.$(soExt) /usr/local/lib/node/libphplikeCppBasic.$(soExt)
+	sudo ldconfig
 
 

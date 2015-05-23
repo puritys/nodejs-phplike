@@ -4,7 +4,9 @@
       "target_name": "phplike",
       "sources": [
           "phplikeCurl.cc",
-          "phplike.cc"
+          "phplike.cc", 
+          "phplikeXml.cc",
+          "phplikeSocket.cc"
       ],
       "cflags": ["-std=gnu++0x"],
       "cflags_cc": ["-fexceptions"],
@@ -13,7 +15,7 @@
       "conditions":[
         ['OS=="linux"', {
           "libraries": [
-              "-L/usr/local/lib/node", "-lphplikeCppCurl","-lexec", "-lphplikeCppSocket", "-lphplikeCppXml", "-lphplikeCppMd5", "-lphplikeCppBasic"
+             "-L/usr/local/lib/", "-L/usr/local/lib/node", "-lphplikeCppCurl","-lphplikeCppExec", "-lphplikeCppSocket", "-lphplikeCppXml", "-lphplikeCppMd5", "-lphplikeCppBasic"
           ],
           "defines": [
             "LINUX_DEFINE"

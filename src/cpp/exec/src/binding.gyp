@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "exec",
+      "target_name": "phplikeCppExec",
       "sources": [ 
           "exec.cc"
       ],

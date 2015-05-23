@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "tinyxml2",
+      "target_name": "phplikeCppXml",
       "sources": [ 
           "tinyxml2.cpp"
       ],

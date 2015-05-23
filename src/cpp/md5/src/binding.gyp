@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "md5",
+      "target_name": "phplikeCppMd5",
       "sources": [ 
           "md5.cc"
       ],

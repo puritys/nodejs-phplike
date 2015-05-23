@@ -20,5 +20,14 @@ CWD=`echo $(M_CYGWIN_PATH)$(shell pwd) | sed  's/\//\\\/g'`
 
 
 gyp:
-	node-gyp configure  --CWD=$(CWD)
-	node-gyp build
+	gmake clean
+	node-gyp configure --CWD=$(CWD)
+	node-gyp build --release
+	cd build/Release && cp phplikeCppExec.so libphplikeCppExec.so
+
+gyp-ins:
+	gmake gyp
+	sudo cp build/Release/phplikeCppExec.$(soExt) /usr/local/lib/node/libphplikeCppExec.$(soExt)
+	sudo ldconfig
+
+

@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "phplikeSocket",
+      "target_name": "phplikeCppSocket",
       "sources": [ 
           "socket.cc"
       ],

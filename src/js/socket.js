@@ -1,7 +1,7 @@
 var cpp = require('./requireNative.js');
 
 function fsockopen(hostname, port) {
-    return cpp.nodeSocketConnet(hostname, port);
+    return cpp.nodeSocketConnect(hostname, port);
 }
 
 function sendcmd(msg, socket, length) {

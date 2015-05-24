@@ -3,53 +3,53 @@
 
 
 void phpXMLDocument::init(Handle<Object> target) { 
-   HandleScope scope;
+//NAN_METHOD(phpXMLDocument::init) {
+    NanScope();
+//    Local<FunctionTemplate> constructor = Local<FunctionTemplate>::New(FunctionTemplate::New(phpXMLDocument::New));
+    Local<FunctionTemplate> constructor = NanNew<FunctionTemplate>(phpXMLDocument::New);
+    constructor->InstanceTemplate()->SetInternalFieldCount(1); // for constructors
+    constructor->SetClassName(NanNew<String>("phpXMLDocument"));
 
-   Local<FunctionTemplate> constructor = Local<FunctionTemplate>::New(FunctionTemplate::New(phpXMLDocument::New));
-   constructor->InstanceTemplate()->SetInternalFieldCount(1); // for constructors
-   constructor->SetClassName(String::NewSymbol("phpXMLDocument"));
-
-   NODE_SET_PROTOTYPE_METHOD(constructor, "load", load);
-   NODE_SET_PROTOTYPE_METHOD(constructor, "loadXML", loadXML);
+    NODE_SET_PROTOTYPE_METHOD(constructor, "load", load);
+    NODE_SET_PROTOTYPE_METHOD(constructor, "loadXML", loadXML);
 
 
-   target->Set(String::NewSymbol("DOMDocument"), constructor->GetFunction());
+    target->Set(NanNew<String>("DOMDocument"), constructor->GetFunction());
 
 }
 
-Handle<Value> phpXMLDocument::New(const Arguments &args) {
-    HandleScope scope;
+NAN_METHOD(phpXMLDocument::New) {
+    NanScope();
     phpXMLDocument *d = new phpXMLDocument();
     d->Wrap(args.This());
-    return args.This();
-
+    NanReturnThis();
 }
 
-Handle<Value> phpXMLDocument::load(const Arguments &args) {
-    HandleScope scope;
+NAN_METHOD(phpXMLDocument::load) {
+    //HandleScope scope;
+    NanScope();
     String::Utf8Value jsFile(args[0]);
     string file = string(*jsFile);
     phpXMLDocument *d = ObjectWrap::Unwrap<phpXMLDocument>(args.This());
     d->doc.LoadFile(file.c_str());
 
-    return parseXML(d);
+    NanReturnValue(parseXML(d));
 }
 
-Handle<Value> phpXMLDocument::loadXML(const Arguments &args) {
-    HandleScope scope;
+NAN_METHOD(phpXMLDocument::loadXML) {
+    NanScope();
     String::Utf8Value jsContent(args[0]);
     string content = string (*jsContent);
     phpXMLDocument *d = ObjectWrap::Unwrap<phpXMLDocument>(args.This());
     d->doc.Parse(content.c_str(), content.length());
 
-    return parseXML(d);
+    NanReturnValue(parseXML(d));
 }
 
-Handle<Value> phpXMLDocument::parseXML(phpXMLDocument *d) {
-    HandleScope scope;
+Handle<Object> phpXMLDocument::parseXML(phpXMLDocument *d) {
     XMLNode* root = d->doc.RootElement();
 
-    Handle<Object> object = Object::New();
+    Handle<Object> object = NanNew<Object>();
     for (XMLNode* node=root; node; node=node->NextSibling() ) {
         XMLNode* firstChildElement = node->FirstChildElement();
         XMLNode* firstChild = node->FirstChild();
@@ -65,7 +65,7 @@ Handle<Value> phpXMLDocument::parseXML(phpXMLDocument *d) {
 }
 
 void phpXMLDocument::loadChild(Handle<Object> object, XMLNode* parentNode) {/*{{{*/
-    Handle<Array> arr = Array::New();
+    Handle<Array> arr = NanNew<Array>();//Array::New();
     int index = 0;
     for (XMLNode* node=parentNode; node; node=node->NextSibling() ) {
 
@@ -89,56 +89,56 @@ void phpXMLDocument::loadChild(Handle<Object> object, XMLNode* parentNode) {/*{{
             loadChild(obj, firstChild);
         }
     }
-    object->Set(String::New("childNodes"), arr);
+    object->Set(NanNew<String>("childNodes"), arr);
 
 }/*}}}*/
-
-Handle<Object> phpXMLDocument::getNodeInfo(XMLNode* node, XMLNode* firstChildElement) {/*{{{*/
-    Handle<Object> obj = Object::New();
-    XMLElement* element = node->ToElement();
-    Handle<String> name = String::New(element->Name());
-    obj->Set(String::New("name"), name);
-    setAttributesIntoJs(obj, node); 
-
-    if (!firstChildElement && node->FirstChild()) {
-        Handle<String> val = String::New(element->GetText());
-        obj->Set(String::New("value"), val);
-    } else {
-        Handle<String> val = String::New("");
-        obj->Set(String::New("value"), val);
-    }
-    return obj;
-}/*}}}*/
-
-Handle<Object> phpXMLDocument::getTextNodeInfo(XMLNode* node) {/*{{{*/
-    Handle<Object> obj = Object::New();
-    obj->Set(String::New("name"), String::New("text"));
-
-    string value = node->Value();
-    obj->Set(String::New("value"), String::New(value.c_str()));
-
-    return obj;
-}/*}}}*/
-
 
 
 void phpXMLDocument::setAttributesIntoJs(Handle<Object> obj, XMLNode* node) {/*{{{*/
-    Handle<Object> attrObj = Object::New();
+    Handle<Object> attrObj = NanNew<Object>();//Object::New();
     XMLElement* elm = node->ToElement();
     const XMLAttribute* attr = elm->FirstAttribute();
 
     if (attr) {
         for (; attr; attr = attr->Next()) {
             if (attr) {
-                Handle<String> name = String::New(attr->Name());
-                Handle<String> value = String::New(attr->Value());
+                Handle<String> name = NanNew<String>(attr->Name());
+                Handle<String> value = NanNew<String>(attr->Value());
                 attrObj->Set(name, value);
             }
         }
     }
 
-    obj->Set(String::New("attributes"), attrObj);
+    obj->Set(NanNew<String>("attributes"), attrObj);
 
+}/*}}}*/
+
+
+Handle<Object> phpXMLDocument::getNodeInfo(XMLNode* node, XMLNode* firstChildElement) {/*{{{*/
+
+    Handle<Object> obj = NanNew<Object>();
+    XMLElement* element = node->ToElement();
+    Handle<String> name = NanNew<String>(element->Name());
+    obj->Set(NanNew<String>("name"), name);
+    setAttributesIntoJs(obj, node); 
+    if (!firstChildElement && node->FirstChild()) {
+        Handle<String> val = NanNew<String>(element->GetText());
+        obj->Set(NanNew<String>("value"), val);
+    } else {
+        Handle<String> val = NanNew<String>("");
+        obj->Set(NanNew<String>("value"), val);
+    }
+    return obj;
+}/*}}}*/
+
+Handle<Object> phpXMLDocument::getTextNodeInfo(XMLNode* node) {/*{{{*/
+    Handle<Object> obj = NanNew<Object>();//Object::New();
+    obj->Set(NanNew<String>("name"), NanNew<String>("text"));
+
+    string value = node->Value();
+    obj->Set(NanNew<String>("value"), NanNew<String>(value.c_str()));
+
+    return obj;
 }/*}}}*/
 
 

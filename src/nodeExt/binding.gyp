@@ -3,10 +3,10 @@
     {
       "target_name": "phplike",
       "sources": [
-          "phplikeCurl.cc",
-          "phplike.cc", 
           "phplikeXml.cc",
-          "phplikeSocket.cc"
+          "phplikeCurl.cc",
+          "phplikeSocket.cc",
+          "phplike.cc" 
       ],
       "cflags": ["-std=gnu++0x"],
       "cflags_cc": ["-fexceptions"],
@@ -21,7 +21,8 @@
             "LINUX_DEFINE"
           ],
           "include_dirs": [
-            "include/linux", "includes"
+            "include/linux", "./includes",
+            "<!(node -e \"require('nan')\")"
           ]
         }],
         ['OS=="win"', {

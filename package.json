@@ -1,27 +1,55 @@
 {
-    "version": "2.3.4",
-    "description": "Implement php function for nodejs ",
-    "main": "phplike",
-    "keywords": ["php", "php-like", "curl", "exec", "xml parser", "socket", "mysql"],
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:puritys/nodejs-phplike.git"
-    },
-    "contributors": "puritys.chen@outlook.com",
-    "homepage": "https://github.com/puritys/nodejs-phplike",
-    "license" : "MIT",
-    "name" : "phplike",
-    "files": ["src", "index.js", "module.js", "binding.gyp", "package.json", "install.js", "binary"],
-    "scripts": {
-        "install": "node install.js",
-        "test": "mocha tests",
-        "build": "node-gyp rebuild"
-    },
-    "dependencies": {
-       "node-gyp": ">=1.0.2",
-       "bindings": ">=1.2.1"
-    },
-    "gypfile": true,
-    "os" : ["linux", "mac", "darwin", "win", "win32", "win64" ],
-    "cpu" : [ "x64", "ia32", "arm" ]
+  "version": "2.3.4",
+  "description": "Implement php function for nodejs ",
+  "main": "phplike",
+  "keywords": [
+    "php",
+    "php-like",
+    "curl",
+    "exec",
+    "xml parser",
+    "socket",
+    "mysql"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:puritys/nodejs-phplike.git"
+  },
+  "contributors": "puritys.chen@outlook.com",
+  "homepage": "https://github.com/puritys/nodejs-phplike",
+  "license": "MIT",
+  "name": "phplike",
+  "files": [
+    "src",
+    "index.js",
+    "module.js",
+    "binding.gyp",
+    "package.json",
+    "install.js",
+    "binary"
+  ],
+  "scripts": {
+    "install": "node install.js",
+    "test": "mocha tests",
+    "build": "node-gyp rebuild"
+  },
+  "dependencies": {
+    "bindings": ">=1.2.1",
+    "nan": "^1.8.4",
+    "node-gyp": ">=1.0.2"
+  },
+  "gypfile": true,
+  "os": [
+    "linux",
+    "mac",
+    "darwin",
+    "win",
+    "win32",
+    "win64"
+  ],
+  "cpu": [
+    "x64",
+    "ia32",
+    "arm"
+  ]
 }

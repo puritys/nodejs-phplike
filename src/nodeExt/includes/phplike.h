@@ -6,9 +6,10 @@
 
 
 
+NAN_METHOD(node_usleep);
+NAN_METHOD(node_exec);
+NAN_METHOD(node_md5);
+NAN_METHOD(node_curl_request);
+NAN_METHOD(nodeCurlGetHeader);
 
-Handle<Value> node_usleep(const Arguments& args);
-Handle<Value> node_exec(const Arguments& args);
-Handle<Value> node_curl_request(const Arguments& args);
-Handle<Value> nodeCurlGetHeader(const Arguments& args);
 

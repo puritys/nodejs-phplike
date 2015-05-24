@@ -64,3 +64,9 @@ NAN_METHOD(nodeSocketReceive) {
 
 }
 
+NAN_METHOD(nodeSocketClose) {
+    NanScope();
+    unsigned int sockfd = args[0]->Uint32Value();
+    phplikeSocketClose(sockfd);
+    NanReturnValue(NanNew<Boolean>(true));
+}

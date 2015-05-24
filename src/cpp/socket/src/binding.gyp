@@ -2,13 +2,13 @@
   "targets": [
     {
       "target_name": "phplikeCppSocket",
-      "sources": [ 
-          "socket.cc"
-      ],
       "cflags_cc": ["-fexceptions"],
       "type": "shared_library",
       "conditions": [
         ['OS=="linux"', {
+          "sources": [ 
+              "socket.cc"
+          ],
           "cflags": ["-std=gnu++0x"],
           "libraries": [
           ],
@@ -21,6 +21,9 @@
         }],
 
         ['OS=="win"', {
+          "sources": [ 
+              "socket_win.cc"
+          ],
           "type": "static_library",
           "cflags": ["-std=c++11"],
           "libraries": [

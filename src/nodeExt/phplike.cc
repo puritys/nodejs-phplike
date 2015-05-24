@@ -44,6 +44,8 @@ void  init (Handle<Object> target){
    NODE_SET_METHOD(target, "nodeSocketConnect", nodeSocketConnect);
    NODE_SET_METHOD(target, "nodeSocketSend", nodeSocketSend);
    NODE_SET_METHOD(target, "nodeSocketReceive", nodeSocketReceive);
+   NODE_SET_METHOD(target, "nodeSocketClose", nodeSocketClose);
+
 
    phpXMLDocument::init(target);
 } 

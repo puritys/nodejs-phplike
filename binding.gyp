@@ -69,7 +69,7 @@
           ['OS=="win"', {
               "cflags": ["-std=c++11"],
               "libraries": [
-                "wininet"
+                "wininet", "ws2_32"
               ],
               "defines": [
                 "OS_WIN"

@@ -37,7 +37,7 @@ If you have any issue for installing phplike, please open a issue in anytime. I 
  
 Dependency
 -----------
-* phplike have been already tested in Node.js version from 0.10.x to 0.11.x. I will support io.js in the future.  The version 0.12.x of Node.js is not supported now. 
+* Phplike have been already tested in Node.js version from 0.10.x to 0.12.x and io.js 1.0.0 to 2.1.0. Here is the test report : https://travis-ci.org/puritys/nodejs-phplike 
 * libcurl (libcurl-7.19) : Linux system already have this built-in package.
 * python 2.4 ~ :  phplike use node-gyp to compile C/C++ codes. It needs python which's version must be bigger than 2.7.8, you can download the python from here https://www.python.org/downloads/.
 
@@ -225,7 +225,6 @@ Functions will be implemented in the future
 * acos
 * strtolower
 * strtoupper
-* XML DOMDocument
 
 
 phplike Development

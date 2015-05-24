@@ -4,17 +4,14 @@ int phplikeSocketConnect(char *hostname, int port) {/*{{{*/
     int sockfd = 0;
     struct sockaddr_in serv_addr;
     bzero(&serv_addr, sizeof(sockaddr_in));
-    struct hostent *hPtr;
 
     if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         printf("\n Error : Could not create socket \n");
         return -1;
     } 
 
-    hPtr = gethostbyname(hostname);
-    memcpy((char *)&serv_addr.sin_addr, hPtr->h_addr, hPtr->h_length);
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons((u_short)port);
+    serv_addr = getSocketAddr(hostname, port);
+
     if (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
         printf("\n Error : Could not connect to server \n");
         return -1;

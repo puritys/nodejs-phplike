@@ -7,6 +7,5 @@ function test1() {
     php.sendcmd("test", socket);
     var response = php.fread(socket, 9999);
     console.log("response = " + response);
-
-
+    php.fclose(socket);
 }

@@ -33,7 +33,8 @@
             "OS_WIN"
           ],
           "include_dirs": [
-            "includes" 
+            "./includes",
+            "<!(node -e \"require('nan')\")"
           ]
         }]
 

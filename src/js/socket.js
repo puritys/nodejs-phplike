@@ -22,6 +22,7 @@ function sendcmd(msg, socket, length) {
 function fwrite(socket, msg) {
     cpp.nodeSocketSend(socket, msg);
 }
+
 function fread(socket, length, isBinary) {
     if (typeof(length) === "undefined") length = 0;
     if (typeof(isBinary) === "undefined") isBinary = false;
@@ -31,12 +32,16 @@ function fread(socket, length, isBinary) {
     return cpp.nodeSocketReceive(socket, length, isBinary);
 }
 
-
+function fclose(socket) {
+    return cpp.nodeSocketClose(socket);
+}
 
 exports.fsockopen = fsockopen;
 exports.sendcmd = sendcmd;
 exports.fwrite = fwrite;
 exports.fread = fread;
+exports.fclose = fclose;
+
 
 
 

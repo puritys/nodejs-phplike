@@ -1,14 +1,9 @@
-#include <iostream>
-#include "stdio.h" 
-#include <winsock2.h>
 
-using namespace std;
 // http://blog.pusheax.com/2013/07/windows-api-winsock-create-your-first.html
 int phplikeSocketConnect(char *hostname, int port) {/*{{{*/
-    struct hostent *hPtr;
     struct sockaddr_in serv_addr;
 
-    WSAData version;        //We need to check the version.
+    WSAData version;
     WORD mkword = MAKEWORD(2,2);
     int what = WSAStartup(mkword,&version);
     if(what!=0) {
@@ -20,14 +15,9 @@ int phplikeSocketConnect(char *hostname, int port) {/*{{{*/
         std::cout<<"Creating socket fail\n";
     } 
 
-    hPtr = gethostbyname(hostname);
-    memcpy((char *)&serv_addr.sin_addr, hPtr->h_addr, hPtr->h_length);
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons(port);
-    /*==========Addressing finished==========*/
+    serv_addr = getSocketAddr(hostname, port);
 
-    //Now we connect
-    int conn=connect(u_sock, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
+    int conn = connect(u_sock, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
     if (conn == SOCKET_ERROR) {
         std::cout<<"Error - when connecting "<<WSAGetLastError()<<std::endl;
         closesocket(u_sock);

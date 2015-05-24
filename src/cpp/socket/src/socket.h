@@ -10,6 +10,9 @@
 #endif
 
 #ifdef OS_WIN
+    #include <winsock2.h>
+    #include <iostream>
+    using namespace std;
 #endif
 
 

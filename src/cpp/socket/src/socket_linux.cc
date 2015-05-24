@@ -1,5 +1,3 @@
-#include "socket.h"
-#include <stdio.h>
 
 //http://linux.die.net/man/2/socket
 int phplikeSocketConnect(char *hostname, int port) {/*{{{*/

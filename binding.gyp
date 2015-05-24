@@ -61,7 +61,8 @@
               ],
               "include_dirs": [
                 "include/linux",
-                "src/nodeExt/includes"
+                "src/nodeExt/includes",
+                "<!(node -e \"require('nan')\")"
               ]
             }
           ],
@@ -74,7 +75,8 @@
                 "OS_WIN"
               ],
               "include_dirs": [
-                "src/nodeExt/includes"
+                "src/nodeExt/includes",
+                "<!(node -e \"require('nan')\")"
               ]
             }
           ]

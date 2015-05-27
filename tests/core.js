@@ -4,7 +4,7 @@ var php = require('./include.js');
 var assert = require("assert");
 
 //mocha lib/ --grep mthod_get
-describe('Test function: isset', function() {
+describe('Test function: isset', function() {//{{{
     it('String is undefined', function() {
         var str;
         var is = php.isset(str);
@@ -21,7 +21,7 @@ describe('Test function: isset', function() {
     })
 
 
-});
+});//}}}
 
 describe('Test function: empty', function() {//{{{
     it('String is undefined', function() {
@@ -135,6 +135,31 @@ describe('Test function: mktime', function() {//{{{
 
 });//}}}
 
+describe('Test function: explode', function() {//{{{
+    it('Normal', function() {
+        var datas = [
+            //expect, delimiter, string, limit
+            [["", "b","b","b"], "a", "ababab"],
+            [["b", "c"], "a", "bac"],
+            [["b"], "a", "bac", 1],
+            [["b", "c"], "a", "bacad", -1],
+            [["b"], "a", "bacad", -9],
+            [["b", "d"], "aca", "bacad"],
+
+
+        ];
+        datas.forEach (function (data) { 
+            var expect = data[0], limit;
+            if (data[3]) limit = data[3];
+            var res = php.explode(data[1], data[2], limit);
+            //console.log(res);
+            for(var pro in expect) {
+                assert.equal(expect[pro], res[pro], JSON.stringify(data));
+            }
+        });
+    })
+
+});//}}}
 
 
 describe('Test function: exit', function() {
@@ -145,4 +170,25 @@ describe('Test function: exit', function() {
     })
 
 });
+
+describe('Test function: implode', function() {//{{{
+    it('Normal', function() {
+        var datas = [
+            //expect, delimiter, string
+            ["a-b-c", "-", ["a", "b", "c"]],
+            ["abc", "", ["a", "b", "c"]],
+            ["abc", ["a", "b", "c"]],
+            ["a','b", "','", ["a", "b"]],
+
+        ];
+        datas.forEach (function (data) { 
+            var expect = data[0], ay;
+            if (data[2]) ay = data[2];
+            var res = php.implode(data[1], ay);
+            //console.log(res);
+            assert.equal(expect, res, JSON.stringify(data));
+        });
+    })
+
+});//}}}
 

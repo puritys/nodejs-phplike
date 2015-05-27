@@ -65,6 +65,8 @@ Completed PHP Method
 * isset
 * empty
 * exit
+* explode
+* implode
 
 **File Handler**
 * file_get_contents
@@ -87,6 +89,8 @@ Completed PHP Method
 * sprintf
 * str_pad
 * substr (string, start, length)
+* strtolower
+* strtoupper
 
 **XML Parser**
 <a href="https://github.com/puritys/nodejs-phplike/wiki/XML-Parser">XML Parser Document</a>
@@ -219,12 +223,8 @@ Example code for making a blocking request
 
 Functions will be implemented in the future
 ------------------------------------------
-* explode
-* implode
 * abs
 * acos
-* strtolower
-* strtoupper
 
 
 phplike Development

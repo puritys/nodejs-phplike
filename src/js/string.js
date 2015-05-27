@@ -39,7 +39,7 @@ function str_pad(str, len, chr, dir)
     return str;
 }/*}}}*/
 
-exports.trim = function (str) {
+exports.trim = function (str) {//{{{
 
     if (str && str.toString) {
         str = str.toString();
@@ -50,29 +50,27 @@ exports.trim = function (str) {
     }
 
     return str.replace(/^[\s]+/, '').replace(/[\s]+$/, '');
-};
+};//}}}
 
-
-
-exports.ord = function (str) {
+exports.ord = function (str) {//{{{
     if (!casting.is_string(str)) {
         return "";
     }
     return str.charCodeAt(0);
-};
+};//}}}
 
-exports.chr = function (ord) {
+exports.chr = function (ord) {//{{{
     if (!casting.is_int(ord)) {
         return "";
     }
     return String.fromCharCode(ord);
-}
+}//}}}
 
 exports.decbin = function (dec) {
     return dec.toString(2);
 }
 
-exports.bindec = function (bin) {
+exports.bindec = function (bin) {//{{{
     bin = bin.toString();
     var n = bin.length;
     var retval = 0;
@@ -82,8 +80,7 @@ exports.bindec = function (bin) {
         powVal *= 2;
     }
     return retval;
-}
-
+}//}}}
 
 exports.sprintf = function () {//{{{
     var regex = /%%|%(\d+\$)?([-+\'#0 ]*)(\*\d+\$|\*|\d+)?(\.(\*\d+\$|\*|\d+))?([scboxXuidfegEG])/g;
@@ -211,6 +208,14 @@ exports.sprintf = function () {//{{{
 
     return format.replace(regex, doFormat);
 }//}}}
+
+exports.strtolower = function (str) {
+    return str.toLowerCase();
+};
+
+exports.strtoupper = function (str) {
+    return str.toUpperCase();
+};
 
 exports.http_build_query = function(o) {//{{{
     var prefix,

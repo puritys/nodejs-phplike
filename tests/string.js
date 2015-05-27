@@ -4,7 +4,7 @@ var php = phplikeMod = require('./include.js');
 var assert = require("assert");
 
 //mocha lib/ --grep _get
-describe('String Handler:', function() {
+describe('String Handler:', function() {//{{{
     var d = phplikeMod.readdir("/home/puritys");
     it('Test method ord - success', function() {
         var text = phplikeMod.ord("a");
@@ -42,9 +42,9 @@ describe('String Handler:', function() {
 
 
 
-});
+});//}}}
 
-describe('Test function: str_pad', function() {
+describe('Test function: str_pad', function() {//{{{
 
     it("Fill up zero into date", function () {
         var month = phplikeMod.str_pad(1, 2, "0", "left");
@@ -68,7 +68,7 @@ describe('Test function: str_pad', function() {
         assert.equal("ccccbccccc", text);
     });
 
-});
+});//}}}
 
 describe('Test function: String to  integer convertion', function() {
 
@@ -231,3 +231,22 @@ describe("Test http_build_query:", function () {
     });
 
 });
+
+describe("Test function: strtolower", function () {
+    it("Normal", function () {
+        var str = "AbC";
+        var expect = "abc";
+        var result = php.strtolower(str);
+        assert.equal(expect, result);
+    });
+});
+
+describe("Test function: strtoupper", function () {
+    it("Normal", function () {
+        var str = "AbC";
+        var expect = "ABC";
+        var result = php.strtoupper(str);
+        assert.equal(expect, result);
+    });
+});
+

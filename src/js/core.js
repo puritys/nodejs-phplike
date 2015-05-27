@@ -68,7 +68,7 @@ exports.date = function (format)
     return format;
 }/*}}}*/
 
-exports.mktime = function (hour, minute, second, month, day, year) {
+exports.mktime = function (hour, minute, second, month, day, year) {//{{{
    var d = new Date();
    d.setDate(parseInt(day,10));   
    d.setMonth(parseInt(month,10)-1);   
@@ -78,7 +78,7 @@ exports.mktime = function (hour, minute, second, month, day, year) {
    d.setSeconds(parseInt(second,10));        
    d.setMilliseconds(0);
    return parseInt(d.getTime()/1000); 
-};
+};//}}}
 
 // Get current working directory (path).
 exports.getcwd = function () {//{{{
@@ -98,6 +98,7 @@ exports.base64_encode = function (text)
 {
     return new Buffer(text, 'binary').toString('base64');
 }
+
 exports.base64_decode = function (text)
 {
     return new Buffer(text, 'base64').toString();
@@ -159,14 +160,12 @@ exports.system = exports.exec = function (cmd, showMessage)
     return cpp.exec(cmd, showMessage);    
 }
 
-exports.exit = function(code) 
-{/*{{{*/
+exports.exit = function(code) {/*{{{*/
     process.exit(code);
 }/*}}}*/
 
 
-exports.empty = function (v)
-{//{{{
+exports.empty = function (v) {//{{{
     if (!v) {
         return true;
     }
@@ -174,7 +173,23 @@ exports.empty = function (v)
  
 }//}}}
 
-exports.parse_str = function (paramStr) {
+exports.explode = function (delimiter, str, limit) {//{{{
+    var reg, splitRes, i, n, res = [];
+    reg = new RegExp(delimiter);
+    splitRes = str.split(reg);
+    if (limit === undefined) {
+        return splitRes;
+    } else if (limit === 0) {
+        limit = 1;
+    } else if (limit < 0) {
+        limit = splitRes.length - limit;
+        if (limit <= 0) limit = 1;
+    }
+    
+    return splitRes.slice(0, limit);
+};//}}}
+
+exports.parse_str = function (paramStr) {//{{{
     var i, n;
     var param = {}, paramSplit, pos;
     paramSplit = paramStr.split(/&/);
@@ -184,9 +199,9 @@ exports.parse_str = function (paramStr) {
         param[paramSplit[i].substring(0, pos)] = paramSplit[i].substring(pos + 1); 
     }
     return param;
-};
+};//}}}
 
-exports.clone = function (obj) {
+exports.clone = function (obj) {//{{{
     var res;
     if (casting.is_array(obj)) {
         res = phplikeArray.array_merge(obj, []);
@@ -196,6 +211,16 @@ exports.clone = function (obj) {
         return obj;
     } 
     return res;
-};
+};//}}}
+
+exports.implode = function (delimiter, stack) {//{{{
+    if (stack === undefined) {
+        stack = delimiter;
+        delimiter = "";
+    }
+    if (!stack) return "";
+
+    return stack.join(delimiter);
+};//}}}
 
 exports.isset = isset;

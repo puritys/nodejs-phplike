@@ -7,6 +7,7 @@ exports.is_string = function(str) {
 }
 
 exports.is_object = function(str) {
+    if (str instanceof Array) return false;
     return typeof(str)=="object";
 }
 

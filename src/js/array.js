@@ -15,3 +15,33 @@ exports.array_merge = function (arr1, arr2) {
     }
     return res;
 };
+
+function shuffleObject(obj) {
+    var res = {}, key, rand, tmp, ay = [], i = 0;
+    for (key in obj) {
+        ay[i] = {key:key, val: obj[key]};
+        i++;
+    }
+    shuffle(ay);
+    ay.map(function (val, index) {
+        res[val.key] = val.val;
+    });
+    return res;
+}
+
+function shuffle(ay) {
+    var rand, n, o;
+    if (casting.is_object(ay)) {
+        return shuffleObject(ay);
+    }
+    n = ay.length;
+    ay.map(function (v, index) {
+        rand = Math.floor(Math.random() * n);
+        o = v;
+        ay[index] = ay[rand];
+        ay[rand] = o;
+    });
+    return ay;
+};
+
+exports.shuffle = shuffle;

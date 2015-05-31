@@ -120,13 +120,17 @@ Completed PHP Method
 * mysql_create_db
 * mysql_insert_id
 
+**array**
+
+* shuffle
+* array_merge
+
 **Others**
 
 * time, date, mktime
 * chr, ord : string to ascii number, ascii number to string
 * decbin, bindec
 * parse_str : parse "a=b&c=d" to {"a": "b", "c": "d"}
-* array_merge
 * clone:  clone a object or array
 * getcwd
 * urlencode, urldecode
@@ -225,7 +229,7 @@ Functions will be implemented in the future
 ------------------------------------------
 * abs
 * acos
-
+* array_rand
 
 phplike Development
 ------------------

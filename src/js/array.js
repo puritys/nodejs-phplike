@@ -44,4 +44,36 @@ function shuffle(ay) {
     return ay;
 };
 
+function array_rand(input, num) {
+    var out = [], n, rand, index, isDuplicate, getNum = 1;
+    if (!casting.is_array(input)) return "";
+    n = input.length;
+    if (n <= 0) return "";
+    if (num === undefined) num = 1;
+    if (n < num) num = n;
+    getNum = num;
+    if (getNum === 1) {
+        rand = Math.floor(Math.random() * n);
+        return rand;
+    }
+
+    while(getNum > 0) {
+        rand = Math.floor(Math.random() * n);
+        isDuplicate = false;
+        for(index in out) {
+            if (out[index] === rand) {
+                isDuplicate = true;
+                break;
+            }
+        }
+        if (true === isDuplicate) continue;
+        out.push(rand);
+        getNum--;
+    }
+
+    return out;
+}
+
 exports.shuffle = shuffle;
+exports.array_rand = array_rand;
+

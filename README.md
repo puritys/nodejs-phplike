@@ -124,6 +124,7 @@ Completed PHP Method
 
 * shuffle
 * array_merge
+* array_rand
 
 **Others**
 
@@ -229,7 +230,6 @@ Functions will be implemented in the future
 ------------------------------------------
 * abs
 * acos
-* array_rand
 
 phplike Development
 ------------------

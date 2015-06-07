@@ -38,7 +38,7 @@ If you have any issue for installing phplike, please open a issue in anytime. I 
 Dependency
 -----------
 * Phplike have been already tested in Node.js version from 0.10.x to 0.12.x and io.js 1.0.0 to 2.1.0. Here is the test report : https://travis-ci.org/puritys/nodejs-phplike 
-* libcurl (libcurl-7.19) : Linux system already have this built-in package.
+* libcurl (libcurl-7.19) : Linux system already have this built-in package. Please install libcurl-devel :  sudo yum install  libcurl-devel
 * python 2.4 ~ :  phplike use node-gyp to compile C/C++ codes. It needs python which's version must be bigger than 2.7.8, you can download the python from here https://www.python.org/downloads/.
 
 After the new version of phplike 2.2.0, I committed all binary files which already compiled in Windows, Mac and Linux, you can just install the phplike without compiling C/C++ now.

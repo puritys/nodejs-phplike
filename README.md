@@ -51,7 +51,7 @@ Completed PHP Method
 
 * <a href="https://github.com/puritys/nodejs-phplike/wiki/function-exec">exec</a> : Execute an external program
 * system
-* <a href="https://github.com/puritys/nodejs-phplike/wiki/Curl">curl</a> : curl_init, curl_setopt, curl_exec, curl_close
+* <a href="https://github.com/puritys/nodejs-phplike/wiki/Curl">curl</a> : curl_init, curl_setopt, curl_exec, curl_close, reuqest ( HTTP sync )
 * usleep , sleep
 
 **basic**

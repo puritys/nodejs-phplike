@@ -141,7 +141,7 @@ Completed PHP Method
 * http_build_query
 
 
-<h2>Install phplike</h2>
+##Install phplike
 
 * sudo npm install -g phplike
 
@@ -170,18 +170,18 @@ Execute phplike in module mode sample (phplike 2.0)
 
 You can require module.js of phplike, then you will need prefix to call phplike function, the module mode will not change the method of global object and can separate both of php and node.js.
 
-<pre>
+```
     var php = require("phplike/module.js");
     var tm = php.time();
     php.sleep(10);
     var result = php.exec("ls -la");
     php.print_r(result);
-</pre>
+```
 
 
 Example code for php curl 
 ------------------------------
-<pre>
+```
     require('phplike');
     
     var url = "https://www.google.com.tw/search?q=php+unit+test";
@@ -194,12 +194,11 @@ Example code for php curl
     curl_close(c);
     
     console.log("respones = " + res);
-
-</pre>
+```
 
 Example code for php post (Using module mode)
 ------------------------------
-<pre>
+```
     var php = require("phplike/module.js");
     var url = "http://localhost:8080/";
     var param = {"q": "x"};
@@ -211,20 +210,18 @@ Example code for php post (Using module mode)
     php.curl_setopt(c, 'CURLOPT_HTTPHEADER', header);
     var res = php.curl_exec(c);
     var responseHeader = php.getResponseHeader(); // Get header
-
-</pre>
+```
 
 Example code for making a blocking request 
 ------------------------------------------
-<pre>
+```
     var phplikeMod = require('phplike/module.js');
 
     var url = "http://localhost:8080/";
     var param = {"q": "x"};
     var header = {"Cookie": "xxx"};
     var res = phplikeMod.request("GET", url, param, header);
-
-</pre>
+```
 
 Functions will be implemented in the future
 ------------------------------------------

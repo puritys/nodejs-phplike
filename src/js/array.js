@@ -45,7 +45,7 @@ function shuffle(ay) {
 };
 
 function array_rand(input, num) {
-    var out = [], n, rand, index, isDuplicate, getNum = 1;
+    var data = [], out = [], n, rand, index, isDuplicate, getNum = 1;
     if (!casting.is_array(input)) return "";
     n = input.length;
     if (n <= 0) return "";
@@ -68,10 +68,11 @@ function array_rand(input, num) {
         }
         if (true === isDuplicate) continue;
         out.push(rand);
+        data.push(input[rand]);
         getNum--;
     }
 
-    return out;
+    return data;
 }
 
 exports.shuffle = shuffle;

@@ -75,8 +75,12 @@ struct curl_slist *phplikeCppCurl::convertHeaderToChunk(map<string, string> head
 }
 
 void phplikeCppCurl::setOpt(CURL *curl, CURLoption option, string value) {
-
-    CURLcode res = curl_easy_setopt(curl, option, value.c_str());
+    CURLcode res;
+    if (value == "1" || value == "0") {
+        res = curl_easy_setopt(curl, option, atoi(value.c_str()));
+    } else {
+        res = curl_easy_setopt(curl, option, value.c_str());
+    }
     if (res != CURLE_OK) {
         cerr << "set option failed. ";
     }
@@ -164,6 +168,7 @@ void phplikeCppCurl::request(
             setOpt(curl, op, it->second);
         }
     }
+
     //setOpt(curl, CURLOPT_REFERER, "xx");
     //setOpt(curl, CURLOPT_USERAGENT, "1");
     //setOpt(curl, CURLOPT_COOKIE, "1");

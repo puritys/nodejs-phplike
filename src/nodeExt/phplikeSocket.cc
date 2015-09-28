@@ -3,10 +3,11 @@
 #include "node_buffer.h"
 
 NAN_METHOD(nodeSocketConnect) {
-    NanScope();
-    String::Utf8Value hostname(args[0]);
+    //NanScope();
+    Nan::HandleScope scope;
+    String::Utf8Value hostname(info[0]);
     int len;
-    unsigned int port = args[1]->Uint32Value();
+    unsigned int port = info[1]->Uint32Value();
     int sockfd;
     len = hostname.length();
     char *cHostname = (char*)malloc(sizeof(char) * (len + 1));
@@ -14,38 +15,35 @@ NAN_METHOD(nodeSocketConnect) {
     cHostname[len] = '\0';
     sockfd = phplikeSocketConnect(cHostname, port);
     free(cHostname);
-    NanReturnValue(NanNew<Integer>(sockfd));
-
+    //NanReturnValue(Nan::New<Integer>(sockfd));
+    info.GetReturnValue().Set(Nan::New<Integer>(sockfd));
 }
 
 NAN_METHOD(nodeSocketSend) {
-    NanScope();
-    unsigned int len = args[2]->Uint32Value();
-    unsigned int sockfd = args[0]->Uint32Value();
-    //char *msg = static_cast<char*>(External::Unwrap(args[1]));
-//    void* msg = v8::External::Cast(*args[1].Data())->Value(); 
-    Local<Object> bufferObj = args[1]->ToObject();
+    //NanScope();
+    Nan::HandleScope scope;
+    unsigned int len = info[2]->Uint32Value();
+    unsigned int sockfd = info[0]->Uint32Value();
+    //char *msg = static_cast<char*>(External::Unwrap(info[1]));
+//    void* msg = v8::External::Cast(*info[1].Data())->Value(); 
+    Local<Object> bufferObj = info[1]->ToObject();
     char* msg = Buffer::Data(bufferObj);
-//    Handle<Value> msg = NanNew<String>(args[1]->ToString(), static_cast<int>(len));
-//    char *cMsg = (char*)malloc(sizeof(char) * (len + 1));
-    //memcpy(cMsg, string(*msg).c_str(), len);
-    //memcpy(cMsg, msg, len);
-    //cMsg[len] = '\0';
     //printf("send msg = ");for (int i = 0; i< len; i++) {printf("%2X ", msg[i]&0xFF);}printf("\n");
     phplikeSocketSend(sockfd, msg, len);
 
-//    free(cMsg);
-    NanReturnValue(NanNew<Integer>(1));
-
+    free(msg);
+    //NanReturnValue(Nan::New<Integer>(1));
+    info.GetReturnValue().Set(Nan::New<Integer>(1));
 
 }
 
-//Handle<Value> nodeSocketReceive(const Arguments &args) {
+//Handle<Value> nodeSocketReceive(const Arguments &info) {
 NAN_METHOD(nodeSocketReceive) {
-    NanScope();
-    unsigned int sockfd = args[0]->Uint32Value();
-    unsigned int length = args[1]->Uint32Value();
-    bool isBinary = args[2]->BooleanValue();
+    //NanScope();
+    Nan::HandleScope scope;
+    unsigned int sockfd = info[0]->Uint32Value();
+    unsigned int length = info[1]->Uint32Value();
+    bool isBinary = info[2]->BooleanValue();
 
     unsigned int resLength = 0;
     char *buf;
@@ -56,17 +54,19 @@ NAN_METHOD(nodeSocketReceive) {
         //node::Buffer *buffer = node::Buffer::New(resLength);
         //memcpy(node::Buffer::Data(buffer), buf, resLength);
         //return buffer->handle_;
-        NanReturnValue(NanNewBufferHandle(buf, resLength));
-
+        //NanReturnValue(Nan::NewBufferHandle(buf, resLength));
+        info.GetReturnValue().Set(Nan::NewBuffer(buf, resLength).ToLocalChecked());
     }
 
-    NanReturnValue(NanNew<String>(buf, resLength));
-
+    //NanReturnValue(Nan::New<String>(buf, resLength));
+    info.GetReturnValue().Set(Nan::New<String>(buf, resLength).ToLocalChecked());
 }
 
 NAN_METHOD(nodeSocketClose) {
-    NanScope();
-    unsigned int sockfd = args[0]->Uint32Value();
+    //NanScope();
+    Nan::HandleScope scope;
+    unsigned int sockfd = info[0]->Uint32Value();
     phplikeSocketClose(sockfd);
-    NanReturnValue(NanNew<Boolean>(true));
+    //NanReturnValue(Nan::New<Boolean>(true));
+    info.GetReturnValue().Set(Nan::New<Boolean>(true));
 }

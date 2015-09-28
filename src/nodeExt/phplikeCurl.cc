@@ -5,13 +5,13 @@
 string resHeader;
 
 
-//Handle<Value> node_curl_request(Handle<Object> args) {
+//Handle<Value> node_curl_request(Handle<Object> info) {
 NAN_METHOD(node_curl_request) {
     int i, n, curlType = 0;
-    NanScope();
+    Nan::HandleScope scope;
     phplikeCppCurl *pCurl = new phplikeCppCurl();
-    String::Utf8Value method(args[0]); 
-    String::Utf8Value url(args[1]);
+    String::Utf8Value method(info[0]); 
+    String::Utf8Value url(info[1]);
     Handle<Object> jsParam;
     Handle<Object> jsHeader;
     Handle<Object> jsOptions;
@@ -29,28 +29,28 @@ NAN_METHOD(node_curl_request) {
     Handle<Array> propertyNames; 
 
     // Handle parameter 
-    if (args[2]->IsObject()) {
-        jsParam = Handle<Object>::Cast(args[2]);
+    if (info[2]->IsObject()) {
+        jsParam = Handle<Object>::Cast(info[2]);
         propertyNames = jsParam->GetPropertyNames();
         n = propertyNames->Length();
         for (i = 0; i < n ; i++) {
-            Handle<Value>  b = propertyNames->Get(NanNew<Integer>(i));
+            Handle<Value>  b = propertyNames->Get(Nan::New<Integer>(i));
             string c = string(*String::Utf8Value(b));
             Handle<Value>  v = jsParam->Get(b);
             param[c] = string(*String::Utf8Value(v));
         }
-    } else if (args[2]->IsString()) {
-        paramStr = string(*String::Utf8Value(args[2]));
+    } else if (info[2]->IsString()) {
+        paramStr = string(*String::Utf8Value(info[2]));
         curlType = 1;
     }
 
     // Handle header
-    if (args[3]->IsObject()) {
-        jsHeader = Handle<Object>::Cast(args[3]);
+    if (info[3]->IsObject()) {
+        jsHeader = Handle<Object>::Cast(info[3]);
         propertyNames = jsHeader->GetPropertyNames();
         n = propertyNames->Length();
         for (i = 0; i < n ; i++) {
-            Handle<Value>  b = propertyNames->Get(NanNew<Integer>(i));
+            Handle<Value>  b = propertyNames->Get(Nan::New<Integer>(i));
             string c = string(*String::Utf8Value(b));
             Handle<Value>  v = jsHeader->Get(b);
             header[c] = string(*String::Utf8Value(v));
@@ -59,12 +59,12 @@ NAN_METHOD(node_curl_request) {
     }
 
     // Handle options
-    if (args[4]->IsObject()) {
-        jsOptions = Handle<Object>::Cast(args[4]);
+    if (info[4]->IsObject()) {
+        jsOptions = Handle<Object>::Cast(info[4]);
         propertyNames = jsOptions->GetPropertyNames();
         n = propertyNames->Length();
         for (i = 0; i < n ; i++) {
-            Handle<Value>  b = propertyNames->Get(NanNew<Integer>(i));
+            Handle<Value>  b = propertyNames->Get(Nan::New<Integer>(i));
             string c = string(*String::Utf8Value(b));
             Handle<Value>  v = jsOptions->Get(b);
             options[c] = string(*String::Utf8Value(v));
@@ -73,22 +73,22 @@ NAN_METHOD(node_curl_request) {
     }
 
     // Handle fileUpload
-    if (args[5]->IsObject()) {
-        jsFileUpload = Handle<Object>::Cast(args[5]);
+    if (info[5]->IsObject()) {
+        jsFileUpload = Handle<Object>::Cast(info[5]);
         propertyNames = jsFileUpload->GetPropertyNames();
         n = propertyNames->Length();
  
         for (i = 0; i < n ; i++) {
             vector<string> fileInfo;
-            //Handle<Value>  jsFileInfo = propertyNames->Get(NanNew<Integer>(i));
-            Handle<Value>  b = propertyNames->Get(NanNew<Integer>(i));
+            //Handle<Value>  jsFileInfo = propertyNames->Get(Nan::New<Integer>(i));
+            Handle<Value>  b = propertyNames->Get(Nan::New<Integer>(i));
             string c = string(*String::Utf8Value(b));
 
             Handle<Array>  v = Handle<Array>::Cast(jsFileUpload->Get(b));
 
             // handle file array
-            Handle<Value> fileName = v->Get(NanNew<Integer>(0));
-            Handle<Value> filePath = v->Get(NanNew<Integer>(1));
+            Handle<Value> fileName = v->Get(Nan::New<Integer>(0));
+            Handle<Value> filePath = v->Get(Nan::New<Integer>(1));
             fileInfo.push_back(string(*String::Utf8Value(fileName)));
             fileInfo.push_back(string(*String::Utf8Value(filePath)));
 
@@ -108,29 +108,31 @@ NAN_METHOD(node_curl_request) {
 
     resHeader = pCurl->resHeader;
     if (pCurl->contentLength <= 0) {
-        NanReturnValue(NanNew<String>(""));
+        //NanReturnValue(Nan::New<String>(""));
+        info.GetReturnValue().Set(Nan::New<String>("").ToLocalChecked());
     }
 
     // save binary data into js string.
-    if (
-        jsOptions->Has(NanNew<String>("BINARY_RESPONSE")) 
-        && string(*String::Utf8Value(jsOptions->Get(NanNew<String>("BINARY_RESPONSE")))) == "1"
-       ) {
-        //node::Buffer *buffer = node::Buffer::New(pCurl->contentLength);
-        //NanNewBufferHandle((char*)value.data(), value.size());
-        NanReturnValue(NanNewBufferHandle(pCurl->resContentPointer, pCurl->contentLength));
-        //memcpy(node::Buffer::Data(buffer), pCurl->resContentPointer, pCurl->contentLength);
-        //return buffer->handle_;
-    }
+//    if (
+//        //jsOptions->Has(Nan::New<String>("BINARY_RESPONSE"))
+//        //&& string(*String::Utf8Value(jsOptions->Get(Nan::New<String>("BINARY_RESPONSE")))) == "1"
+//        Nan::Has(jsOptions, Nan::New<String>("BINARY_RESPONSE").ToLocalChecked()) 
+//        && *Nan::Utf8String(Nan::Get(jsOptions, Nan::New<String>("BINARY_RESPONSE").ToLocalChecked()).ToLocalChecked()) == "1"
+//       ) {
+//        //NanReturnValue(Nan::NewBufferHandle(pCurl->resContentPointer, pCurl->contentLength));
+//        info.GetReturnValue().Set(Nan::NewBuffer(pCurl->resContentPointer, pCurl->contentLength).ToLocalChecked());
+//    }
 
-    NanReturnValue(NanNew<String>(pCurl->resContentPointer, pCurl->contentLength));
+    //NanReturnValue(Nan::New<String>(pCurl->resContentPointer, pCurl->contentLength));
+    info.GetReturnValue().Set(Nan::New<String>(pCurl->resContentPointer, pCurl->contentLength).ToLocalChecked());
 }
 
 
-//Handle<Value> nodeCurlGetHeader(Handle<Object> args) {
+//Handle<Value> nodeCurlGetHeader(Handle<Object> info) {
 NAN_METHOD(nodeCurlGetHeader) {
-    NanScope();
-    NanReturnValue(NanNew<String>(resHeader.c_str()));
+    Nan::HandleScope scope;
+    //NanReturnValue(Nan::New<String>(resHeader.c_str()));
+    info.GetReturnValue().Set(Nan::New<String>(resHeader.c_str()).ToLocalChecked());
 }
 
 

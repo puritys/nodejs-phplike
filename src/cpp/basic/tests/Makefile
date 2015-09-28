@@ -5,7 +5,7 @@ LIBS= -pthread  -lgtest -lphplikeCppBasic
 extlib = 
 CXXFILE= string.cc
 CXXOUTPUT = test
-include ../../../conf/Makefile_exe.global
+include ../../../../conf/Makefile_exe.global
 
 
 ifneq (, $(CYGWIN_PATH))

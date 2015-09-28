@@ -8,6 +8,15 @@ node_js:
   - "iojs-v1.0.4" 
   - "iojs-v2.1.0" 
   
+#env:
+#  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-4.8
+    - g++-4.8 
 os:
   :windowsxp
   :linux

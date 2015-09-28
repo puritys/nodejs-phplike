@@ -35,6 +35,7 @@ before_script:
   - "npm install istanbul"
   - "npm install coveralls"
   - "npm install -g phplike"
+  - "npm install nan"
   - "npm build  ./"
 
 

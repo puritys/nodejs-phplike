@@ -141,8 +141,8 @@ Local<Object> phpXMLDocument::getNodeInfo(XMLNode* node, XMLNode* firstChildElem
     return obj;
 }/*}}}*/
 
-Handle<Object> phpXMLDocument::getTextNodeInfo(XMLNode* node) {/*{{{*/
-    Handle<Object> obj = Nan::New<Object>();//Object::New();
+Local<Object> phpXMLDocument::getTextNodeInfo(XMLNode* node) {/*{{{*/
+    Local<Object> obj = Nan::New<Object>();//Object::New();
     //obj->Set(Nan::New<String>("name"), Nan::New<String>("text"));
     Nan::Set(obj, Nan::New<String>("name").ToLocalChecked(), Nan::New<String>("text").ToLocalChecked());
 

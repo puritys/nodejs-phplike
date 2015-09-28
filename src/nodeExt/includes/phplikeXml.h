@@ -10,7 +10,7 @@ class phpXMLDocument : public node::ObjectWrap {
         static NAN_METHOD(loadXML);//Handle<Value> loadXML(const Arguments &args);
         static void loadChild(Local<Object> object, XMLNode* node);
         static Local<Object> getNodeInfo(XMLNode* node, XMLNode* firstChild);
-        static Handle<Object> getTextNodeInfo(XMLNode* node);
+        static Local<Object> getTextNodeInfo(XMLNode* node);
         static void setAttributesIntoJs(Handle<Object> obj, XMLNode* node);
         static Local<Object> parseXML(phpXMLDocument *doc);
 

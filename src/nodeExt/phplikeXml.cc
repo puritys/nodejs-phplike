@@ -52,7 +52,7 @@ NAN_METHOD(phpXMLDocument::loadXML) {
     info.GetReturnValue().Set(obj);
 }
 
-Handle<Object> phpXMLDocument::parseXML(phpXMLDocument *d) {
+Local<Object> phpXMLDocument::parseXML(phpXMLDocument *d) {
     XMLNode* root = d->doc.RootElement();
 
     Local<Object> object = Nan::New<Object>();

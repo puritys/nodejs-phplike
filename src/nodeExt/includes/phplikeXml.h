@@ -12,7 +12,7 @@ class phpXMLDocument : public node::ObjectWrap {
         static Handle<Object> getNodeInfo(XMLNode* node, XMLNode* firstChild);
         static Handle<Object> getTextNodeInfo(XMLNode* node);
         static void setAttributesIntoJs(Handle<Object> obj, XMLNode* node);
-        static Handle<Object> parseXML(phpXMLDocument *doc);
+        static Local<Object> parseXML(phpXMLDocument *doc);
 
         tinyxml2::XMLDocument doc;
 

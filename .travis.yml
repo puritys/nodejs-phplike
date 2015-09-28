@@ -13,8 +13,8 @@ install:
   - sudo apt-get update
   - sudo apt-get install g++-4.8
   
-#env:
-#  - CXX=g++-4.8
+env:
+  - CXX=g++-4.8
 #addons:
 #  apt:
 #    sources:

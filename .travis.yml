@@ -8,15 +8,21 @@ node_js:
   - "iojs-v1.0.4" 
   - "iojs-v2.1.0" 
   
+install:
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  - sudo apt-get update
+  - sudo apt-get install g++-4.8
+  
 #env:
 #  - CXX=g++-4.8
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - gcc-4.8
-    - g++-4.8 
+#addons:
+#  apt:
+#    sources:
+#    - ubuntu-toolchain-r-test
+#    packages:
+#    - gcc-4.8
+#    - g++-4.8 
+
 os:
   :windowsxp
   :linux

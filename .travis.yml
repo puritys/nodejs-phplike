@@ -8,6 +8,11 @@ node_js:
   - "iojs-v1.0.4" 
   - "iojs-v2.1.0" 
   
+install:
+  - export CXX=g++-4.8
+  - $CXX --version
+  - npm i 
+  
 os:
   :windowsxp
   :linux

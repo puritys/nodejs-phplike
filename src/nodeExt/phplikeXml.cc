@@ -33,7 +33,7 @@ NAN_METHOD(phpXMLDocument::load) {
     d->doc.LoadFile(file.c_str());
 
     //NanReturnValue(parseXML(d));
-    v8::Local<v8::Object> obj = parseXML(d);
+    Handle<Object> obj = parseXML(d);
     //Nan::Set(obj, Nan::New("key").ToLocalChecked(), Nan::New("value").ToLocalChecked());
 
     info.GetReturnValue().Set(obj);
@@ -48,7 +48,7 @@ NAN_METHOD(phpXMLDocument::loadXML) {
     d->doc.Parse(content.c_str(), content.length());
 
 //    NanReturnValue(parseXML(d));
-    v8::Local<v8::Object> obj = parseXML(d);
+    Handle<Object> obj = parseXML(d);
     info.GetReturnValue().Set(obj);
 }
 

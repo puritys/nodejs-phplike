@@ -70,7 +70,7 @@ Local<Object> phpXMLDocument::parseXML(phpXMLDocument *d) {
     return object;
 }
 
-void phpXMLDocument::loadChild(Handle<Object> object, XMLNode* parentNode) {/*{{{*/
+void phpXMLDocument::loadChild(Local<Object> object, XMLNode* parentNode) {/*{{{*/
     Handle<Array> arr = Nan::New<Array>();//Array::New();
     int index = 0;
     for (XMLNode* node=parentNode; node; node=node->NextSibling() ) {
@@ -80,7 +80,7 @@ void phpXMLDocument::loadChild(Handle<Object> object, XMLNode* parentNode) {/*{{
 
 
         XMLElement* isElement = node->ToElement();
-        Handle<Object> obj;
+        Local<Object> obj;
 
         if (isElement) {
             obj = getNodeInfo(node, firstChildElement);
@@ -121,9 +121,9 @@ void phpXMLDocument::setAttributesIntoJs(Handle<Object> obj, XMLNode* node) {/*{
 }/*}}}*/
 
 
-Handle<Object> phpXMLDocument::getNodeInfo(XMLNode* node, XMLNode* firstChildElement) {/*{{{*/
+Local<Object> phpXMLDocument::getNodeInfo(XMLNode* node, XMLNode* firstChildElement) {/*{{{*/
 
-    Handle<Object> obj = Nan::New<Object>();
+    Local<Object> obj = Nan::New<Object>();
     XMLElement* element = node->ToElement();
     Handle<String> name = Nan::New<String>(element->Name()).ToLocalChecked();
     //obj->Set(Nan::New<String>("name"), name);

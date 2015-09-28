@@ -8,8 +8,8 @@ node_js:
   - "iojs-v1.0.4" 
   - "iojs-v2.1.0" 
   
-env:
-  - CXX=g++-4.8
+#env:
+#  - CXX=g++-4.8
 addons:
   apt:
     sources:

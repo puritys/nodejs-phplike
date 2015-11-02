@@ -19,6 +19,21 @@ Travis CI status: [![Unit testing](https://travis-ci.org/puritys/nodejs-phplike.
 
 <img src="https://camo.githubusercontent.com/fe2d9e9063dabaf5951ef8f3835bbbc16cec52e3/68747470733a2f2f706f7365722e707567782e6f72672f7a6f72646975732f6c696768746e63616e64792f6c6963656e73652e737667" alt="license">
 
+
+##Install phplike
+
+* sudo npm install -g phplike
+
+If your computer is not a common OS, then you will need to install node-gyp first. The Phplike library compiling C/C++ code with node-gyp module. Usually, NPM will automatically install node-gyp when you try to install Phplike. Or you can install node-gyp by yourself.
+
+* sudo npm install -g node-gyp
+
+```
+   var php = require("phplike/module");
+   var dirs = php.exec("ls ./");
+   php.print_r(dirs);
+```
+
 How many OS does phplike support?
 ---------------------------
 * Linux : Every version of phplike support linux system.
@@ -141,13 +156,6 @@ Completed PHP Method
 * http_build_query
 
 
-##Install phplike
-
-* sudo npm install -g phplike
-
-If your computer has a not common OS, then you will need to install node-gyp first. Phplike compile C/C++ code  using node-gyp module. Usually, NPM will auto install node-gyp when you install phplike.
-
-* sudo npm install -g node-gyp
 
 
 Execute phplike in global mode sample

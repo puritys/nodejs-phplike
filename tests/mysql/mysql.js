@@ -6,7 +6,9 @@ var packetReader = require('./../../src/js/mysql/packetReader.js');
 
 var serverInfo = {
     "session": "0000",
-    "protocol41": true
+    "protocol41": true,
+    "authPluginDataPart1": "xxx",
+    "authPluginDataPart2": "xxx"
 };
 
 function setResponseBuffer(data) {//{{{
@@ -185,4 +187,29 @@ describe('Mysql: method mysql_query', function() {//{{{
 
 
 });
+
+describe("MySql: method mysql_close", function () {
+    it("Normal", function () {
+        var ret = php.mysql_close({"connectId": 1, "session": "12"});
+        var cmd = socket.getcmd(); 
+        assert.equal(5, cmd.readIntLE(0, 1));
+        assert.equal(12, cmd.readIntLE(4, 1));
+        assert.equal(1, cmd.readIntLE(5, 1));
+    });
+
+});
+
+describe("MySql: method mysql_login", function () {
+    it("Normal", function () {
+        php.mysql_login(serverInfo, "user", "pswd", "db");
+        var cmd = socket.getcmd(); 
+        assert.equal(61, cmd.readIntLE(0, 1));
+        assert.equal(33, cmd.readIntLE(12, 1));
+
+    });
+
+});
+
+
+
 

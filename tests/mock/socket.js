@@ -1,4 +1,4 @@
-
+var cmd = "";
 if (!global['mockSocket']) {
     global.mockSocket = [];
 }
@@ -34,6 +34,7 @@ exports.fsockopen = function () {
 };
 
 exports.sendcmd = function (msg) {
+    cmd = msg;
     return msg;
 };
 
@@ -44,3 +45,10 @@ exports.recv = function () {
 exports.fread = function () {
     return recv2();
 };
+
+exports.getcmd = function () {
+    return cmd;
+};
+
+
+

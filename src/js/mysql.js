@@ -314,3 +314,7 @@ exports.mysql_close = mysql_close;
 exports.mysql_create_db = mysql_create_db;
 exports.mysql_insert_id = mysql_insert_id;
 
+if (typeof(global.UNIT_TEST) != "undefined" && true === global.UNIT_TEST) {
+    exports.mysql_login = mysql_login;
+}
+

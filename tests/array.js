@@ -2,7 +2,7 @@ var php = require('./include.js');
 var assert = require("assert");
 
 //mocha lib/ --grep mthod_get
-describe('Test method: array_merge', function() {
+describe('array_merge()', function() {
     it('merge index array', function() {
         var arr1 = [1], arr2 = [2];
         var res = php.array_merge(arr1, arr2);
@@ -24,7 +24,7 @@ describe('Test method: array_merge', function() {
     });
 });
 
-describe('Test method: shuffle', function() {
+describe('shuffle()', function() {
     it('Normal', function() {
         var data, res;
         data = ["a", "b", "c"];
@@ -52,7 +52,7 @@ describe('Test method: shuffle', function() {
     });
 });
 
-describe('Test method: array_rand', function() {
+describe('array_rand()', function() {
     it('Normal', function() {
         var data, res;
         data = ["a", "b", "c"];

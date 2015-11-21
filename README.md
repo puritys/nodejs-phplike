@@ -161,7 +161,7 @@ Completed PHP Method
 Execute phplike in global mode sample
 -------------------------------
 
-You can require the index.js of phplike, then you will use the phplike function in global object. It means that you don't need prefix to call php function. To execute function like a real php coding. 
+If you require the index.js of phplike, then you can use the phplike's functions in global object. It means that you don't need the prefix to call the phplike's function. To execute functions like a real php coding. 
 
 exec(command, printInScreen = true); 
 
@@ -176,7 +176,7 @@ exec(command, printInScreen = true);
 Execute phplike in module mode sample (phplike 2.0)
 ------------------------------
 
-You can require module.js of phplike, then you will need prefix to call phplike function, the module mode will not change the method of global object and can separate both of php and node.js.
+You can require module.js of phplike, then you will need prefix to call phplike function, the module mode will not change the method of global object and can separate the Phplike's functions from native Node.js functions .
 
 ```
     var php = require("phplike/module.js");

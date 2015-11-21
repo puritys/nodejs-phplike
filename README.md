@@ -6,9 +6,9 @@ Chinese Readme: https://github.com/puritys/nodejs-phplike/wiki/%E4%B8%AD%E6%96%8
 
 This project's purpose is to implement some useful PHP functions for Node.js or Io.js.
 
-Second, Node.js is a event-driven language and it's method usually use asynchronous IO. Asynchronous IO is not a bad way for any web system. But sometimes, we want to make code be readable and easier to be maintained. The phplike support many synchroous functions for Node.js.
+Node.js is a event-driven language and it's methods usually use asynchronous IO. Asynchronous IO is not a bad way for any web system. But sometimes, we want to make code be readable and easier to be maintainable. The phplike support many synchronous functions for Node.js.
 
-Phplike support synchronous function "exec", "curl", "fsockopen" executing without callback function. It can reduce  the umber of callback functions, also will make the code easier to maintain, and phplike provide the function cUrl which is just like php's function called curl. It will let you make a request synchronously. 
+Phplike support synchronous functions such as "exec", "curl", "fsockopen" executing without callback function. It can reduce  the number of callback functions, also will make the code easier to maintain, and phplike provide the function cUrl which is just like php's function called curl. It will let you make a HTTP request synchronously. 
 
 * npm: https://npmjs.org/package/phplike
 * All version: https://registry.npmjs.org/phplike
@@ -24,7 +24,7 @@ Travis CI status: [![Unit testing](https://travis-ci.org/puritys/nodejs-phplike.
 
 * sudo npm install -g phplike
 
-If your computer is not a common OS, then you will need to install node-gyp first. The Phplike library compiling C/C++ code with node-gyp module. Usually, NPM will automatically install node-gyp when you try to install Phplike. Or you can install node-gyp by yourself.
+If your computer is not a common OS, then you will need to install node-gyp first. The installation of phplike library will compile the C/C++ code with node-gyp. Usually, NPM will automatically install node-gyp when you try to install phplike. Or you can install node-gyp by yourself.
 
 * sudo npm install -g node-gyp
 

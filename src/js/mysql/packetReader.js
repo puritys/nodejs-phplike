@@ -81,6 +81,7 @@ o.readFieldsValue = function () {
     var res = [], buf, strStart = 0, strEnd = 0, strLength = 0;
     while (1) {
         strLength = this.readLengthEncodedInteger();
+        if (!strLength) return res;
         strStart = this.index;
         strEnd = strStart + strLength;
         if (strEnd > this.length) return res;

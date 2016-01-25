@@ -8,7 +8,7 @@ This project's purpose is to implement some useful PHP functions for Node.js and
 
 Node.js is a event-driven language and it has many asynchronous methods. The asynchronous IO is not a bad way for a web system. But sometimes, we want to make code readable and easier to keep better maintenance. The phplike supports many synchronous functions for Node.js.
 
-Phplike supports synchronous functions such as "exec", "curl", "fsockopen" that can execute without callback functions. It can reduce the number of callback functions, also will make the code easier to maintain, and phplike provide the function cUrl which is just like php's function called curl. It will let you make a HTTP request synchronously. 
+In order to reduce the number of callback functions on Node.js scripts. Phplike supports many synchronous functions such as "exec", "curl", "fsockopen" that can execute without callback functions. Using phplike will make the code has better readability and maintenance. In additional, phplike provide the function cUrl which is just the same function with php's function called curl. It will let you make a HTTP request synchronously. 
 
 
 * npm: https://npmjs.org/package/phplike
@@ -25,7 +25,7 @@ Travis CI status: [![Unit testing](https://travis-ci.org/puritys/nodejs-phplike.
 
 * sudo npm install -g phplike
 
-If your computer is not a common OS, then you will need to install node-gyp first. The installation of phplike library will compile the C/C++ code with node-gyp. Usually, NPM will automatically install node-gyp when you try to install phplike. Or you can install node-gyp by yourself.
+If your computer is not a normal OS, and it doesn't have the header files of Curl, You will need to install node-gyp first. The installation of phplike library will compile the C/C++ code with node-gyp. Usually, NPM will automatically install node-gyp when you try to install phplike. Or you can install node-gyp by yourself.
 
 * sudo npm install -g node-gyp
 
@@ -37,10 +37,10 @@ If your computer is not a common OS, then you will need to install node-gyp firs
 
 How many OS does phplike support?
 ---------------------------
-* Linux : Every version of phplike support linux system.
+* Linux : Every version of phplike support linux systems.
 * Mac :  Supported from phplike@2.0.5  to  latest 
 * Windows: Only the following version are supported: phplike@2.1.0 、 phplike@2.2.8 , phplike@2.4.4 . I have tested features of phplike on windows 8 and windows xp.
-* Raspberry PI(Pidora OS with ARM CPU): phplike@2.2.2 ~
+* Raspberry PI (Pidora OS with ARM CPU): phplike@2.2.2 ~ Latest
 
 | OS       | Suggested phplike Version |
 |----------|:-------------:|
@@ -55,7 +55,7 @@ Dependency
 -----------
 * Phplike have been already tested in Node.js version from 0.10.x to 0.12.x and io.js 1.0.0 to 2.1.0. Here is the test report : https://travis-ci.org/puritys/nodejs-phplike 
 * libcurl (libcurl-7.19) : Linux system already have this built-in package. Please install libcurl-devel :  sudo yum install  libcurl-devel
-* python 2.4 ~ :  phplike use node-gyp to compile C/C++ codes. It needs python which's version must be bigger than 2.7.8, you can download the python from here https://www.python.org/downloads/.
+* python 2.4 ~ :  phplike use node-gyp to compile C/C++ codes. It needs python with the version must be bigger than 2.7.8 , you can download python from here https://www.python.org/downloads/.
 
 After the new version of phplike 2.2.0, I committed all binary files which already compiled in Windows, Mac and Linux, you can just install the phplike without compiling C/C++ now.
 

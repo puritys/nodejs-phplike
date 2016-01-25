@@ -4,7 +4,7 @@ Node.js - phplike
 Chinese Readme: https://github.com/puritys/nodejs-phplike/wiki/%E4%B8%AD%E6%96%87%E7%89%88-Readme
 
 
-This project's purpose is to implement some useful PHP functions for Node.js and Io.js.
+This project's purpose is to provider some PHP synchronous functions for the web development on Node.js.
 
 Node.js is a event-driven language and it has many asynchronous methods. The asynchronous IO is not a bad way for a web system. But sometimes, we want to make code readable and easier to be maintained.
 

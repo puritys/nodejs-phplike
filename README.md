@@ -8,7 +8,7 @@ This project's purpose is to provider some PHP synchronous functions for the web
 
 Node.js is a event-driven language and it has many asynchronous I/O methods. Asynchronous functions is not a bad way for a web system, it help us to develop a non-blocking I/O program. But sometimes, we want to make code readable and easier to be maintained that asynchronous functions don't have them.
 
-In order to reduce the number of callback functions on Node.js scripts and improve the readability. I create the library phplike which supports many synchronous functions for Node.js such as "exec", "curl", "fsockopen" that can execute without callback functions. In additional, phplike provide the function cUrl which has the same operations with php's function called curl. It will let you make a HTTP request synchronously. 
+In order to reduce the number of callback functions on Node.js scripts and improve the readability. I create the library phplike which supports many synchronous functions for Node.js such as "exec", "curl", "fsockopen" that can be executed without complicated callback functions. In additional, phplike provides the function cUrl which has the same operations with PHP's function called curl. It will let you make a HTTP request synchronously. 
 
 
 * npm: https://npmjs.org/package/phplike

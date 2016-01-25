@@ -162,7 +162,7 @@ Completed PHP Method
 Execute phplike in global mode sample
 -------------------------------
 
-If you require the index.js of phplike, then you can use the phplike's functions in global object. It means that you don't need the prefix to call the phplike's function. To execute functions like a real php coding. 
+You can directly use the phplike functions. The functions of phplike are defined at the global object when you require the index.js. It means that you don't need the prefix before calling the phplike's function. The Node.js coding will be more like PHP's. The only one disadvantage is that defining a function at global object is easier to meet the conflict problem.
 
 exec(command, printInScreen = true); 
 
@@ -175,9 +175,10 @@ exec(command, printInScreen = true);
 </pre>
 
 Execute phplike in module mode sample (phplike 2.0)
-------------------------------
+----------------------------------------------
 
-You can require module.js of phplike, then you will need prefix to call phplike function, the module mode will not change the method of global object and can separate the Phplike's functions from native Node.js functions .
+
+You can require the module.js of phplike, it will return the Phplike object. This object includes many functions of PHP for you to use at anytime. The module mode will not change the methos of global object so it won't be conflict with other Node.js native functions.
 
 ```
     var php = require("phplike/module.js");

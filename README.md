@@ -41,7 +41,7 @@ How many OS does phplike support?
 * Windows: Supported only in phplike@2.1.0 、 phplike@2.2.8 , phplike@2.4.4 , I had ever test phplike on windows 8 and windows xp.
 * Raspberry PI(Pidora OS with ARM CPU): phplike@2.2.2 ~
 
-| OS       | Suggested phplie Version |
+| OS       | Suggested phplike Version |
 |----------|:-------------:|
 | Linux    | Latest |
 | Mac      | 2.0.5  ~ latest |
@@ -206,6 +206,7 @@ Example code for php curl
 
 Example code for php post (Using module mode)
 ------------------------------
+
 ```
     var php = require("phplike/module.js");
     var url = "http://localhost:8080/";

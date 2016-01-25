@@ -4,11 +4,12 @@ Node.js - phplike
 Chinese Readme: https://github.com/puritys/nodejs-phplike/wiki/%E4%B8%AD%E6%96%87%E7%89%88-Readme
 
 
-This project's purpose is to implement some useful PHP functions for Node.js or Io.js.
+This project's purpose is to implement some useful PHP functions for Node.js and Io.js.
 
-Node.js is a event-driven language and it's methods usually use asynchronous IO. Asynchronous IO is not a bad way for any web system. But sometimes, we want to make code be readable and easier to be maintainable. The phplike support many synchronous functions for Node.js.
+Node.js is a event-driven language and it has many asynchronous methods. The asynchronous IO is not a bad way for a web system. But sometimes, we want to make code readable and easier to keep better maintenance. The phplike supports many synchronous functions for Node.js.
 
-Phplike support synchronous functions such as "exec", "curl", "fsockopen" executing without callback function. It can reduce  the number of callback functions, also will make the code easier to maintain, and phplike provide the function cUrl which is just like php's function called curl. It will let you make a HTTP request synchronously. 
+Phplike supports synchronous functions such as "exec", "curl", "fsockopen" that can execute without callback functions. It can reduce the number of callback functions, also will make the code easier to maintain, and phplike provide the function cUrl which is just like php's function called curl. It will let you make a HTTP request synchronously. 
+
 
 * npm: https://npmjs.org/package/phplike
 * All version: https://registry.npmjs.org/phplike
@@ -20,7 +21,7 @@ Travis CI status: [![Unit testing](https://travis-ci.org/puritys/nodejs-phplike.
 <img src="https://camo.githubusercontent.com/fe2d9e9063dabaf5951ef8f3835bbbc16cec52e3/68747470733a2f2f706f7365722e707567782e6f72672f7a6f72646975732f6c696768746e63616e64792f6c6963656e73652e737667" alt="license">
 
 
-##Install phplike
+## Install phplike
 
 * sudo npm install -g phplike
 
@@ -38,7 +39,7 @@ How many OS does phplike support?
 ---------------------------
 * Linux : Every version of phplike support linux system.
 * Mac :  Supported from phplike@2.0.5  to  latest 
-* Windows: Supported only in phplike@2.1.0 、 phplike@2.2.8 , phplike@2.4.4 , I had ever test phplike on windows 8 and windows xp.
+* Windows: Only the following version are supported: phplike@2.1.0 、 phplike@2.2.8 , phplike@2.4.4 . I have tested features of phplike on windows 8 and windows xp.
 * Raspberry PI(Pidora OS with ARM CPU): phplike@2.2.2 ~
 
 | OS       | Suggested phplike Version |

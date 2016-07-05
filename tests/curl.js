@@ -197,6 +197,18 @@ describe('Test method: reformatCurlData', function() {//{{{
 
     });
 
+    it('Keep parameter "%26" for oauth', function() {
+        var c = phplikeMod.curl_init();
+        var url = "http://www.google.com.tw/?a=b&a1=cc%26";
+        c.url = url;
+        var res = phplikeMod.reformatCurlData(c);
+        assert.equal("http://www.google.com.tw/", res['url']);
+        assert.equal("a=b&a1=cc%26", res['param']);
+
+
+
+    });
+
 });//}}}
 
 describe('Test method: responseHeaderToHash', function() {

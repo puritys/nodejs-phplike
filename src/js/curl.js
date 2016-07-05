@@ -23,16 +23,20 @@ function reformatCurlData(curl) {//{{{
     pos = url.indexOf("?");
     if (pos != -1) {
         urlParam = url.substring(pos + 1);
-        param = core.parse_str(urlParam);
         formatCurl.url = url.substring(0, pos);
 
-        if (casting.is_string(curl.param)) {
-            param2 = core.parse_str(curl.param);
-        } else if (casting.is_object(curl.param)) {
-            param2 = curl.param;
+        if (typeof(curl.param) === "undefined" || core.empty(curl.param)) {
+            formatCurl.param = urlParam;
+        } else {
+            param = core.parse_str(urlParam);
+            if (casting.is_string(curl.param)) {
+                param2 = core.parse_str(curl.param);
+            } else if (casting.is_object(curl.param)) {
+                param2 = curl.param;
+            }
+            formatCurl.param = phplikeArray.array_merge(param, param2);
         }
 
-        formatCurl.param = phplikeArray.array_merge(param, param2);
     }
 
     return formatCurl;

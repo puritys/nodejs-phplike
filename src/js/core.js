@@ -168,7 +168,12 @@ exports.exit = function(code) {/*{{{*/
 exports.empty = function (v) {//{{{
     if (!v) {
         return true;
+    } else if (casting.is_object(v) && Object.keys(v).length === 0) {
+        return true;
+    } else if (casting.is_array(v) && v.length === 0) {
+        return true;
     }
+
     return false;
  
 }//}}}

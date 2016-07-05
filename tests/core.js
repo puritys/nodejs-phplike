@@ -36,6 +36,16 @@ describe('Test function: empty', function() {//{{{
         assert.equal(false, is);
     });
 
+    it('empty object is empty', function() {
+        var str = {};
+        var is = php.empty(str);
+        assert.equal(true, is);
+    });
+    it('empty array is empty', function() {
+        var str = [];
+        var is = php.empty(str);
+        assert.equal(true, is);
+    });
 
 
 });//}}}

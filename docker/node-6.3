@@ -1,0 +1,8 @@
+FROM nodesource/node:6.3
+
+RUN apt-get update
+RUN apt-get install libcurl4-gnutls-dev
+
+COPY package.json /usr/src/app/
+RUN npm install -g  nan node-gyp bindings mocha
+

@@ -1,8 +1,11 @@
 FROM nodesource/node:6.3
 
 RUN apt-get update
-RUN apt-get install libcurl4-gnutls-dev
+RUN apt-get install libcurl4-gnutls-dev vim -y
 
-COPY package.json /usr/src/app/
-RUN npm install -g  nan node-gyp bindings mocha
+COPY docker/bashrc /root/.bashrc
+COPY docker/package.json /usr/src/app/
 
+RUN /usr/bin/git clone https://github.com/puritys/nodejs-phplike.git
+RUN npm install -g mocha
+RUN cd nodejs-phplike && npm install --dev

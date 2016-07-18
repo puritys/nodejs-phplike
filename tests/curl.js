@@ -89,8 +89,8 @@ describe('Test method: File Upload , multipart-form/data', function() {
         var file = {"key": filePath};
         var res = php.request("POST", url, param, header, {}, file);
         res = php.json_decode(res);
-        assert.equal('key', res['key']);
-        assert.equal('core.js', res['name']);
+        assert.equal('key', res['files'][0]['key']);
+        assert.equal('core.js', res['files'][0]['name']);
 
         //console.log(res);
     });
@@ -110,8 +110,8 @@ describe('Test method: File Upload , multipart-form/data', function() {
         var res = php.curl_exec(ch);
 
         res = php.json_decode(res);
-        assert.equal('key', res['key']);
-        assert.equal('core.js', res['name']);
+        assert.equal('key', res['files'][0]['key']);
+        assert.equal('core.js', res['files'][0]['name']);
 
         //console.log(res);
     });

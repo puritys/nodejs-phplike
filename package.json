@@ -1,5 +1,5 @@
 {
-  "version": "2.5.0",
+  "version": "2.5.2",
   "description": "Implement php function for nodejs ",
   "main": "phplike",
   "keywords": [

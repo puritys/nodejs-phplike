@@ -140,8 +140,14 @@ describe('dir handle', function () {
         phplikeMod.rmdir("./tests/test", isForce);
         isDir = phplikeMod.is_dir(dir);
         assert.equal(false, isDir);
+    });
 
-
+    it('create dir is failed', function () {
+        var dir = "./tests/tmp_file";
+        phplikeMod.file_put_contents(dir, "aaa");
+        var ret = phplikeMod.mkdir(dir);
+        assert.equal(false, ret);
+        phplikeMod.unlink(dir);
     });
 
 });

@@ -102,10 +102,11 @@ exports.mkdir = function(dirName) {/*{{{*/
         try{
             fs.mkdirSync(dir);
         } catch(e) {
-            console.log(e);
-            throw e
+            console.warn(e);
+            return false;
         }
     }
+    return true;
 };/*}}}*/
 
 

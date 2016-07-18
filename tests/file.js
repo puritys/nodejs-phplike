@@ -11,6 +11,14 @@ describe('Test function: is_file, file.js', function() {
         assert.equal(true, isFile);
     })
 
+    it('Test file is a directory.', function() {
+        var isFile, isForce = true;
+        phplikeMod.mkdir("./tests/tmp_dir");
+        isFile = phplikeMod.is_file("./tests/file.js");
+        assert.equal(true, isFile);
+        phplikeMod.rmdir("./tests/tmp_dir", isForce);
+    })
+
     it('Test file is not exist.', function() {
         var isFile = phplikeMod.is_file("./xxxxxxxxxxxxxxx");
         assert.equal(false, isFile);

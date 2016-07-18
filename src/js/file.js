@@ -1,4 +1,5 @@
 var fs = require("fs");
+
 function is_file(filename) {/*{{{*/
     if(fs.existsSync(filename)){
         return true;

@@ -17,7 +17,10 @@ RUN cd node-v0.12.6 &&  make install
 COPY docker/bashrc /root/.bashrc
 COPY docker/package.json /root/
 
-RUN /usr/bin/git clone https://github.com/puritys/nodejs-phplike.git
+RUN cd /root && /usr/bin/git clone https://github.com/puritys/nodejs-phplike.git
 
-RUN npm install -g mocha
-RUN cd nodejs-phplike && npm install --dev
+RUN cd /root/nodejs-phplike && npm install -g mocha
+RUN cd /root/nodejs-phplike && npm install bindings nan
+RUN cd /root/nodejs-phplike && npm install node-gyp
+RUN npm install -g node-gyp
+

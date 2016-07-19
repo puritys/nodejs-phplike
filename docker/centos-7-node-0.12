@@ -1,0 +1,23 @@
+FROM centos:7
+
+RUN yum update -y
+RUN yum install vim libcurl-devel  vim -y
+RUN yum install git wget yum install gcc-c++ -y
+RUN yum install make -y
+
+RUN wget https://nodejs.org/download/release/v0.12.6/node-v0.12.6.tar.gz && \
+    tar -zxvf node-v0.12.6.tar.gz
+
+RUN cd node-v0.12.6 && \
+    ./configure && \
+    make
+
+RUN cd node-v0.12.6 &&  make install
+
+COPY docker/bashrc /root/.bashrc
+COPY docker/package.json /root/
+
+RUN /usr/bin/git clone https://github.com/puritys/nodejs-phplike.git
+
+RUN npm install -g mocha
+RUN cd nodejs-phplike && npm install --dev

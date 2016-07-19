@@ -28,7 +28,8 @@ deployPreTest:
 	mocha tests/manualTest/global.sjs
 
 buildDocker:
-	docker build -t nodejs-phplike/node-6.3:latest -f docker/node-6.3 .
+#	docker build -t nodejs-phplike/node-6.3:latest -f docker/node-6.3 .
+	docker build -t nodejs-phplike/centos-7-node-0.12:latest -f docker/centos-7-node-0.12 .
 
 dockerTestNode-6.3:
 	docker stop node-6.3 2>&1 || true
@@ -37,6 +38,12 @@ dockerTestNode-6.3:
 #	docker exec -i node-6.3 /usr/bin/git clone https://github.com/puritys/nodejs-phplike.git
 	docker exec -i node-6.3 bash -c  'cd nodejs-phplike && git pull && make gyp && make test' | tee result.node-6.3
 
+dockerTestNode-0.12:
+	docker stop node-0.12 2>&1 || true
+	bash -c 'docker rm -f node-0.12' 2>&1 || true
+	docker run -d -t --name node-0.12 nodejs-phplike/centos-7-node-0.12:latest /bin/bash
+#	docker exec -i node-6.3 /usr/bin/git clone https://github.com/puritys/nodejs-phplike.git
+	docker exec -i node-0.12 bash -c  'cd nodejs-phplike && git pull && make gyp && make test' | tee result.node-0.12
 
 
 #npm adduser

@@ -40,11 +40,51 @@ describe('Test function: empty', function() {//{{{
         var str = {};
         var is = php.empty(str);
         assert.equal(true, is);
+
+        str = new Object();
+        is = php.empty(str);
+        assert.equal(true, is);
+
     });
+
     it('empty array is empty', function() {
         var str = [];
         var is = php.empty(str);
         assert.equal(true, is);
+
+        str = new Array();
+        is = php.empty(str);
+        assert.equal(true, is);
+
+    });
+    it('array with index', function() {
+        var str = [];
+        str.push("aaa");
+        var is = php.empty(str);
+        assert.equal(false, is);
+
+        str = new Array();
+        str.push("bbb");
+        is = php.empty(str);
+        assert.equal(false, is);
+
+    });
+
+    it('associate array with key is not empty', function() {
+        var str = [];
+        str["foo"] = "bar";
+        var is = php.empty(str);
+        assert.equal(false, is);
+    });
+
+    it('empty array with custom prototype is empty', function() {
+        var str,is;
+        Array.prototype.customX1 = function () {return NaN;};
+        str = [];
+        str.customX1();
+        is = php.empty(str);
+        assert.equal(true, is);
+        delete Array.prototype.customX1;
     });
 
 

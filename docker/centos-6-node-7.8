@@ -1,0 +1,26 @@
+FROM centos:6
+
+RUN yum update -y
+RUN yum install vim libcurl-devel  vim -y
+RUN yum install git wget yum install gcc-c++ -y
+RUN yum install make -y
+
+RUN wget https://nodejs.org/download/release/v7.8.0/node-v7.8.0.tar.gz && \
+    tar -zxvf node-v7.8.0.tar.gz
+
+RUN cd node-v7.8.0 && \
+    ./configure && \
+    make
+
+RUN cd node-v7.8.0 &&  make install
+
+COPY docker/bashrc /root/.bashrc
+COPY docker/package.json /root/
+
+RUN cd /root && /usr/bin/git clone https://github.com/puritys/nodejs-phplike.git
+
+RUN cd /root/nodejs-phplike && npm install -g mocha
+RUN cd /root/nodejs-phplike && npm install bindings nan
+RUN cd /root/nodejs-phplike && npm install node-gyp
+RUN npm install -g node-gyp
+

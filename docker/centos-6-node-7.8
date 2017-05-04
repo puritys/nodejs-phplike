@@ -5,22 +5,37 @@ RUN yum install vim libcurl-devel  vim -y
 RUN yum install git wget yum install gcc-c++ -y
 RUN yum install make -y
 
-RUN wget https://nodejs.org/download/release/v7.8.0/node-v7.8.0.tar.gz && \
-    tar -zxvf node-v7.8.0.tar.gz
+# upgrade gcc to 4.8.x
+RUN yum install gmp-devel mpfr-devel  libmpc-devel -y
+RUN curl -O ftp://ftp.gnu.org/gnu/gcc/gcc-4.8.2/gcc-4.8.2.tar.gz; tar zxf gcc-4.8.2.tar.gz
+RUN wget http://www.multiprecision.org/mpc/download/mpc-0.8.tar.gz
+RUN wget ftp://gcc.gnu.org/pub/gcc/infrastructure/isl-0.12.2.tar.bz2
+RUN wget ftp://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz
 
-RUN cd node-v7.8.0 && \
-    ./configure && \
-    make
+RUN tar -zxvf mpc-0.8.tar.gz && cd mpc-0.8 && ./configure && make  && make install
+RUN tar -jxvf isl-0.12.2.tar.bz2 && cd isl-0.12.2 && ./configure && make && make install
+RUN tar -zxvf cloog-0.18.1.tar.gz && cd cloog-0.18.1 && ./configure && make && make install
+RUN cd gcc-4.8.2 && ./configure --enable-languages=c,c++ --disable-multilib
 
-RUN cd node-v7.8.0 &&  make install
-
-COPY docker/bashrc /root/.bashrc
-COPY docker/package.json /root/
-
-RUN cd /root && /usr/bin/git clone https://github.com/puritys/nodejs-phplike.git
-
-RUN cd /root/nodejs-phplike && npm install -g mocha
-RUN cd /root/nodejs-phplike && npm install bindings nan
-RUN cd /root/nodejs-phplike && npm install node-gyp
-RUN npm install -g node-gyp
+#RUN cd gcc-4.8.2 && make &&  make install
+#
+#
+#RUN wget https://nodejs.org/download/release/v7.8.0/node-v7.8.0.tar.gz && \
+#    tar -zxvf node-v7.8.0.tar.gz
+#
+#RUN cd node-v7.8.0 && \
+#    ./configure && \
+#    make
+#
+#RUN cd node-v7.8.0 &&  make install
+#
+#COPY docker/bashrc /root/.bashrc
+#COPY docker/package.json /root/
+#
+#RUN cd /root && /usr/bin/git clone https://github.com/puritys/nodejs-phplike.git
+#
+#RUN cd /root/nodejs-phplike && npm install -g mocha
+#RUN cd /root/nodejs-phplike && npm install bindings nan
+#RUN cd /root/nodejs-phplike && npm install node-gyp
+#RUN npm install -g node-gyp
 

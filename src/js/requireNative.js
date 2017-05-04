@@ -14,9 +14,10 @@ if (fs.existsSync(nativeModule) && typeof(UNIT_TEST) == "undefined" ) {
     }
 } else {
     try {
-        cpp = require(parentPath + '/node_modules/bindings')({'bindings': 'phplike', 'module_root': parentPath + '/'});
+        //cpp = require(parentPath + '/node_modules/bindings')({'bindings': 'phplike', 'module_root': parentPath + '/'});
+        cpp = require('bindings')('phplike.node');
     } catch (e) {
-
+        console.error("Can not load phplike from bindings.");
     }
 }
 

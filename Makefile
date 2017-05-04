@@ -32,10 +32,14 @@ buildDocker:
 #	docker build -t nodejs-phplike/centos-7-node-0.12:latest -f docker/centos-7-node-0.12 .
 	docker build -t nodejs-phplike/centos-6-node-7.8:latest -f docker/centos-6-node-7.8 .
 
-dockerTestNode-7.8-centos-6:
-	docker stop node-7.8 2>&1 || true
+root:
 	bash -c 'docker rm -f node-7.8' 2>&1 || true
-	docker run -d -t --name node-7.8 nodejs-phplike/node-7.8:latest /bin/bash
+	docker run -it --name node-7.8 nodejs-phplike/centos-6-node-7.8:latest /bin/bash
+
+dockerTestNode-7.8-centos-6:
+	docker stop centos-6-node-7.8 2>&1 || true
+	bash -c 'docker rm -f node-7.8' 2>&1 || true
+	docker run -d -t --name node-7.8 nodejs-phplike/centos-6-node-7.8:latest /bin/bash
 #	docker exec -i node-6.3 /usr/bin/git clone https://github.com/puritys/nodejs-phplike.git
 	docker exec -i node-7.8 bash -c  'cd nodejs-phplike && git pull && make gyp && make test' | tee result.node-7.8
 

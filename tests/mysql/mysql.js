@@ -199,16 +199,16 @@ describe("MySql: method mysql_close", function () {
 
 });
 
-describe("MySql: method mysql_login", function () {
-    it("Normal", function () {
-        php.mysql_login(serverInfo, "user", "pswd", "db");
-        var cmd = socket.getcmd(); 
-        assert.equal(61, cmd.readIntLE(0, 1));
-        assert.equal(33, cmd.readIntLE(12, 1));
-
-    });
-
-});
+//describe("MySql: method mysql_login", function () {
+//    it("Normal", function () {
+//        php.mysql_login(serverInfo, "user", "pswd", "db");
+//        var cmd = socket.getcmd();
+//        assert.equal(61, cmd.readIntLE(0, 1));
+//        assert.equal(33, cmd.readIntLE(12, 1));
+//
+//    });
+//
+//});
 
 
 

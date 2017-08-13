@@ -226,13 +226,13 @@ exports.http_build_query = function(o) {//{{{
         if (casting.is_array(obj)) {
             i = 0;
             for(var v in obj) {
-                buildParams(prefix + "[" + i + "]", obj[v]);
+                buildParams(prefix + encodeURIComponent("[" + i + "]"), obj[v]);
                 i++;
             };
 
         } else if (casting.is_object(obj)) {
             for (name in obj) {
-                buildParams( prefix + "[" + name + "]", obj[name]);
+                buildParams( prefix + encodeURIComponent("[" + name + "]"), obj[name]);
             }
 
         } else {
@@ -241,7 +241,7 @@ exports.http_build_query = function(o) {//{{{
     };
     if (o) {
         for (prefix in o ) {
-            buildParams(prefix, o[prefix]);
+            buildParams(encodeURIComponent(prefix), o[prefix]);
         }
     }
 

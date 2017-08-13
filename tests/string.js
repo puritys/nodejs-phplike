@@ -211,25 +211,31 @@ describe("Test http_build_query:", function () {
 
     it("should be a=b%20c", function () {
         var param = {"a": "b c"};
-        var expect = "a=b%20c";
+        var expect = "a=b c";
         var result = php.http_build_query(param);
-        assert.equal(expect, result);
+        assert.equal(expect, decodeURIComponent(result));
     });
 
     it("should be a[]=b&a[]=c", function () {
         var param = {"a": ["b","c"]};
         var expect = "a[0]=b&a[1]=c";
         var result = php.http_build_query(param);
-        assert.equal(expect, result);
+        assert.equal(expect, decodeURIComponent(result));
     });
 
     it("should be a[b][0]=d", function () {
         var param = {"a": {"b": ["d"]}};
         var expect = "a[b][0]=d";
         var result = php.http_build_query(param);
-        assert.equal(expect, result);
+        assert.equal(expect, decodeURIComponent(result));
     });
 
+    it('Should encode characters in keys', function() {
+        var param = {foo: [{'b/ar':'baz', operator: '>='}]};
+        var expect = 'foo%5B0%5D%5Bb%2Far%5D=baz&foo%5B0%5D%5Boperator%5D=%3E%3D';
+        var result = php.http_build_query(param);
+        assert.equal(expect, result);
+    });
 });
 
 describe("Test function: strtolower", function () {

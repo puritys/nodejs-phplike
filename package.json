@@ -1,5 +1,5 @@
 {
-  "version": "2.5.6",
+  "version": "2.5.7",
   "description": "Implement php function for nodejs ",
   "main": "phplike",
   "keywords": [
@@ -31,7 +31,7 @@
     "binary"
   ],
   "scripts": {
-    "install": "/usr/bin/node install.js",
+    "install": "node install.js",
     "test": "mocha tests",
     "build": "node-gyp rebuild"
   },

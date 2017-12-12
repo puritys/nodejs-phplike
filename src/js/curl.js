@@ -102,6 +102,36 @@ function parseFileInfo (val) {
     return [fileName, filePath];
 }
 
+function getSSLVersion(str) {
+    switch (str) {
+        case "CURL_SSLVERSION_TLSv1_2":
+            return 6;
+            break;
+        case "CURL_SSLVERSION_TLSv1_1":
+            return 5;
+            break;
+        case "CURL_SSLVERSION_TLSv1_0":
+            return 4;
+            break;
+        case "CURL_SSLVERSION_SSLv3":
+            return 3;
+            break;
+        case "CURL_SSLVERSION_SSLv2":
+            return 2;
+            break;
+        case "CURL_SSLVERSION_TLSv1":
+            return 1;
+            break;
+        case "CURL_SSLVERSION_DEFAULT":
+            return 0;
+            break;
+
+        default:
+            return str;
+            break;
+    }
+}
+
 exports.curl_init = function () {
     return {
         "url": "",
@@ -135,6 +165,10 @@ exports.curl_setopt = function (curl, option, value) {
         case 'CURLOPT_HTTPHEADER':
             curl.header = value;
             break;
+        case 'CURLOPT_SSLVERSION':
+            curl.options['CURLOPT_SSLVERSION'] = getSSLVersion(value);
+            break;
+
         default:
             curl.options[option] = value;
             break;

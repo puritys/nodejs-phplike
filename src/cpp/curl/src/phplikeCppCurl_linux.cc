@@ -52,6 +52,8 @@ CURLoption phplikeCppCurl::getOption(string option) {/*{{{*/
         return CURLOPT_SSL_VERIFYPEER;
     } else if (option == "CURLOPT_VERBOSE") {
         return CURLOPT_VERBOSE;
+    } else if (option == "CURLOPT_SSLVERSION") {
+        return CURLOPT_SSLVERSION;
     }
 
     return CURLOPT_VERBOSE; //fixme, set a useless config
@@ -76,10 +78,14 @@ struct curl_slist *phplikeCppCurl::convertHeaderToChunk(map<string, string> head
 
 void phplikeCppCurl::setOpt(CURL *curl, CURLoption option, string value) {
     CURLcode res;
-    if (value == "1" || value == "0") {
+    if (option == CURLOPT_SSLVERSION) {
         res = curl_easy_setopt(curl, option, atoi(value.c_str()));
     } else {
-        res = curl_easy_setopt(curl, option, value.c_str());
+        if (value == "1" || value == "0") {
+            res = curl_easy_setopt(curl, option, atoi(value.c_str()));
+        } else {
+            res = curl_easy_setopt(curl, option, value.c_str());
+        }
     }
     if (res != CURLE_OK) {
         cerr << "set option failed. ";

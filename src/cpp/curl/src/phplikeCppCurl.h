@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <string> 
+#include <string>
 #include <iostream>
 #include <map>
 #include <vector>
@@ -33,7 +33,7 @@ struct requestInfo {
     int port;
     string hostname;
     string path;
-    string param; 
+    string param;
 };
 
 class phplikeCppCurl {
@@ -44,6 +44,8 @@ class phplikeCppCurl {
         string resContent;
         size_t contentLength;
         char *resContentPointer;
+        bool printLog = false;
+
         //Method
         phplikeCppCurl();
         ~phplikeCppCurl();
@@ -63,5 +65,6 @@ class phplikeCppCurl {
         CURLoption getOption(string option);
         void setOpt(CURL *curl, CURLoption option, string value);
 #endif
-
+    private:
+        void log(std::string msg);
 };

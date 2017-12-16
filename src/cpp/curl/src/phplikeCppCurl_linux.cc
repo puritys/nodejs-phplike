@@ -79,6 +79,7 @@ struct curl_slist *phplikeCppCurl::convertHeaderToChunk(map<string, string> head
 void phplikeCppCurl::setOpt(CURL *curl, CURLoption option, string value) {
     CURLcode res;
     if (option == CURLOPT_SSLVERSION) {
+        log("curl option CURLOPT_SSLVERSION = " + value);
         res = curl_easy_setopt(curl, option, atoi(value.c_str()));
     } else {
         if (value == "1" || value == "0") {
@@ -99,10 +100,10 @@ void phplikeCppCurl::setOpt(CURL *curl, CURLoption option, string value) {
 * @param url This shouldn't have any parameter, do not include the character "?", please move to param in Node.js
 */
 void phplikeCppCurl::request(
-    string method, 
-    string url, string paramStr, 
-    map<string, string> header, 
-    map<string, string> options, 
+    string method,
+    string url, string paramStr,
+    map<string, string> header,
+    map<string, string> options,
     map<string, vector<string> > fileUpload
 ) {/*{{{*/
     CURLcode res;

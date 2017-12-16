@@ -1,29 +1,30 @@
 var php = require('./include.js');
 
-test5();
+test1();
 
-function test4() {
+function test1() {
     var url = "http://localhost:8080/";
     var param = {"q": ["a", "b", "c"]};
     var header = {"Cookie": "xxx"};
-    var res = php.request("GET", url, param, header);
+    var res = php.request("GET", url, param, header, {"printLog": true, "CURLOPT_SSLVERSION": "CURL_SSLVERSION_TLSv1_2"});
 }
 
 
 function test2() {
-    var url = "http://localhost:8080/";
+    var url = "https://www.google.com.tw/";
     var param = {"q": "x"};
     var header = {"Cookie": "xxx"};
     var c = php.curl_init();
     php.curl_setopt(c, 'CURLOPT_URL', url);
-    php.curl_setopt(c, 'CURLOPT_POST', 1);
-    php.curl_setopt(c, 'CURLOPT_POSTFIELDS', "a=bbb&c=eee");
+    //php.curl_setopt(c, 'CURLOPT_POST', 1);
+    //php.curl_setopt(c, 'CURLOPT_POSTFIELDS', "a=bbb&c=eee");
     php.curl_setopt(c, 'CURLOPT_HTTPHEADER', header);
+    php.curl_setopt(c, 'CURLOPT_SSLVERSION', "CURL_SSLVERSION_TLSv1_2");
+    php.curl_setopt(c, 'CURLOPT_VERBOSE', 9);
 
 
 
     var res = php.curl_exec(c);
-
 
 }
 

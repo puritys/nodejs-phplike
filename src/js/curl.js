@@ -105,12 +105,15 @@ function parseFileInfo (val) {
 function getSSLVersion(str) {
     switch (str) {
         case "CURL_SSLVERSION_TLSv1_2":
+        case "tls1.2":
             return 6;
             break;
         case "CURL_SSLVERSION_TLSv1_1":
+        case "tls1.1":
             return 5;
             break;
         case "CURL_SSLVERSION_TLSv1_0":
+        case "tls1.0":
             return 4;
             break;
         case "CURL_SSLVERSION_SSLv3":
@@ -125,7 +128,6 @@ function getSSLVersion(str) {
         case "CURL_SSLVERSION_DEFAULT":
             return 0;
             break;
-
         default:
             return str;
             break;
@@ -142,7 +144,7 @@ exports.curl_init = function () {
     };
 };
 
-exports.curl_setopt = function (curl, option, value) {
+exports.curl_setopt = function (curl, option, value) {//{{{
     var i ,n, param;
     option = option.replace(/[^0-9a-z\_\-\.]+/i, '');
     switch (option) {
@@ -165,15 +167,11 @@ exports.curl_setopt = function (curl, option, value) {
         case 'CURLOPT_HTTPHEADER':
             curl.header = value;
             break;
-        case 'CURLOPT_SSLVERSION':
-            curl.options['CURLOPT_SSLVERSION'] = getSSLVersion(value);
-            break;
-
         default:
             curl.options[option] = value;
             break;
     }
-};
+};//}}}
 
 exports.curl_close = function (curl) {
     delete curl;
@@ -212,6 +210,9 @@ exports.request = function (method, url, param, header, options, fileUpload) {
     }
     if (casting.is_object(param)) {
         param = phpString.http_build_query(param);
+    }
+    if (options['CURLOPT_SSLVERSION']) {
+        options['CURLOPT_SSLVERSION'] = getSSLVersion(options['CURLOPT_SSLVERSION']);
     }
 
     var response =  cpp.request(method, url, param, header, options, fileUpload);

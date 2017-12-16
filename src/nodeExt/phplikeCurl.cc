@@ -10,14 +10,12 @@ NAN_METHOD(node_curl_request) {
     int i, n, curlType = 0;
     Nan::HandleScope scope;
     phplikeCppCurl *pCurl = new phplikeCppCurl();
-    String::Utf8Value method(info[0]); 
+    String::Utf8Value method(info[0]);
     String::Utf8Value url(info[1]);
     Handle<Object> jsParam;
     Handle<Object> jsHeader;
     Handle<Object> jsOptions;
     Handle<Object> jsFileUpload;
-
-
 
     string paramStr;
     map<string, string> param;
@@ -26,7 +24,7 @@ NAN_METHOD(node_curl_request) {
     map<string, vector<string> > fileUpload;
 
 
-    Handle<Array> propertyNames; 
+    Handle<Array> propertyNames;
 
     // Handle parameter 
     if (info[2]->IsObject()) {
@@ -69,7 +67,9 @@ NAN_METHOD(node_curl_request) {
             Handle<Value>  v = jsOptions->Get(b);
             options[c] = string(*String::Utf8Value(v));
         }
-
+        if ("true" == options["printLog"]) {
+            pCurl->printLog = true;
+        }
     }
 
     // Handle fileUpload

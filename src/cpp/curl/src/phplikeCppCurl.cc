@@ -9,6 +9,7 @@
 
 phplikeCppCurl::phplikeCppCurl() {
     sprintf(httpVersion, "1.1");
+    printLog = false;
 }
 
 

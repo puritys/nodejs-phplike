@@ -44,7 +44,7 @@ class phplikeCppCurl {
         string resContent;
         size_t contentLength;
         char *resContentPointer;
-        bool printLog = false;
+        bool printLog;
 
         //Method
         phplikeCppCurl();

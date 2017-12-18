@@ -6,14 +6,14 @@ node_js:
   - "4.1.1"
   - "6.0.0"
   - "7.8.0"
-#  - "iojs-v1.0.4" 
-#  - "iojs-v2.1.0" 
-  
+#  - "iojs-v1.0.4"
+#  - "iojs-v2.1.0"
+
 install:
   - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
   - sudo apt-get update
   - sudo apt-get install g++-4.8
-  
+
 env:
   - CXX=g++-4.8
 #addons:
@@ -28,12 +28,12 @@ env:
 os:
   :windowsxp
   :linux
-  
+
 before_script:
   - "npm install npm"
   - "npm install node-gyp"
   - "npm install bindings"
-  - "npm install -g mocha"
+  - "npm install -g mocha@3.5.0"
   - "npm install istanbul"
   - "npm install coveralls"
   - "npm install -g phplike"

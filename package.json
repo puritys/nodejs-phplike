@@ -31,7 +31,6 @@
     "binary"
   ],
   "scripts": {
-    "install": "node install.js",
     "test": "mocha tests",
     "build": "node-gyp rebuild"
   },

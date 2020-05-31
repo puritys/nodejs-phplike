@@ -54,6 +54,12 @@ CURLoption phplikeCppCurl::getOption(string option) {/*{{{*/
         return CURLOPT_VERBOSE;
     } else if (option == "CURLOPT_SSLVERSION") {
         return CURLOPT_SSLVERSION;
+    } else if (option == "CURLOPT_SSLCERT") {
+        return CURLOPT_SSLCERT;
+    } else if (option == "CURLOPT_SSLKEY") {
+        return CURLOPT_SSLKEY;
+    } else if (option == "CURLOPT_KEYPASSWD") {
+        return CURLOPT_KEYPASSWD;
     }
 
     return CURLOPT_VERBOSE; //fixme, set a useless config
